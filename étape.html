@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informations - Circuit Touristique d'Angers</title>
+  <style>
+    /* ========================================
+       STYLES DE LA PAGE INFO
+       ======================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    /* Navigation */
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 20px;
+      background: #f8f9fa;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: linear-gradient(45deg, #3498db, #2980b9);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(52,152,219,0.3);
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(52,152,219,0.4);
+    }
+
+    .btn-back {
+      background: linear-gradient(45deg, #27ae60, #2ecc71);
+      box-shadow: 0 4px 15px rgba(39,174,96,0.3);
+    }
+
+    /* Content */
+    .content {
+      padding: 40px 30px;
+    }
+
+    .intro {
+      background: linear-gradient(135deg, #cdedb1 0%, #b8e994 100%);
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 40px;
+      border-left: 5px solid #27ae60;
+    }
+
+    .intro h2 {
+      color: #2c3e50;
+      font-size: 2em;
+      margin-bottom: 15px;
+    }
+
+    .intro p {
+      color: #34495e;
+      line-height: 1.8;
+      font-size: 1.1em;
+    }
+
+    .duration-badge {
+      display: inline-block;
+      background: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    /* Étapes */
+    .etape {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      border-left: 5px solid #e74c3c;
+      transition: all 0.3s ease;
+    }
+
+    .etape:hover {
+      transform: translateX(5px);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .etape-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .etape-number {
+      background: linear-gradient(45deg, #e74c3c, #c0392b);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(231,76,60,0.4);
+      flex-shrink: 0;
+    }
+
+    .etape-title {
+      flex: 1;
+    }
+
+    .etape-title h3 {
+      color: #2c3e50;
+      font-size: 1.8em;
+      margin-bottom: 5px;
+    }
+
+    .etape-subtitle {
+      color: #7f8c8d;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+
+    .etape-content {
+      color: #34495e;
+      line-height: 1.8;
+      font-size: 1.05em;
+    }
+
+    .etape-content p {
+      margin-bottom: 15px;
+    }
+
+    .etape-highlight {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+      border-left: 3px solid #3498db;
+    }
+
+    .etape-highlight strong {
+      color: #3498db;
+    }
+
+    /* Informations pratiques */
+    .info-pratiques {
+      background: linear-gradient(135deg, #fff5e6 0%, #ffe4b3 100%);
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 40px;
+      border-left: 5px solid #f39c12;
+    }
+
+    .info-pratiques h2 {
+      color: #2c3e50;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .info-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .info-card h3 {
+      color: #e67e22;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+
+    .info-card p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+      background: #2c3e50;
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .footer p {
+      margin: 5px 0;
+      opacity: 0.8;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+
+      .header p {
+        font-size: 1em;
+      }
+
+      .content {
+        padding: 20px 15px;
+      }
+
+      .etape {
+        padding: 20px 15px;
+      }
+
+      .etape-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .etape-number {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+
+      .etape-title h3 {
+        font-size: 1.4em;
+      }
+
+      .nav-buttons {
+        flex-direction: column;
+        padding: 15px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🏰 Circuit Touristique d'Angers</h1>
+      <p>Découvrez l'histoire et le patrimoine de la ville</p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-buttons">
+      <a href="index.html" class="btn btn-back">🗺️ Retour à la carte interactive</a>
+      <a href="#infos-pratiques" class="btn">📋 Informations pratiques</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Introduction -->
+      <div class="intro">
+        <h2>🌿 Bienvenue sur le Circuit du Développement Durable</h2>
+        <p>
+          Ce parcours vous invite à découvrir les trésors historiques et naturels d'Angers 
+          tout en explorant comment la ville préserve son patrimoine et son environnement. 
+          Suivez les 13 étapes de ce circuit pédestre pour une immersion complète dans 
+          l'histoire millénaire d'Angers et ses engagements écologiques.
+        </p>
+        <div class="duration-badge">⏰ Durée : 2h30 - 3h00 à pied</div>
+      </div>
+
+      <!-- Étape 1 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">1</div>
+          <div class="etape-title">
+            <h3>Place Kennedy</h3>
+            <p class="etape-subtitle">Point de départ du circuit</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            La <strong>Place Kennedy</strong> est l'une des places emblématiques d'Angers, 
+            située à proximité immédiate du Château. Elle constitue le point de départ idéal 
+            pour explorer le centre historique de la ville.
+          </p>
+          <p>
+            Cette place moderne offre un contraste saisissant avec le château médiéval qui 
+            se dresse à quelques pas. C'est un lieu de passage prisé des Angevins et des 
+            touristes, parfait pour commencer votre découverte du patrimoine local.
+          </p>
+          <div class="etape-highlight">
+            <strong>📍 Point de départ :</strong> Rassemblement recommandé pour les groupes
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 2 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">2</div>
+          <div class="etape-title">
+            <h3>Château d'Angers</h3>
+            <p class="etape-subtitle">Forteresse royale du XIIIe siècle</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            Le <strong>Château d'Angers</strong> est un joyau du patrimoine français, construit 
+            au XIIIe siècle par Saint Louis. Cette imposante forteresse aux 17 tours de schiste 
+            et de calcaire abrite la célèbre <strong>Tapisserie de l'Apocalypse</strong>, inscrite 
+            au registre Mémoire du Monde de l'UNESCO depuis le 18 mai 2023.
+          </p>
+          <div class="etape-highlight">
+            <strong>🦅 Biodiversité :</strong> En partenariat avec la Ligue pour la Protection 
+            des Oiseaux (LPO), le château œuvre activement pour la préservation de l'environnement.
+          </div>
+          <p>
+            <strong>Chiffres clés de la biodiversité :</strong>
+          </p>
+          <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>🌱 <strong>150 espèces végétales</strong> recensées, dont des orchidées rares 
+            (ophrys abeille, orchis singe, orchis bouc)</li>
+            <li>🦜 <strong>39 espèces d'oiseaux</strong> : martinet noir, moineau domestique, 
+            crécerelle, chouette hulotte, effraie des clochers</li>
+            <li>🦇 <strong>Refuge pour chauves-souris</strong> : pipistrelles communes et 
+            oreillards hibernent dans les cavités des remparts</li>
+            <li>📈 Evolution remarquable : de <strong>99 espèces en 2011 à 220 en 2021</strong></li>
+          </ul>
+          <div class="etape-highlight">
+            <strong>🔗 Pour en savoir plus :</strong> 
+            <a href="https://www.chateau-angers.fr" target="_blank" style="color: #3498db;">
+              www.chateau-angers.fr
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 3 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">3</div>
+          <div class="etape-title">
+            <h3>Vue Promenade du Bout du Monde</h3>
+            <p class="etape-subtitle">Panorama exceptionnel sur la Maine</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            La <strong>Promenade du Bout du Monde</strong> offre l'un des plus beaux points de 
+            vue d'Angers. Depuis cette terrasse naturelle, vous découvrez un panorama magnifique 
+            sur la Maine, ses rives verdoyantes et les paysages environnants.
+          </p>
+          <p>
+            Ce lieu romantique et paisible est parfait pour une pause contemplative. Par beau 
+            temps, la vue s'étend sur plusieurs kilomètres, révélant la beauté naturelle de 
+            l'Anjou et l'harmonie entre la ville et la nature.
+          </p>
+          <div class="etape-highlight">
+            <strong>📸 Photo recommandée :</strong> Meilleure lumière en fin d'après-midi
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 4 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">4</div>
+          <div class="etape-title">
+            <h3>Cathédrale Saint-Maurice</h3>
+            <p class="etape-subtitle">Chef-d'œuvre gothique du XIIe siècle</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            La <strong>Cathédrale Saint-Maurice</strong> est un joyau de l'art gothique angevin, 
+            construite entre le XIIe et le XIIIe siècle. Elle se distingue par son architecture 
+            unique, notamment sa voûte bombée caractéristique du style gothique angevin.
+          </p>
+          <p>
+            <strong>Points d'intérêt majeurs :</strong>
+          </p>
+          <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>🎨 <strong>Vitraux exceptionnels</strong> du XIIe au XVIe siècle, considérés 
+            parmi les plus beaux de France</li>
+            <li>🏛️ <strong>Façade sculptée</strong> remarquable avec son portail du XIIe siècle</li>
+            <li>🎵 <strong>Grandes orgues</strong> datant de 1617, restaurées au XIXe siècle</li>
+            <li>⛪ <strong>Nef unique</strong> de 24 mètres de hauteur sous voûte</li>
+          </ul>
+          <div class="etape-highlight">
+            <strong>🕐 Horaires :</strong> Visite libre tous les jours (sauf pendant les offices)
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 5 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">5</div>
+          <div class="etape-title">
+            <h3>Maison d'Adam</h3>
+            <p class="etape-subtitle">Architecture médiévale du XVe siècle</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            La <strong>Maison d'Adam</strong> est l'un des plus beaux exemples d'architecture 
+            civile médiévale d'Angers. Cette maison à colombages du XVe siècle doit son nom 
+            à la sculpture d'Adam et Ève visible sur sa façade.
+          </p>
+          <p>
+            Avec ses six étages en encorbellement successifs, elle témoigne du savoir-faire 
+            des bâtisseurs médiévaux. La façade sculptée présente de nombreux motifs sculptés, 
+            dont l'Arbre de la connaissance du Bien et du Mal.
+          </p>
+          <div class="etape-highlight">
+            <strong>🏛️ Architecture :</strong> Structure en pan de bois typique du Moyen Âge angevin
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 6 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">6</div>
+          <div class="etape-title">
+            <h3>Rue Saint-Laud (Début)</h3>
+            <p class="etape-subtitle">Artère historique commerçante</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            La <strong>Rue Saint-Laud</strong> est l'une des principales artères commerçantes 
+            du centre-ville d'Angers. Cette rue piétonne animée mêle histoire et modernité, 
+            avec ses boutiques, restaurants et cafés installés dans des bâtiments historiques.
+          </p>
+          <p>
+            Elle porte le nom de Saint Laud, évêque d'Angers au VIe siècle. Aujourd'hui, 
+            c'est un lieu de vie incontournable où se retrouvent habitants et visiteurs.
+          </p>
+        </div>
+      </div>
+
+      <!-- Étape 7 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">7</div>
+          <div class="etape-title">
+            <h3>Rue Saint-Laud (Fin)</h3>
+            <p class="etape-subtitle">Quartier historique vivant</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            La suite de la <strong>Rue Saint-Laud</strong> vous plonge dans l'atmosphère 
+            authentique du quartier historique. Les façades typiques, certaines datant du 
+            XVIIe et XVIIIe siècle, racontent l'histoire architecturale de la ville.
+          </p>
+          <div class="etape-highlight">
+            <strong>🛍️ Shopping local :</strong> Nombreuses boutiques artisanales et spécialités angevines
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 8 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">8</div>
+          <div class="etape-title">
+            <h3>Muséum des Sciences Naturelles</h3>
+            <p class="etape-subtitle">Découverte de la biodiversité régionale</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            Le <strong>Muséum des Sciences Naturelles</strong> d'Angers présente des collections 
+            remarquables de zoologie, paléontologie, minéralogie et botanique. C'est un lieu 
+            idéal pour comprendre la biodiversité locale et régionale.
+          </p>
+          <p>
+            <strong>Collections principales :</strong>
+          </p>
+          <ul style="margin-left: 20px; line-height: 1.8;">
+            <li>🦴 Fossiles et squelettes préhistoriques</li>
+            <li>🦜 Oiseaux naturalisés de la vallée de la Loire</li>
+            <li>💎 Minéraux et roches de l'Anjou</li>
+            <li>🌿 Herbiers historiques</li>
+          </ul>
+          <div class="etape-highlight">
+            <strong>🎓 Pédagogie :</strong> Expositions interactives sur l'écologie et la préservation de la nature
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 9 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">9</div>
+          <div class="etape-title">
+            <h3>Jardin des Plantes</h3>
+            <p class="etape-subtitle">Écrin de verdure au cœur de la ville</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            Le <strong>Jardin des Plantes</strong> d'Angers est un havre de paix de 4 hectares 
+            créé au XIXe siècle. Ce jardin botanique abrite une collection remarquable de 
+            plantes rares et exotiques.
+          </p>
+          <p>
+            Avec ses serres, ses parterres fleuris et ses arbres centenaires, c'est un lieu 
+            idéal pour se ressourcer et découvrir la diversité végétale mondiale.
+          </p>
+          <div class="etape-highlight">
+            <strong>🌺 À découvrir :</strong> Jardin méditerranéen, roseraie, arboretum
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 10 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">10</div>
+          <div class="etape-title">
+            <h3>Jardin du Mail</h3>
+            <p class="etape-subtitle">Promenade historique du XVIIIe siècle</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            Le <strong>Jardin du Mail</strong> est une magnifique promenade plantée créée au 
+            XVIIIe siècle. Ses allées ombragées de marronniers centenaires en font un lieu 
+            de détente privilégié au cœur de la ville.
+          </p>
+          <p>
+            Autrefois lieu de promenade aristocratique, le Mail est aujourd'hui un espace 
+            public apprécié de tous, parfait pour une pause lors de votre circuit.
+          </p>
+          <div class="etape-highlight">
+            <strong>🌳 Patrimoine arboré :</strong> Arbres remarquables protégés
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 11 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">11</div>
+          <div class="etape-title">
+            <h3>Benoit Chocolats Angers</h3>
+            <p class="etape-subtitle">Chocolaterie artisanale locale</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            <strong>Benoit Chocolats</strong> est une chocolaterie angevine réputée pour 
+            son savoir-faire artisanal et ses créations gourmandes. C'est l'occasion de 
+            découvrir les spécialités chocolatées d'Angers.
+          </p>
+          <div class="etape-highlight">
+            <strong>🍫 Pause gourmande :</strong> Dégustation recommandée !
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 12 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">12</div>
+          <div class="etape-title">
+            <h3>Maison du Quernon d'Ardoise</h3>
+            <p class="etape-subtitle">Spécialité chocolatée emblématique</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            La <strong>Maison du Quernon d'Ardoise</strong> est célèbre pour sa spécialité 
+            lancée en 1996 : le <strong>Quernon d'Ardoise®</strong>, qui évoque les toits 
+            d'ardoise typiques de l'Anjou.
+          </p>
+          <p>
+            Cette gourmandise unique, enrobée de chocolat bleu, est composée de nougatine 
+            caramélisée aux amandes et aux noisettes. C'est LE souvenir gourmand à rapporter 
+            d'Angers !
+          </p>
+          <div class="etape-highlight">
+            <strong>🏆 Label :</strong> Produit emblématique du patrimoine gastronomique angevin
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 13 -->
+      <div class="etape">
+        <div class="etape-header">
+          <div class="etape-number">13</div>
+          <div class="etape-title">
+            <h3>Jardin du Musée des Beaux-Arts</h3>
+            <p class="etape-subtitle">Écrin culturel et végétal</p>
+          </div>
+        </div>
+        <div class="etape-content">
+          <p>
+            Le <strong>Jardin du Musée des Beaux-Arts</strong> est un élégant écrin de verdure 
+            qui entoure le musée. Ce jardin à la française allie culture et nature, avec ses 
+            sculptures contemporaines et ses parterres fleuris soigneusement entretenus.
+          </p>
+          <p>
+            C'est le point final parfait de votre circuit, offrant un moment de détente 
+            culturelle dans un cadre enchanteur.
+          </p>
+          <div class="etape-highlight">
+            <strong>🎨 Musée des Beaux-Arts :</strong> Collections du XIVe au XXIe siècle 
+            (visite recommandée)
+          </div>
+        </div>
+      </div>
+
+      <!-- Informations pratiques -->
+      <div class="info-pratiques" id="infos-pratiques">
+        <h2>📋 Informations Pratiques</h2>
+        
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>⏰ Durée</h3>
+            <p>
+              <strong>2h30 à 3h00</strong> pour le circuit complet à pied, pauses comprises.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>🚶 Distance</h3>
+            <p>
+              Environ <strong>5 km</strong> de marche tranquille à travers le centre historique.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>👟 Accessibilité</h3>
+            <p>
+              Parcours <strong>urbain</strong>, adapté à tous. Chaussures confortables recommandées.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>🎫 Tarifs</h3>
+            <p>
+              Circuit <strong>gratuit</strong>. Entrées payantes pour le Château (9,50€) et 
+              le Musée des Beaux-Arts (6€).
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>📅 Quand visiter ?</h3>
+            <p>
+              Toute l'année ! Le printemps et l'automne offrent les meilleures conditions 
+              climatiques.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h3>🍽️ Restauration</h3>
+            <p>
+              Nombreux restaurants et cafés le long du parcours, notamment rue Saint-Laud.
+            </p>
+          </div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 10px;">
+          <h3 style="color: #e67e22; margin-bottom: 15px;">💡 Conseils pratiques</h3>
+          <ul style="line-height: 1.8; color: #555;">
+            <li>📱 Téléchargez la carte avant votre visite (disponible hors connexion)</li>
+            <li>💧 Prévoyez de l'eau, surtout en été</li>
+            <li>📸 Appareil photo recommandé pour les panoramas</li>
+            <li>🎒 Sac léger suffisant pour une demi-journée</li>
+            <li>🌤️ Vérifiez la météo avant de partir</li>
+            <li>🏛️ Certains monuments nécessitent une réservation en haute saison</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p><strong>Circuit Touristique d'Angers - Développement Durable</strong></p>
+      <p>Projet réalisé dans le cadre de la promotion du patrimoine et de l'écologie urbaine</p>
+      <p style="margin-top: 20px;">© 2025 - UCO Angers</p>
+    </div>
+  </div>
+</body>
+</html>
