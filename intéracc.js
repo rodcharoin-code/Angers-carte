@@ -1,3 +1,325 @@
+// ========================
+//  Variables globales
+// ========================
+let userMarker = null;
+let routingControl = null;
+
+// ========================
+//  Carte
+// ========================
+const map = L.map('map', {
+  center: [47.470856, -0.552696],
+  zoom: 14.5,
+  minZoom: 8,
+  maxZoom: 25
+});
+
+map.attributionControl.setPrefix('');
+
+// Couches
+const streetMap = L.tileLayer(
+  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  {
+    attribution: '© OpenStreetMap contributors, © CARTO',
+    crossOrigin: true,
+    maxZoom: 25
+  }
+);
+const satelliteMap = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {
+    attribution: '© Esri World Imagery',
+    crossOrigin: true,
+    maxZoom: 25
+  }
+);
+streetMap.addTo(map);
+
+// ===========================================
+// POINTS D'INTÉRÊT + TRACÉ DEPUIS GEOJSON
+// ===========================================
+
+const pointsInteret = [
+    {
+       coords: [47.469117, -0.558312],
+        title: "Place Kennedy",
+        description: "Place emblématique située près du château d'Angers, point de départ idéal pour explorer le centre historique.",
+        image: "https://tse1.mm.bing.net/th/id/OIP.QcatiWNdl8hfR-yRE9Ij4gHaFj?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop",
+        etapeId: "etape-1"
+    },
+  
+    { 
+      coords: [47.47063117697629, -0.5588421261128192],
+        title: "Château d'Angers",
+        description: "Le Château d'Angers est un site emblématique de la ville, véritable témoin de son histoire avec une valeur patrimoniale importante.",
+        image: "https://tse4.mm.bing.net/th/id/OIP.ncUkfuQqi1DYwGDn93vwWQHaDt?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop",
+        etapeId: "etape-2"
+    },
+    
+    {
+        coords: [47.471061, -0.559224],
+        title: "Vue Promenade du Bout du Monde",
+        description: "Magnifique point de vue panoramique sur la Maine et les paysages environnants. Un des plus beaux panoramas d'Angers.",
+        image: "https://tse4.mm.bing.net/th/id/OIP.vQExGCnFpqAVCrWxm6gMzQHaFj?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop",
+        etapeId: "etape-3"
+    },
+    
+    {
+        coords: [47.47043794223846, -0.5552633179461097],
+        title: "Cathédrale Saint-Maurice",
+        description: "Magnifique cathédrale gothique du XIIe siècle, réputée pour ses vitraux exceptionnels et son architecture unique.",
+        image: "https://www.patrimoine-histoire.fr/images/Patrimoine/Angers/eStMaurice/AngCSM_EXT06.JPG",
+        fallbackImage: "https://images.unsplash.com/photo-1520637836862-4d197d17c43a?w=400&h=300&fit=crop",
+        etapeId: "etape-4"
+    },
+    
+    {
+        coords: [47.47037651735204, -0.5541144593090486],
+        title: "Maison d'Adam d'Angers",
+        description: "Superbe maison à colombages du XVe siècle, un des plus beaux exemples d'architecture civile médiévale d'Angers.",
+        image: "https://assets.locatipic.com/uploads/poi/pictures/367/medium_Maison_Adam-a08df8e0251e-b64dcb52274a-0dbe12fa8caa.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=300&fit=crop",
+        etapeId: "etape-5"
+    },
+    
+    {
+        coords: [47.471629, -0.553788],
+        title: "La Rue Saint-Laud (Début)",
+        description: "Rue historique commerçante du centre-ville d'Angers, pleine de charme avec ses boutiques et restaurants.",
+        image: "https://api.cloudly.space/resize/clip/1900/1080/75/aHR0cHM6Ly9yZXNlcnZhdGlvbi5kZXN0aW5hdGlvbi1hbmdlcnMuY29tL21lZGlhcy9pbWFnZXMvcHJlc3RhdGlvbnMvcnVlLXNhaW50LWxhdWQtY29weXJpZ2h0LWFsZXhhbmRyZS1sYW1vdXJldXgtZGVzdGluYXRpb24tYW5nZXJzLTE0NjIyLTE5MjBweC0xMTMwNTI3LmpwZw==/image.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop",
+        etapeId: "etape-6"
+    },
+    
+    {
+        coords: [47.47298838736287, -0.551941268693901],
+        title: "La Rue Saint-Laud (Fin)",
+        description: "Continuation de la rue Saint-Laud, artère vivante du quartier historique avec ses façades typiques.",
+        image: "https://api.cloudly.space/resize/clip/1900/1080/75/aHR0cHM6Ly9yZXNlcnZhdGlvbi5kZXN0aW5hdGlvbi1hbmdlcnMuY29tL21lZGlhcy9pbWFnZXMvcHJlc3RhdGlvbnMvcnVlLXNhaW50LWxhdWQtY29weXJpZ2h0LWFsZXhhbmRyZS1sYW1vdXJldXgtZGVzdGluYXRpb24tYW5nZXJzLTE0NjIyLTE5MjBweC0xMTMwNTI3LmpwZw==/image.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop",
+        etapeId: "etape-7"
+    },
+    
+    {
+      coords: [47.47349436796099, -0.5464154666626944],
+        title: "Muséum des Sciences Naturelles",
+        description: "Musée fascinant présentant des collections de zoologie, paléontologie et minéralogie. Parfait pour découvrir la biodiversité régionale.",
+        image: "https://tse2.mm.bing.net/th/id/OIP.ydluZalA7kF34y6XCgtYQwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop",
+        etapeId: "etape-8"
+    },
+    
+    {
+      coords: [47.47411016710265, -0.5449099946854348],
+        title: "Le Jardin des Plantes",
+        description: "Jardin botanique de 4 hectares créé au XIXe siècle, havre de paix avec une collection remarquable de plantes rares et exotiques.",
+        image: "https://tse3.mm.bing.net/th/id/OIP.beQ7V5jig8RzdZpORp1V_QHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop",
+        etapeId: "etape-9"
+    },
+    
+    {
+        coords: [47.47053649104745, -0.5461446578724273],
+        title: "Jardin du Mail",
+        description: "Magnifique promenade plantée créée au XVIIIe siècle, parfaite pour une pause détente au cœur de la ville avec ses allées ombragées.",
+        image: "https://tse2.mm.bing.net/th/id/OIP.wxHh-GeKZqfJYXrBgZ9UnwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
+        etapeId: "etape-10"
+    },
+    
+    {
+      coords: [47.46891297404408, -0.553276794250633],
+        title: "Benoit Chocolats Angers",
+        description: "Chocolaterie angevine réputée pour son savoir-faire artisanal et ses créations gourmandes.",
+        image: "https://www.pagesjaunes.fr/media/agc/4b/38/91/00/00/7b/a6/86/b9/a6/62bc4b389100007ba686b9a6/62bc4b389100007ba686b9a7.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+        etapeId: "etape-11"
+    },
+    
+    {
+      coords: [47.46846307813217, -0.5542979002335384],
+        title: "Maison du Quernon d'Ardoise",
+        description: "Célèbre pour sa spécialité le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou.",
+        image: "https://tse1.mm.bing.net/th/id/OIP.9UzZxJQD9CFMw9x0EersnAAAAA?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+        etapeId: "etape-12"
+    },
+    
+    {
+        coords: [47.46874343438692, -0.5555258119547143],
+        title: "Jardin du Musée des Beaux-Arts",
+        description: "Jardin élégant entourant le Musée des Beaux-Arts, lieu de détente et de culture avec ses sculptures et parterres fleuris.",
+        image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+        fallbackImage: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=400&h=300&fit=crop",
+        etapeId: "etape-13"
+    }
+];
+
+// TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON)
+const circuitTrace = [
+    [-0.558385, 47.469357], [-0.558062, 47.469717], [-0.558092, 47.469722],
+    [-0.558055, 47.469774], [-0.55804, 47.46986], [-0.558081, 47.469951],
+    [-0.55889, 47.470584], [-0.559004, 47.470512], [-0.558852, 47.470606],
+    [-0.55892, 47.470664], [-0.559049, 47.470736], [-0.559375, 47.470977],
+    [-0.559303, 47.471024], [-0.559375, 47.470977], [-0.559049, 47.470736],
+    [-0.55892, 47.470664], [-0.558659, 47.470462], [-0.558524, 47.47056],
+    [-0.558252, 47.470711], [-0.557979, 47.470893], [-0.557894, 47.470916],
+    [-0.557584, 47.471065], [-0.557392, 47.471133], [-0.556942, 47.471201],
+    [-0.556663, 47.471005], [-0.556322, 47.471165], [-0.556103, 47.471016],
+    [-0.555811, 47.470876], [-0.555575, 47.470701], [-0.555556, 47.470669],
+    [-0.555556, 47.470646], [-0.555497, 47.470647], [-0.555498, 47.47059],
+    [-0.555219, 47.470412], [-0.554863, 47.470192], [-0.554586, 47.470153],
+    [-0.554543, 47.470128], [-0.554195, 47.470362], [-0.554151, 47.470405],
+    [-0.553869, 47.470941], [-0.553845, 47.470951], [-0.553898, 47.470967],
+    [-0.553876, 47.471006], [-0.554308, 47.471236], [-0.554279, 47.471261],
+    [-0.554342, 47.471298], [-0.553898, 47.471583], [-0.553802, 47.471601],
+    [-0.55391, 47.471725], [-0.553802, 47.471601], [-0.553572, 47.471733],
+    [-0.551997, 47.472803], [-0.552116, 47.472889], [-0.552081, 47.472964],
+    [-0.552025, 47.47296], [-0.551908, 47.472979], [-0.551874, 47.472956],
+    [-0.551839, 47.472978], [-0.551658, 47.473093], [-0.551537, 47.473031],
+    [-0.551529, 47.472999], [-0.550981, 47.473077], [-0.550248, 47.473127],
+    [-0.550022, 47.472998], [-0.54995, 47.473049], [-0.549722, 47.473182],
+    [-0.549509, 47.473349], [-0.549248, 47.473552], [-0.548992, 47.473671],
+    [-0.548854, 47.473663], [-0.548827, 47.473728], [-0.548771, 47.473765],
+    [-0.548363, 47.473956], [-0.548254, 47.473952], [-0.547695, 47.473787],
+    [-0.547508, 47.473709], [-0.54748, 47.473741], [-0.547434, 47.473739],
+    [-0.546783, 47.473551], [-0.546016, 47.473426], [-0.545779, 47.473409],
+    [-0.545656, 47.473741], [-0.545461, 47.473688], [-0.545051, 47.473509],
+    [-0.544801, 47.473779], [-0.545047, 47.473892], [-0.544809, 47.474146],
+    [-0.544895, 47.474041], [-0.545005, 47.474102], [-0.545063, 47.474168],
+    [-0.545074, 47.474229], [-0.545044, 47.474309], [-0.544852, 47.474533],
+    [-0.544866, 47.47463], [-0.544977, 47.474813], [-0.544978, 47.474871],
+    [-0.544937, 47.474954], [-0.544814, 47.47507], [-0.544746, 47.47519],
+    [-0.544832, 47.475279], [-0.544884, 47.475372], [-0.544624, 47.475481],
+    [-0.544419, 47.475492], [-0.544256, 47.475451], [-0.544107, 47.475373],
+    [-0.544025, 47.475293], [-0.543939, 47.475291], [-0.54382, 47.47533],
+    [-0.543575, 47.475359], [-0.543263, 47.475296], [-0.543121, 47.475236],
+    [-0.542921, 47.475094], [-0.542844, 47.474923], [-0.542921, 47.474789],
+    [-0.543002, 47.474727], [-0.543028, 47.474676], [-0.542977, 47.474541],
+    [-0.543009, 47.474439], [-0.543123, 47.474384], [-0.543242, 47.474348],
+    [-0.543149, 47.474308], [-0.543311, 47.474378], [-0.54341, 47.47433],
+    [-0.543512, 47.474318], [-0.543959, 47.474369], [-0.544165, 47.474301],
+    [-0.544301, 47.474288], [-0.544371, 47.474248], [-0.544463, 47.474115],
+    [-0.544597, 47.47403], [-0.544737, 47.474008], [-0.544895, 47.474041],
+    [-0.545047, 47.473892], [-0.544801, 47.473779], [-0.545051, 47.473509],
+    [-0.545092, 47.47352], [-0.545148, 47.473505], [-0.545194, 47.47347],
+    [-0.54546, 47.473043], [-0.545449, 47.473001], [-0.545706, 47.472588],
+    [-0.545761, 47.472596], [-0.545806, 47.472575], [-0.545995, 47.472304],
+    [-0.54596, 47.472274], [-0.546022, 47.472189], [-0.546138, 47.472086],
+    [-0.546687, 47.471409], [-0.546766, 47.471243], [-0.546883, 47.471218],
+    [-0.546939, 47.471173], [-0.54729, 47.470749], [-0.547265, 47.470718],
+    [-0.547209, 47.470689], [-0.547148, 47.470697], [-0.547089, 47.470727],
+    [-0.546904, 47.470662], [-0.546857, 47.470719], [-0.546586, 47.47079],
+    [-0.54636, 47.470726], [-0.546256, 47.470523], [-0.546303, 47.470453],
+    [-0.545814, 47.470286], [-0.545737, 47.47034], [-0.545662, 47.47035],
+    [-0.545601, 47.470341], [-0.545522, 47.47029], [-0.545361, 47.470464],
+    [-0.545021, 47.47035], [-0.545361, 47.470464], [-0.545522, 47.47029],
+    [-0.545601, 47.470341], [-0.545662, 47.47035], [-0.545737, 47.47034],
+    [-0.545814, 47.470286], [-0.546303, 47.470453], [-0.546367, 47.470382],
+    [-0.546629, 47.470319], [-0.546804, 47.470381], [-0.546893, 47.470253],
+    [-0.547425, 47.470433], [-0.547452, 47.470528], [-0.547611, 47.470586],
+    [-0.547802, 47.470665], [-0.548028, 47.47042], [-0.548149, 47.47032],
+    [-0.548165, 47.470279], [-0.548827, 47.469802], [-0.549031, 47.469629],
+    [-0.549804, 47.469079], [-0.55125, 47.467986], [-0.551629, 47.4682],
+    [-0.55296, 47.469094], [-0.553028, 47.469139], [-0.553358, 47.468923],
+    [-0.553435, 47.468873], [-0.553473, 47.468893], [-0.553485, 47.468886],
+    [-0.553522, 47.468909], [-0.554294, 47.468411], [-0.55556, 47.467599],
+    [-0.556069, 47.467794], [-0.555796, 47.468121], [-0.555895, 47.46816],
+    [-0.555508, 47.468614], [-0.555402, 47.468738], [-0.555633, 47.46883],
+    [-0.555615, 47.468851], [-0.556019, 47.469003], [-0.556359, 47.469154],
+    [-0.556432, 47.469192], [-0.556503, 47.469303], [-0.557047, 47.469218],
+    [-0.557765, 47.469071], [-0.557921, 47.469359], [-0.557958, 47.469541],
+    [-0.557884, 47.469687], [-0.558062, 47.469717], [-0.558073, 47.469704],
+    [-0.558388, 47.469354]
+];
+
+let markers = [];
+let circuitLine = null;
+
+// ===========================================
+// CRÉER LES MARQUEURS AVEC BOUTON
+// ===========================================
+
+function createNumberedIcon(number) {
+    return L.divIcon({
+        className: 'numbered-marker',
+        html: `<span>${number}</span>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+    });
+}
+
+function addMarkers() {
+    pointsInteret.forEach((point, index) => {
+        const marker = L.marker(point.coords, {
+            icon: createNumberedIcon(index + 1)
+        }).addTo(map);
+        
+        const popupContent = `
+            <div class="popup-content">
+                <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
+                <h3>Étape ${index + 1} : ${point.title}</h3>
+                <p>${point.description}</p>
+                <button 
+                    onclick="window.open('étap.html#${point.etapeId}', '_blank')" 
+                    style="
+                        position: relative;
+                        float: right;
+                        background: linear-gradient(45deg, #3498db, #2980b9);
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 20px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        font-size: 14px;
+                        margin-top: 10px;
+                        box-shadow: 0 4px 10px rgba(52,152,219,0.3);
+                        transition: all 0.3s ease;
+                    "
+                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
+                >
+                    📖 En savoir plus
+                </button>
+                <div style="clear: both;"></div>
+            </div>
+        `;
+        
+        marker.bindPopup(popupContent, { maxWidth: 320, className: 'custom-popup' });
+        markers.push(marker);
+    });
+    
+    console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons');
+}
+
+// ===========================================
+// CRÉER LE CIRCUIT AVEC TON TRACÉ GEOJSON
+// ===========================================
+
+function addCircuitFromGeoJSON() {
+    console.log('🗺️ Création du circuit depuis GeoJSON...');
+    
+    // Convertir [lon, lat] en [lat, lon] pour Leaflet
+    const latLngCoords = circuitTrace.map(coord => [coord[1], coord[0]]);
+    
+    circuitLine = L.polyline(latLngCoords, {
+        color: '#e74c3c',
+        weight: 5,
+        opacity: 0.85,
+        className: 'circuit-line',
+        smoothFactor: 1.0
+    }).addTo(map);
+    
+    console.log('✅ Circuit créé avec', latLngCoords.length, 'points du tracé GeoJSON');
+    
+    // Ajuster la vue pour voir tout le circuit
+    map.fitBounds(circuitLine.getBounds(), { padding: [50, 50] });
+}
+
 // ===========================================
 // LANCEMENT
 // ===========================================
@@ -11,62 +333,434 @@ setTimeout(() => {
     console.log('🔄 Recalcul initial de la carte');
 }, 1000);
 
-console.log('✅ Carte interactive chargée avec le nouveau tracé piéton');
-L.divIcon({
-  className: 'numbered-marker',
-  html: `<span>${number}</span>`,
-  iconSize: [36, 36],
-  iconAnchor: [18, 18]
-});
+console.log('✅ Carte interactive chargée avec tracé piéton et boutons vers étap.html');
 
-// Marqueur de localisation
-L.divIcon({
-  className: 'location-marker',
-  html: '<span>📍</span>',
-  iconSize: [36, 36],
-  iconAnchor: [18, 18]
-});
+// ========================
+//  Etat de connexion
+// ========================
+let isOnline = navigator.onLine;
+let offlineNotificationShown = false;
 
-const pointsInteret = [
-  /* 1 */ { coords:[47.47063117697629,-0.5588421261128192], ... }, // Château
-  /* 2 */ { coords:[47.47043794223846,-0.5552633179461097], ... }, // Cathédrale
-  /* 3 */ { coords:[47.47037651735204,-0.5541144593090486], ... }, // Maison d’Adam
-  /* 4 */ { coords:[47.46846307813217,-0.5542979002335384], ... }, // Quernon
-  /* 5 */ { coords:[47.46893760445775,-0.5532987947999836], ... }, // Benoit
-  /* 6 */ { coords:[47.4707751897992,-0.5472399077060537], ... }  // Jardin du Mail
-  
-  L.polyline(circuitCoords, {
-  color:'#e74c3c', weight:4, opacity:.8,
-  dashArray:'10,5', className:'circuit-line',
-  smoothFactor: 1.2
-}).addTo(map);
-           async function routeORS(points) {
-  const body = {
-    coordinates: points.map(p => [p.lng, p.lat]), // ORS attend [lon, lat]
-    instructions: false
-  };
-  const res = await fetch(
-    'https://api.openrouteservice.org/v2/directions/foot-walking/geojson',
-    {
-      method: 'POST',
-      headers: {
-        'Authorization': 'YOUR_ORS_API_KEY',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
+function updateConnectionStatus() {
+  const statusElement = document.getElementById('connectionStatus');
+  const notificationElement = document.getElementById('offlineNotification');
+  if (navigator.onLine) {
+    statusElement.textContent = '🟢 En ligne';
+    statusElement.className = 'connection-status online';
+    notificationElement.style.display = 'none';
+    isOnline = true; offlineNotificationShown = false;
+  } else {
+    statusElement.textContent = '🔴 Hors ligne';
+    statusElement.className = 'connection-status offline';
+    if (!offlineNotificationShown) {
+      notificationElement.style.display = 'block';
+      offlineNotificationShown = true;
+      setTimeout(() => { notificationElement.style.display = 'none'; }, 5000);
     }
+    isOnline = false;
+  }
+}
+window.addEventListener('online', updateConnectionStatus);
+window.addEventListener('offline', updateConnectionStatus);
+updateConnectionStatus();
+
+// ========================
+//  Service Worker (cache basemaps + OSRM)
+// ========================
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    self.addEventListener('fetch', (event) => {
+      const u = event.request.url;
+      if (u.includes('basemaps.cartocdn.com') ||
+          u.includes('arcgisonline.com') ||
+          u.includes('router.project-osrm.org')) {
+        event.respondWith(
+          caches.match(event.request).then((r) =>
+            r || fetch(event.request).then((resp) => {
+              const c = resp.clone();
+              caches.open('map-tiles-v1').then((cache) => cache.put(event.request, c));
+              return resp;
+            })
+          )
+        );
+      }
+    });
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(() =>
+    console.log('Service Worker non disponible, la carte reste fonctionnelle')
   );
-  return res.json();
 }
 
-const pts = [
-  { lat: 47.4716, lng: -0.5542 },
-  { lat: 47.4725, lng: -0.5551 },
-  { lat: 47.4732, lng: -0.5519 }
-];
+// ========================
+//  Routage "Aller au départ"
+// ========================
+function calculateDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng/2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
 
-routeORS(pts).then(geojson => {
-  L.geoJSON(geojson, {
-    style: { color: '#e74c3c', weight: 5, className: 'circuit-line' }
-  }).addTo(map);
+function calculateWalkingRoute(startLat, startLng, endLat, endLng) {
+  const url = `https://router.project-osrm.org/route/v1/foot/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson&steps=true&alternatives=false`;
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) throw new Error('Erreur réseau');
+      return response.json();
+    })
+    .then((data) => {
+      if (data && data.routes && data.routes.length > 0) return data.routes[0];
+      throw new Error('Aucun itinéraire trouvé');
+    })
+    .catch((error) => {
+      console.warn('OSRM indisponible, passage au mode estimation:', error.message);
+      const distance = calculateDistance(startLat, startLng, endLat, endLng);
+      const duration = distance * 12 * 60;
+      return {
+        geometry: { coordinates: [[startLng, startLat], [endLng, endLat]] },
+        distance: distance * 1000,
+        duration,
+        fallback: true
+      };
+    });
+}
+
+function displayRoute(route) {
+  if (routingControl) map.removeLayer(routingControl);
+  const coordinates = (route.geometry?.coordinates || []).map(([lng, lat]) => [lat, lng]);
+  if (!coordinates.length) return;
+
+  const routeStyle = route.fallback
+    ? { color: '#f39c12', weight: 4, opacity: 0.8, dashArray: '15, 10' }
+    : { color: '#2196F3', weight: 5, opacity: 0.9, dashArray: '8, 4' };
+
+  routingControl = L.polyline(coordinates, routeStyle).addTo(map);
+  const bounds = L.latLngBounds(coordinates);
+  map.fitBounds(bounds, { padding: [30, 30] });
+
+  const distance = (route.distance / 1000).toFixed(2);
+  const duration = Math.round(route.duration / 60);
+  const routeType = route.fallback ? '📏 Distance estimée' : '🚶‍♂️ Itinéraire piéton optimisé';
+
+  const routeInfo = `
+    <div style="text-align:center; padding:15px; min-width:200px;">
+      <h3>${routeType}</h3>
+      <p style="margin:8px 0;"><strong>📏 Distance :</strong> ${distance} km</p>
+      <p style="margin:8px 0;"><strong>⏱️ Temps estimé :</strong> ${duration} min</p>
+      ${route.fallback ? '<p style="color:#f39c12; font-size:.9em; margin-top:10px;">⚠️ Estimation approximative</p>' : ''}
+    </div>`;
+  if (userMarker) userMarker.bindPopup(routeInfo).openPopup();
+}
+
+// Bouton "Aller au départ"
+document.getElementById('startBtn').addEventListener('click', function () {
+  const firstPoint = pointsInteret[0];
+  const button = this;
+  const finishReset = () => {
+    button.disabled = false;
+    setTimeout(() => {
+      button.style.background = 'linear-gradient(45deg, #3498db, #2980b9)';
+      button.textContent = '🏁 Aller au Départ';
+    }, 4000);
+  };
+
+  if (userMarker) {
+    const userPosition = userMarker.getLatLng();
+    button.textContent = '🔄 Calcul du meilleur itinéraire...';
+    button.style.background = 'linear-gradient(45deg, #f39c12, #e67e22)';
+    button.disabled = true;
+
+    calculateWalkingRoute(
+      userPosition.lat, userPosition.lng, firstPoint.coords[0], firstPoint.coords[1]
+    )
+      .then((route) => {
+        if (route) {
+          displayRoute(route);
+          button.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+          button.textContent = route.fallback ? '📏 Estimation affichée' : '✅ Itinéraire optimal affiché';
+          setTimeout(() => { if (markers[0]) markers[0].openPopup(); }, 2000);
+        } else {
+          map.setView(firstPoint.coords, 18);
+          if (markers[0]) markers[0].openPopup();
+          button.style.background = 'linear-gradient(45deg, #e74c3c, #c0392b)';
+          button.textContent = '❌ Erreur - Point affiché';
+        }
+      })
+      .catch(() => {
+        map.setView(firstPoint.coords, 18);
+        if (markers[0]) markers[0].openPopup();
+        button.style.background = 'linear-gradient(45deg, #e74c3c, #c0392b)';
+        button.textContent = '❌ Erreur - Point affiché';
+      })
+      .finally(finishReset);
+
+  } else {
+    const shouldLocate = confirm(
+      "Pour calculer l'itinéraire le plus rapide, nous devons connaître votre position actuelle.\n\nVoulez-vous activer la géolocalisation ?"
+    );
+    if (shouldLocate) {
+      button.textContent = '📍 Localisation en cours...';
+      button.style.background = 'linear-gradient(45deg, #9b59b6, #8e44ad)';
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+
+          if (userMarker) map.removeLayer(userMarker);
+          userMarker = L.marker([lat, lon], {
+            icon: L.divIcon({
+              className: 'location-marker',
+              html: '<span>📍</span>',
+              iconSize: [36, 36],
+              iconAnchor: [18, 18]
+            })
+          }).addTo(map);
+
+          button.textContent = '🔄 Position trouvée, calcul itinéraire...';
+          setTimeout(() => { button.click(); }, 500);
+        },
+        () => {
+          button.style.background = 'linear-gradient(45deg, #e67e22, #d35400)';
+          button.textContent = '⚠️ Géolocalisation échouée';
+          setTimeout(() => {
+            map.setView(firstPoint.coords, 18);
+            if (markers[0]) markers[0].openPopup();
+            button.style.background = 'linear-gradient(45deg, #3498db, #2980b9)';
+            button.textContent = '🏁 Aller au Départ';
+          }, 2000);
+        },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 300000 }
+      );
+    } else {
+      map.setView(firstPoint.coords, 18);
+      if (markers[0]) markers[0].openPopup();
+      button.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+      button.textContent = '📍 Premier point affiché';
+      setTimeout(() => {
+        button.style.background = 'linear-gradient(45deg, #3498db, #2980b9)';
+        button.textContent = '🏁 Aller au Départ';
+      }, 2000);
+    }
+  }
+});
+
+// ========================
+//  Bascules Plan/Satellite
+// ========================
+function updateButtonStates(activeId) {
+  ['streetBtn', 'satelliteBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (id === activeId) btn.classList.add('active'); else btn.classList.remove('active');
+  });
+}
+document.getElementById('streetBtn').addEventListener('click', function () {
+  if (map.hasLayer(satelliteMap)) map.removeLayer(satelliteMap);
+  if (!map.hasLayer(streetMap)) map.addLayer(streetMap);
+  updateButtonStates('streetBtn');
+});
+document.getElementById('satelliteBtn').addEventListener('click', function () {
+  if (map.hasLayer(streetMap)) map.removeLayer(streetMap);
+  if (!map.hasLayer(satelliteMap)) map.addLayer(satelliteMap);
+  updateButtonStates('satelliteBtn');
+});
+
+// ========================
+//  Modal POI
+// ========================
+const modal = document.getElementById('poiModal');
+const listBtn = document.getElementById('listBtn');
+const closeBtn = document.getElementsByClassName('close')[0];
+const poiList = document.getElementById('poiList');
+
+function generatePOIList() {
+  poiList.innerHTML = '';
+  pointsInteret.forEach((point, index) => {
+    const poiItem = document.createElement('div');
+    poiItem.className = 'poi-item';
+    poiItem.innerHTML = `
+      <div style="display:flex; align-items:flex-start;">
+        <div class="poi-number">${index + 1}</div>
+        <div>
+          <div class="poi-title">${point.title}</div>
+          <div class="poi-description">${point.description}</div>
+        </div>
+      </div>`;
+    poiItem.addEventListener('click', () => {
+      map.setView(point.coords, 17);
+      if (markers[index]) markers[index].openPopup();
+      modal.style.display = 'none';
+      listBtn.classList.remove('active');
+    });
+    poiList.appendChild(poiItem);
+  });
+}
+listBtn.addEventListener('click', function () {
+  generatePOIList();
+  modal.style.display = 'block';
+  this.classList.add('active');
+});
+closeBtn.addEventListener('click', function () {
+  modal.style.display = 'none';
+  listBtn.classList.remove('active');
+});
+window.addEventListener('click', function (event) {
+  if (event.target === modal) {
+    modal.style.display = 'none';
+    listBtn.classList.remove('active');
+  }
+});
+
+// ========================
+//  Ma position
+// ========================
+document.getElementById('locateBtn').addEventListener('click', function () {
+  const self = this;
+  if (!navigator.geolocation) {
+    alert('La géolocalisation n\'est pas supportée par votre navigateur.');
+    return;
+  }
+  self.textContent = '🔄 Localisation...';
+
+  const options = { enableHighAccuracy: true, timeout: 10000, maximumAge: 300000 };
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+
+      if (userMarker) map.removeLayer(userMarker);
+      userMarker = L.marker([lat, lon], {
+        icon: L.divIcon({
+          className: 'location-marker',
+          html: '<span>📍</span>',
+          iconSize: [36, 36],
+          iconAnchor: [18, 18]
+        })
+      }).addTo(map);
+
+      const statusText = isOnline ? "📍 Vous êtes ici !" : "📍 Vous êtes ici ! (Position en cache)";
+      userMarker.bindPopup(statusText).openPopup();
+      map.setView([lat, lon], 16);
+
+      self.textContent = '📍 Ma Position';
+
+      const startBtn = document.getElementById('startBtn');
+      startBtn.textContent = '🚶‍♂️ Itinéraire optimal vers le Départ';
+      startBtn.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+      setTimeout(() => {
+        startBtn.style.background = 'linear-gradient(45deg, #3498db, #2980b9)';
+        startBtn.textContent = '🏁 Aller au Départ';
+      }, 3000);
+    },
+    () => {
+      let errorMessage = "Impossible d'obtenir votre position.";
+      errorMessage += isOnline
+        ? ' Vérifiez vos paramètres de géolocalisation.'
+        : ' Vérifiez votre connexion et vos paramètres de géolocalisation.';
+      alert(errorMessage);
+      self.textContent = '📍 Ma Position';
+    },
+    options
+  );
+});
+
+// Effet "pop" au démarrage
+setTimeout(() => {
+  markers.forEach((marker, index) => {
+    setTimeout(() => {
+      const el = marker.getElement();
+      if (el) {
+        el.style.transform = 'scale(1.1)';
+        setTimeout(() => { el.style.transform = 'scale(1)'; }, 200);
+      }
+    }, index * 200);
+  });
+}, 1000);
+
+// ========================
+//  Tutoriel
+// ========================
+let currentStep = 1;
+const totalSteps = 7;
+
+const welcomeModal = document.getElementById('welcomeModal');
+const skipBtn = document.getElementById('skipBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    welcomeModal.style.display = 'flex';
+    welcomeModal.setAttribute('aria-hidden', 'false');
+  }, 500);
+});
+
+function closeWelcomeModal() {
+  welcomeModal.style.opacity = '0';
+  setTimeout(() => {
+    welcomeModal.style.display = 'none';
+    welcomeModal.style.opacity = '1';
+    welcomeModal.setAttribute('aria-hidden', 'true');
+  }, 300);
+}
+
+function nextStep() {
+  if (currentStep < totalSteps) {
+    document.getElementById(`step${currentStep}`).style.display = 'none';
+    currentStep++;
+    document.getElementById(`step${currentStep}`).style.display = 'block';
+    updateProgressDots();
+    if (currentStep === totalSteps) {
+      nextBtn.textContent = 'Commencer';
+      nextBtn.classList.add('btn-finish');
+    }
+  } else {
+    closeWelcomeModal();
+  }
+}
+
+function updateProgressDots() {
+  document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+    if (index < currentStep) dot.classList.add('active');
+    else dot.classList.remove('active');
+  });
+}
+
+skipBtn.addEventListener('click', closeWelcomeModal);
+nextBtn.addEventListener('click', nextStep);
+
+welcomeModal.addEventListener('click', (e) => { if (e.target === welcomeModal) closeWelcomeModal(); });
+
+document.addEventListener('keydown', (e) => {
+  if (welcomeModal.style.display === 'flex') {
+    if (e.key === 'Escape') closeWelcomeModal();
+    else if (e.key === 'ArrowRight' || e.key === 'Enter') nextStep();
+  }
+});
+
+// Bouton "Aide" pour relancer le tutoriel
+document.getElementById('helpBtn').addEventListener('click', function () {
+  currentStep = 1;
+  for (let i = 1; i <= totalSteps; i++) {
+    document.getElementById(`step${i}`).style.display = (i === 1) ? 'block' : 'none';
+  }
+  updateProgressDots();
+  nextBtn.textContent = 'Suivant';
+  nextBtn.classList.remove('btn-finish');
+
+  welcomeModal.style.display = 'flex';
+  welcomeModal.style.opacity = '1';
+  welcomeModal.setAttribute('aria-hidden', 'false');
+
+  this.style.background = 'linear-gradient(45deg, #27ae60, #2ecc71)';
+  this.textContent = '✅ Tutoriel ouvert !';
+  setTimeout(() => {
+    this.style.background = 'linear-gradient(45deg, #9b59b6, #8e44ad)';
+    this.textContent = '❓ Aide';
+  }, 2000);
 });
