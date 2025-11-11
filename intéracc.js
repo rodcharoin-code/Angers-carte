@@ -291,7 +291,7 @@ function addMarkers() {
                 <h3>Étape ${index + 1} : ${point.title}</h3>
                 <div style="white-space: pre-line; line-height: 1.6; text-align: justify; margin-bottom: 15px;">${point.description}</div>
                 <button 
-                    onclick="window.open('étape.html#${point.etapeId}', '_blank')" 
+                    onclick="window.open('Page odd et en savoirs plus.html#${point.etapeId}', '_blank')" 
                     style="
                         position: relative;
                         float: right;
