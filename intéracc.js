@@ -848,7 +848,7 @@ function addMarkers() {
                     </button>
 
                     <button 
-                        onclick="window.open(https://codepen.io/Fanxy_666/pen/qEZERMa#${point.etapeId}', '_blank')" 
+                        onclick="window.open(Page odd et en savoirs plus.html{point.etapeId}', '_blank')" 
                         style="
                             /* position, float, margin-top ont été retirés */
                             background: linear-gradient(45deg, #3498db, #2980b9);
