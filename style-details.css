@@ -19,7 +19,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: rgb(205, 235, 177); /* Vert clair/pastel */
     color: var(--text-color);
     line-height: 1.8;
     min-height: 100vh;
