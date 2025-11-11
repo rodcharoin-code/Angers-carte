@@ -52,10 +52,24 @@ const pointsInteret = [
     { 
       coords: [47.47063117697629, -0.5588421261128192],
         title: "Château d'Angers",
-        description: "Le Château d'Angers est un site emblématique de la ville, véritable témoin de son histoire avec une valeur patrimoniale importante.",
+        description: "Forteresse royale du XIIIe siècle abritant la Tapisserie de l'Apocalypse (UNESCO) et 220 espèces préservées.",
+        descriptionComplete: `
+            <p>Le <strong>Château d'Angers</strong> est un site emblématique de la ville, véritable témoin de son histoire avec une valeur patrimoniale importante. Vous y trouverez <strong>La Tapisserie de l'Apocalypse</strong>, inscrite au registre Mémoire du Monde de l'UNESCO depuis le 18 mai 2023.</p>
+            
+            <p>En lien constant avec la <strong>Ligue pour la Protection des Oiseaux (LPO)</strong>, le Château d'Angers œuvre pour la préservation de l'environnement. Depuis 2011, année du premier inventaire de la faune et de la flore, le site est passé de <strong>99 à 220 espèces observées en 2021</strong>.</p>
+            
+            <p>La flore est très présente au sein du site avec <strong>150 espèces recensées</strong>. Les orchidées, par exemple, sont représentées par l'ophrys abeille, l'orchis singe et l'orchis bouc. Des espèces de fougères sont également présentes, tout particulièrement au niveau des remparts.</p>
+            
+            <p>Ce monument abrite pas moins de <strong>39 espèces d'oiseaux</strong>. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.</p>
+        `,
         image: "https://tse4.mm.bing.net/th/id/OIP.ncUkfuQqi1DYwGDn93vwWQHaDt?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
         fallbackImage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop",
-        etapeId: "etape-2"
+        etapeId: "etape-2",
+        odd: [
+            { numero: 15, nom: "Vie terrestre", icone: "🌱", raison: "220 espèces observées (150 végétales, 39 oiseaux)" },
+            { numero: 11, nom: "Villes durables", icone: "🏛️", raison: "Préservation patrimoine bâti" },
+            { numero: 4, nom: "Éducation de qualité", icone: "📚", raison: "Tapisserie UNESCO, sensibilisation" }
+        ]
     },
     
     {
@@ -764,3 +778,89 @@ document.getElementById('helpBtn').addEventListener('click', function () {
     this.textContent = '❓ Aide';
   }, 2000);
 });
+// ===========================================
+// CRÉER LES MARQUEURS AVEC BOUTON
+// ===========================================
+
+function createNumberedIcon(number) {
+    return L.divIcon({
+        className: 'numbered-marker',
+        html: `<span>${number}</span>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+    });
+}
+
+function addMarkers() {
+    pointsInteret.forEach((point, index) => {
+        const marker = L.marker(point.coords, {
+            icon: createNumberedIcon(index + 1)
+        }).addTo(map);
+         
+        // Création d'une chaîne de caractères pour les ODD
+        const oddString = (point.odd && point.odd.length > 0) 
+            ? `ODD associés : ${point.odd.join(', ')}` 
+            : 'Aucun ODD spécifique';
+
+        const popupContent = `
+            <div class="popup-content">
+                <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
+                <h3>Étape ${index + 1} : ${point.title}</h3>
+                <p>${point.description}</p>
+                
+                <div style="
+                    display: flex;
+                    justify-content: space-between; /* Aligne les boutons aux extrémités */
+                    align-items: center;
+                    margin-top: 15px;
+                ">
+                    <button 
+                        onclick="alert('${oddString}')"
+                        style="
+                            background: linear-gradient(45deg, #27ae60, #2ecc71); /* Thème vert */
+                            color: white;
+                            border: none;
+                            padding: 10px 15px; /* Un peu plus petit */
+                            border-radius: 20px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: 14px;
+                            box-shadow: 0 4px 10px rgba(39,174,96,0.3);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(39,174,96,0.5)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(39,174,96,0.3)'"
+                    >
+                        🌍 ODD
+                    </button>
+
+                    <button 
+                        onclick="window.open('étape.html#${point.etapeId}', '_blank')" 
+                        style="
+                            /* position, float, margin-top ont été retirés */
+                            background: linear-gradient(45deg, #3498db, #2980b9);
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 20px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: 14px;
+                            box-shadow: 0 4px 10px rgba(52,152,219,0.3);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
+                    >
+                        📖 En savoir plus
+                    </button>
+                </div>
+                </div>
+        `;
+         
+        marker.bindPopup(popupContent, { maxWidth: 320, className: 'custom-popup' });
+        markers.push(marker);
+    });
+     
+    console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons ODD et En savoir plus');
+}
