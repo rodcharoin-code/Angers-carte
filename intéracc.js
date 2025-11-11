@@ -47,7 +47,7 @@ const pointsInteret = [
         description: "Point de départ du circuit touristique durable d'Angers.",
         image: "https://tse1.mm.bing.net/th/id/OIP.QcatiWNdl8hfR-yRE9Ij4gHaFj?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
         fallbackImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop",
-        etapeId: "Point de départ"
+        etapeId: "etape-1"
     },
   
     // Étape 2 : Château d'Angers
@@ -848,7 +848,7 @@ function addMarkers() {
                     </button>
 
                     <button 
-                      onclick="window.open('Page-odd-en-savoir-plus.html?etape=' + point.etapeId, '_blank')"
+                 onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
                         style="
                             /* position, float, margin-top ont été retirés */
                             background: linear-gradient(45deg, #3498db, #2980b9);
