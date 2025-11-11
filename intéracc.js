@@ -792,7 +792,7 @@ document.getElementById('helpBtn').addEventListener('click', function () {
   }, 2000);
 });
 // ===========================================
-// CRÉER LES MARQUEURS AVEC BOUTON
+// CRÉER LES MARQUEURS AVEC BOUTONS
 // ===========================================
 
 function createNumberedIcon(number) {
@@ -804,41 +804,79 @@ function createNumberedIcon(number) {
     });
 }
 
-// CETTE FONCTION REMPLACE CELLE À LA FIN DE VOTRE FICHIER
 function addMarkers() {
+    // Définir les liens "En savoir plus" pour chaque étape
+    const liensEtapes = {
+        0: null, // Place Kennedy - pas de lien
+        1: "https://www.chateau-angers.fr/", // Château d'Angers
+        2: null, // Promenade du Bout du Monde - pas de lien
+        3: "https://www.angers.fr/vivre-a-angers/culture/patrimoine/angers-patrimoine/ressources/fiches-patrimoine/laissez-vous-conter-la-cathedrale-saint-maurice/index.html", // Cathédrale
+        4: "https://fr.wikipedia.org/wiki/Maison_d%27Adam", // Maison d'Adam
+        5: "https://quernon.fr/", // Maison du Quernon
+        6: "https://www.produitenanjou.fr/project/benoit-chocolats/", // Benoit Chocolats
+        7: null, // Rue Saint-Laud - pas de lien
+        8: null, // Jardin du Mail - pas de lien
+        9: "https://fr.wikipedia.org/wiki/Mus%C3%A9um_des_sciences_naturelles_d%27Angers", // Muséum
+        10: "https://www.angers.fr/vivre-a-angers/culture/patrimoine/angers-patrimoine/ressources/fiches-patrimoine/laissez-vous-conter-les-jardins/index.html" // Jardin des Plantes
+    };
+
     pointsInteret.forEach((point, index) => {
+        // Si c'est la Place Kennedy (index 0), on affiche "🏁" au lieu d'un numéro
+        const markerLabel = (index === 0) ? '🏁' : index;
+        
         const marker = L.marker(point.coords, {
-            icon: createNumberedIcon(index + 1)
+            icon: createNumberedIcon(markerLabel)
         }).addTo(map);
         
-        // Crée une description courte (150 caractères) pour le popup
-        const shortDescription = point.description.length > 150 
-            ? point.description.substring(0, 150) + '...' 
-            : point.description;
-
+        // Ajuster le numéro d'étape dans le popup
+        const etapeNumero = (index === 0) ? 'Départ' : `Étape ${index}`;
+        
+        // Vérifier si un lien existe pour cette étape
+        const lienSavoirPlus = liensEtapes[index];
+        
+        // Créer le bouton "En savoir plus" seulement si un lien existe
+        const boutonSavoirPlus = lienSavoirPlus ? `
+            <button 
+                onclick="window.open('${lienSavoirPlus}', '_blank')" 
+                style="
+                    background: linear-gradient(45deg, #3498db, #2980b9);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 14px;
+                    box-shadow: 0 4px 10px rgba(52,152,219,0.3);
+                    transition: all 0.3s ease;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
+            >
+                📖 En savoir plus
+            </button>
+        ` : '';
+        
         const popupContent = `
             <div class="popup-content">
                 <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
-                <h3>Étape ${index + 1} : ${point.title}</h3>
-                
-                <p style="white-space: pre-line; line-height: 1.5;">${shortDescription}</p> 
+                <h3>${etapeNumero} : ${point.title}</h3>
+                <div style="white-space: pre-line; line-height: 1.6; text-align: justify; margin-bottom: 15px;">${point.description}</div>
                 
                 <div style="
                     display: flex;
-                    justify-content: space-between; /* Aligne les boutons aux extrémités */
+                    justify-content: ${lienSavoirPlus ? 'space-between' : 'center'};
                     align-items: center;
                     margin-top: 15px;
+                    gap: 10px;
                 ">
                     <button 
-                        /* ✅ CORRECTION APPLIQUÉE ICI :
-                           Le lien est maintenant correct et identique à l'autre bouton.
-                        */
-                        onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
+                        onclick="window.open('odd.html#etape-${index + 1}', '_blank')"
                         style="
-                            background: linear-gradient(45deg, #27ae60, #2ecc71); /* Thème vert */
+                            background: linear-gradient(45deg, #27ae60, #2ecc71);
                             color: white;
                             border: none;
-                            padding: 10px 15px; /* Un peu plus petit */
+                            padding: 10px 15px;
                             border-radius: 20px;
                             cursor: pointer;
                             font-weight: bold;
@@ -852,35 +890,20 @@ function addMarkers() {
                         🌍 ODD
                     </button>
 
-                    <button 
-                        /* Ce bouton était déjà correct */
-                        onclick="window.open('odd.html#${point.etapeId}', '_blank')"
-                        style="
-                            background: linear-gradient(45deg, #3498db, #2980b9);
-                            color: white;
-                            border: none;
-                            padding: 10px 20px;
-                            border-radius: 20px;
-                            cursor: pointer;
-                            font-weight: bold;
-                            font-size: 14px;
-                            box-shadow: 0 4px 10px rgba(52,152,219,0.3);
-                            transition: all 0.3s ease;
-                        "
-                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
-                    >
-                        📖 En savoir plus
-                    </button>
+                    ${boutonSavoirPlus}
                 </div>
             </div>
         `;
         
-        marker.bindPopup(popupContent, { maxWidth: 320, className: 'custom-popup' });
+        marker.bindPopup(popupContent, { 
+            maxWidth: 500,
+            minWidth: 420,
+            className: 'custom-popup' 
+        });
         markers.push(marker);
     });
     
-    console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons ODD et En savoir plus (CORRIGÉ)');
+    console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons conditionnels');
 }
                 </div>
                 </div>
