@@ -264,7 +264,7 @@ function addMarkers() {
                 <h3>Étape ${index + 1} : ${point.title}</h3>
                 <p>${point.description}</p>
                 <button 
-                    onclick="window.open('étap.html#${point.etapeId}', '_blank')" 
+                    onclick="window.open('étape.html#${point.etapeId}', '_blank')" 
                     style="
                         position: relative;
                         float: right;
@@ -333,7 +333,7 @@ setTimeout(() => {
     console.log('🔄 Recalcul initial de la carte');
 }, 1000);
 
-console.log('✅ Carte interactive chargée avec tracé piéton et boutons vers étap.html');
+console.log('✅ Carte interactive chargée avec tracé piéton et boutons vers étape.html');
 
 // ========================
 //  Etat de connexion
