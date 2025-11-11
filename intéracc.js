@@ -854,7 +854,7 @@ function addMarkers() {
 
                     <button 
                         /* Ce bouton était déjà correct */
-                        onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
+                        onclick="window.open('odd.html#${point.etapeId}', '_blank')"
                         style="
                             background: linear-gradient(45deg, #3498db, #2980b9);
                             color: white;
@@ -882,26 +882,6 @@ function addMarkers() {
     
     console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons ODD et En savoir plus (CORRIGÉ)');
 }
-                    <button 
-                 onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
-                        style="
-                            /* position, float, margin-top ont été retirés */
-                            background: linear-gradient(45deg, #3498db, #2980b9);
-                            color: white;
-                            border: none;
-                            padding: 10px 20px;
-                            border-radius: 20px;
-                            cursor: pointer;
-                            font-weight: bold;
-                            font-size: 14px;
-                            box-shadow: 0 4px 10px rgba(52,152,219,0.3);
-                            transition: all 0.3s ease;
-                        "
-                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
-                    >
-                        📖 En savoir plus
-                    </button>
                 </div>
                 </div>
         `;
