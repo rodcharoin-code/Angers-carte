@@ -751,19 +751,19 @@ function createNumberedIcon(number) {
 
 function addMarkers() {
     // Définir les liens "En savoir plus" pour chaque étape
-    const liensEtapes = {
-        0: null, // Place Kennedy - pas de lien
-        1: "https://www.chateau-angers.fr/", // Château d'Angers
-        2: null, // Promenade du Bout du Monde - pas de lien
-        3: "https://www.angers.fr/vivre-a-angers/culture/patrimoine/angers-patrimoine/ressources/fiches-patrimoine/laissez-vous-conter-la-cathedrale-saint-maurice/index.html", // Cathédrale
-        4: "https://fr.wikipedia.org/wiki/Maison_d%27Adam", // Maison d'Adam
-        5: "https://quernon.fr/", // Maison du Quernon
-        6: "https://www.produitenanjou.fr/project/benoit-chocolats/", // Benoit Chocolats
-        7: null, // Rue Saint-Laud - pas de lien
-        8: null, // Jardin du Mail - pas de lien
-        9: "https://fr.wikipedia.org/wiki/Mus%C3%A9um_des_sciences_naturelles_d%27Angers", // Muséum
-        10: "https://www.angers.fr/vivre-a-angers/culture/patrimoine/angers-patrimoine/ressources/fiches-patrimoine/laissez-vous-conter-les-jardins/index.html" // Jardin des Plantes
-    };
+      const liensEtapes = {
+        0: null, // 🏁 Place Kennedy - pas de lien
+        1: "https://www.chateau-angers.fr/", // 1. Château d'Angers
+        2: null, // 2. Promenade du Bout du Monde - pas de lien
+        3: "https://www.angers.fr/vivre-a-angers/culture/patrimoine/angers-patrimoine/ressources/fiches-patrimoine/laissez-vous-conter-la-cathedrale-saint-maurice/index.html", // 3. Cathédrale
+        4: "https://fr.wikipedia.org/wiki/Maison_d%27Adam", // 4. Maison d'Adam
+        5: null, // 5. Rue Saint-Laud - pas de lien
+        6: "https://fr.wikipedia.org/wiki/Mus%C3%A9um_des_sciences_naturelles_d%27Angers", // 6. Muséum
+        7: "https://www.angers.fr/vivre-a-angers/culture/patrimoine/angers-patrimoine/ressources/fiches-patrimoine/laissez-vous-conter-les-jardins/index.html", // 7. Jardin des Plantes
+        8: null, // 8. Jardin du Mail - pas de lien
+        9: "https://www.produitenanjou.fr/project/benoit-chocolats/", // 9. Benoit Chocolats
+        10: "https://quernon.fr/" // 10. Maison du Quernon
+      };
 
     pointsInteret.forEach((point, index) => {
         // Si c'est la Place Kennedy (index 0), on affiche "🏁" au lieu d'un numéro
