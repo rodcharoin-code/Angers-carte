@@ -40,135 +40,148 @@ streetMap.addTo(map);
 // ===========================================
 
 const pointsInteret = [
+    // Étape 1 : Place Kennedy (Point de départ)
     {
        coords: [47.469117, -0.558312],
         title: "Place Kennedy",
-        description: "Place emblématique située près du château d'Angers, point de départ idéal pour explorer le centre historique.",
+        description: "Point de départ du circuit touristique durable d'Angers.",
         image: "https://tse1.mm.bing.net/th/id/OIP.QcatiWNdl8hfR-yRE9Ij4gHaFj?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
         fallbackImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop",
         etapeId: "etape-1"
     },
   
+    // Étape 2 : Château d'Angers
     { 
       coords: [47.47063117697629, -0.5588421261128192],
         title: "Château d'Angers",
-        description: "Forteresse royale du XIIIe siècle abritant la Tapisserie de l'Apocalypse (UNESCO) et 220 espèces préservées.",
-        descriptionComplete: `
-            <p>Le <strong>Château d'Angers</strong> est un site emblématique de la ville, véritable témoin de son histoire avec une valeur patrimoniale importante. Vous y trouverez <strong>La Tapisserie de l'Apocalypse</strong>, inscrite au registre Mémoire du Monde de l'UNESCO depuis le 18 mai 2023.</p>
-            
-            <p>En lien constant avec la <strong>Ligue pour la Protection des Oiseaux (LPO)</strong>, le Château d'Angers œuvre pour la préservation de l'environnement. Depuis 2011, année du premier inventaire de la faune et de la flore, le site est passé de <strong>99 à 220 espèces observées en 2021</strong>.</p>
-            
-            <p>La flore est très présente au sein du site avec <strong>150 espèces recensées</strong>. Les orchidées, par exemple, sont représentées par l'ophrys abeille, l'orchis singe et l'orchis bouc. Des espèces de fougères sont également présentes, tout particulièrement au niveau des remparts.</p>
-            
-            <p>Ce monument abrite pas moins de <strong>39 espèces d'oiseaux</strong>. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.</p>
-        `,
+        description: `Le Château d'Angers est un site emblématique de la ville, véritable témoin de son histoire avec une valeur patrimoniale importante. Vous y trouverez La Tapisserie de l'Apocalypse, inscrite au registre Mémoire du Monde de l'UNESCO depuis le 18 mai 2023.
+
+En lien constant avec la Ligue pour la Protection des Oiseaux (LPO), le Château d'Angers œuvre pour la préservation de l'environnement. Depuis 2011, année du premier inventaire de la faune et de la flore, le site est passé de 99 à 220 espèces observées en 2021.
+
+La flore est très présente au sein du site avec 150 espèces recensées. Les orchidées, par exemple, sont représentées par l'ophrys abeille, l'orchis singe et l'orchis bouc. Des espèces de fougères sont également présentes, tout particulièrement au niveau des remparts. 
+
+Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte  ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.`,
         image: "https://tse4.mm.bing.net/th/id/OIP.ncUkfuQqi1DYwGDn93vwWQHaDt?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
         fallbackImage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop",
-        etapeId: "etape-2",
-        odd: [
-            { numero: 15, nom: "Vie terrestre", icone: "🌱", raison: "220 espèces observées (150 végétales, 39 oiseaux)" },
-            { numero: 11, nom: "Villes durables", icone: "🏛️", raison: "Préservation patrimoine bâti" },
-            { numero: 4, nom: "Éducation de qualité", icone: "📚", raison: "Tapisserie UNESCO, sensibilisation" }
-        ]
+        etapeId: "etape-2"
     },
     
+    // Étape 3 : Promenade du Bout du Monde
     {
         coords: [47.471061, -0.559224],
-        title: "Vue Promenade du Bout du Monde",
-        description: "Magnifique point de vue panoramique sur la Maine et les paysages environnants. Un des plus beaux panoramas d'Angers.",
+        title: "Promenade du Bout du Monde",
+        description: `Située entre le château et la cité historique, la Promenade du Bout du Monde est un lieu emblématique de la ville d'Angers. Anciennement la voie principale d'entrée au château d'Angers, elle offre aujourd'hui une vue imprenable sur la Maine et le quartier de la Doutre. 
+
+Entièrement réaménagée et inaugurée le 24 juin 2018, la promenade a été repensée pour favoriser les mobilités douces et la biodiversité. La piétonnisation du site et la plantation de plus de 7 000 végétaux issus de 128 espèces différentes, majoritairement locales et mellifères, ont transformé cet espace d'origine très minéral.`,
         image: "https://tse4.mm.bing.net/th/id/OIP.vQExGCnFpqAVCrWxm6gMzQHaFj?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
         fallbackImage: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop",
         etapeId: "etape-3"
     },
     
+    // Étape 4 : Cathédrale Saint-Maurice
     {
         coords: [47.47043794223846, -0.5552633179461097],
-        title: "Cathédrale Saint-Maurice",
-        description: "Magnifique cathédrale gothique du XIIe siècle, réputée pour ses vitraux exceptionnels et son architecture unique.",
+        title: "Cathédrale Saint-Maurice d'Angers",
+        description: `Dominant la Maine depuis son promontoire, la cathédrale Saint-Maurice est l'un des monuments les plus emblématiques d'Angers. Édifiée entre le XIIᵉ et le XIIIᵉ siècle, elle marque la transition entre l'art roman et le style gothique angevin, aussi appelé "Plantagenêt", caractérisé par ses voûtes bombées et son atmosphère lumineuse.
+
+Au fil des siècles, la cathédrale a été le cœur spirituel et politique de la ville : c'est ici que furent célébrées les cérémonies des ducs d'Anjou et des Plantagenêt. Classée Monument historique depuis 1862, elle reste un témoin majeur du rayonnement médiéval d'Angers.
+
+À l'intérieur, plusieurs éléments méritent l'attention :
+Les vitraux du XIIIᵉ siècle, parmi les plus anciens de France, représentant notamment la Vie de saint Maurice et l'Apocalypse ;
+Le grand orgue Cavaillé-Coll, chef-d'œuvre du XIXᵉ siècle, restauré avec soin pour conserver son acoustique d'origine ;
+Les voûtes angevines, typiques de l'architecture locale ;
+La statue de la Vierge au sourire, emblématique de l'art gothique angevin, qui accueille les visiteurs depuis la nef centrale.
+
+Aujourd'hui, la cathédrale s'inscrit pleinement dans une démarche de préservation durable du patrimoine : les restaurations utilisent des matériaux traditionnels locaux comme le tuffeau et la chaux, tandis que l'éclairage à faible consommation permet de sublimer l'architecture sans nuire à l'environnement.`,
         image: "https://www.patrimoine-histoire.fr/images/Patrimoine/Angers/eStMaurice/AngCSM_EXT06.JPG",
         fallbackImage: "https://images.unsplash.com/photo-1520637836862-4d197d17c43a?w=400&h=300&fit=crop",
         etapeId: "etape-4"
     },
     
+    // Étape 5 : Maison d'Adam
     {
         coords: [47.47037651735204, -0.5541144593090486],
-        title: "Maison d'Adam d'Angers",
-        description: "Superbe maison à colombages du XVe siècle, un des plus beaux exemples d'architecture civile médiévale d'Angers.",
+        title: "La Maison d'Adam",
+        description: `Au cœur du centre historique, sur la place Sainte-Croix, la Maison d'Adam est l'un des trésors les plus emblématiques d'Angers. Construite vers 1491, cette demeure illustre l'architecture médiévale angevine. Ses façades sculptées, ses colombages et ses figures fantastiques témoignent du savoir-faire des artisans de la fin du XVe siècle.
+
+Classée Monument historique depuis 1922, la Maison d'Adam doit son nom à une sculpture représentant Adam et Ève sur sa façade principale. Longtemps habitée par la confrérie des selliers-bourreliers, elle abrite désormais la Maison des Artisans qui valorise les métiers d'art et la création locale.
+
+Ce lieu redynamise le centre-ville par des activités respectueuses et locales, fondées sur la transmission des savoir-faire et la mise en valeur du patrimoine bâti.`,
         image: "https://assets.locatipic.com/uploads/poi/pictures/367/medium_Maison_Adam-a08df8e0251e-b64dcb52274a-0dbe12fa8caa.jpg",
         fallbackImage: "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400&h=300&fit=crop",
         etapeId: "etape-5"
     },
     
+    // Étape 6 : Maison du Quernon d'Ardoise
     {
-        coords: [47.471629, -0.553788],
-        title: "La Rue Saint-Laud (Début)",
-        description: "Rue historique commerçante du centre-ville d'Angers, pleine de charme avec ses boutiques et restaurants.",
-        image: "https://api.cloudly.space/resize/clip/1900/1080/75/aHR0cHM6Ly9yZXNlcnZhdGlvbi5kZXN0aW5hdGlvbi1hbmdlcnMuY29tL21lZGlhcy9pbWFnZXMvcHJlc3RhdGlvbnMvcnVlLXNhaW50LWxhdWQtY29weXJpZ2h0LWFsZXhhbmRyZS1sYW1vdXJldXgtZGVzdGluYXRpb24tYW5nZXJzLTE0NjIyLTE5MjBweC0xMTMwNTI3LmpwZw==/image.jpg",
-        fallbackImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop",
+      coords: [47.46846307813217, -0.5542979002335384],
+        title: "La Maison du Quernon d'Ardoise",
+        description: `La Maison du Quernon d'Ardoise, chocolaterie angevine, est célèbre pour sa spécialité lancée en 1996, le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou. Enrobée de chocolat bleu, cette gourmandise est composée de nougatine caramélisée aux amandes et aux noisettes.`,
+        image: "https://tse1.mm.bing.net/th/id/OIP.9UzZxJQD9CFMw9x0EersnAAAAA?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
         etapeId: "etape-6"
     },
     
-    {
-        coords: [47.47298838736287, -0.551941268693901],
-        title: "La Rue Saint-Laud (Fin)",
-        description: "Continuation de la rue Saint-Laud, artère vivante du quartier historique avec ses façades typiques.",
-        image: "https://api.cloudly.space/resize/clip/1900/1080/75/aHR0cHM6Ly9yZXNlcnZhdGlvbi5kZXN0aW5hdGlvbi1hbmdlcnMuY29tL21lZGlhcy9pbWFnZXMvcHJlc3RhdGlvbnMvcnVlLXNhaW50LWxhdWQtY29weXJpZ2h0LWFsZXhhbmRyZS1sYW1vdXJldXgtZGVzdGluYXRpb24tYW5nZXJzLTE0NjIyLTE5MjBweC0xMTMwNTI3LmpwZw==/image.jpg",
-        fallbackImage: "https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=400&h=300&fit=crop",
-        etapeId: "etape-7"
-    },
-    
-    {
-      coords: [47.47349436796099, -0.5464154666626944],
-        title: "Muséum des Sciences Naturelles",
-        description: "Musée fascinant présentant des collections de zoologie, paléontologie et minéralogie. Parfait pour découvrir la biodiversité régionale.",
-        image: "https://tse2.mm.bing.net/th/id/OIP.ydluZalA7kF34y6XCgtYQwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-        fallbackImage: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop",
-        etapeId: "etape-8"
-    },
-    
-    {
-      coords: [47.47411016710265, -0.5449099946854348],
-        title: "Le Jardin des Plantes",
-        description: "Jardin botanique de 4 hectares créé au XIXe siècle, havre de paix avec une collection remarquable de plantes rares et exotiques.",
-        image: "https://tse3.mm.bing.net/th/id/OIP.beQ7V5jig8RzdZpORp1V_QHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-        fallbackImage: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop",
-        etapeId: "etape-9"
-    },
-    
-    {
-        coords: [47.47053649104745, -0.5461446578724273],
-        title: "Jardin du Mail",
-        description: "Magnifique promenade plantée créée au XVIIIe siècle, parfaite pour une pause détente au cœur de la ville avec ses allées ombragées.",
-        image: "https://tse2.mm.bing.net/th/id/OIP.wxHh-GeKZqfJYXrBgZ9UnwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-        fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
-        etapeId: "etape-10"
-    },
-    
+    // Étape 7 : Benoit Chocolats
     {
       coords: [47.46891297404408, -0.553276794250633],
         title: "Benoit Chocolats Angers",
-        description: "Chocolaterie angevine réputée pour son savoir-faire artisanal et ses créations gourmandes.",
+        description: `La chocolaterie confectionne ses créations à la main dans son atelier situé aux Ponts-de-Cé, près d'Angers, en perpétuant un savoir-faire artisanal. Son produit emblématique, Le Caramandes®, a valu à l'entreprise, fondée en 1975 à Angers, de nombreuses distinctions tant au niveau national qu'international. Créé en 2008, il s'agit d'une "fine feuille triangulaire, composée d'amandes effilées, torréfiées, caramélisées au beurre salé, puis enrobée d'un chocolat finement sélectionné".`,
         image: "https://www.pagesjaunes.fr/media/agc/4b/38/91/00/00/7b/a6/86/b9/a6/62bc4b389100007ba686b9a6/62bc4b389100007ba686b9a7.jpg",
         fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+        etapeId: "etape-7"
+    },
+    
+    // Étape 8 : Rue Saint-Laud
+    {
+        coords: [47.471629, -0.553788],
+        title: "Rue Saint-Laud",
+        description: `La rue Saint-Laud relie le cœur historique d'Angers à la gare, il s'agit de l'une des plus anciennes artères de la ville. Elle conserve le tracé du quartier marchand médiéval, autrefois animé par les auberges et ateliers d'artisans.
+
+Aujourd'hui entièrement réaménagée, la rue Saint-Laud s'inscrit dans la dynamique de revitalisation durable du centre-ville. Les travaux menés par la ville d'Angers ont permis d'élargir les espaces piétons, de végétaliser les trottoirs et de valoriser les façades patrimoniales tout en soutenant les commerces locaux.`,
+        image: "https://api.cloudly.space/resize/clip/1900/1080/75/aHR0cHM6Ly9yZXNlcnZhdGlvbi5kZXN0aW5hdGlvbi1hbmdlcnMuY29tL21lZGlhcy9pbWFnZXMvcHJlc3RhdGlvbnMvcnVlLXNhaW50LWxhdWQtY29weXJpZ2h0LWFsZXhhbmRyZS1sYW1vdXJldXgtZGVzdGluYXRpb24tYW5nZXJzLTE0NjIyLTE5MjBweC0xMTMwNTI3LmpwZw==/image.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop",
+        etapeId: "etape-8"
+    },
+    
+    // Étape 9 : Jardin du Mail
+    {
+        coords: [47.47053649104745, -0.5461446578724273],
+        title: "Le Jardin du Mail",
+        description: `Accolée au Jardin du Mail, l'Avenue Jeanne-d'Arc illustre parfaitement la volonté de végétalisation de l'espace urbain angevin. Inaugurée le 25 avril 2018 après un an de travaux, elle constitue l'un des projets phares du plan global de végétalisation de la ville.
+
+La rénovation complète de l'avenue a permis d'optimiser son éclairage grâce à l'installation de 36 lanternes ainsi que de 67 projecteurs orientés vers les prairies, l'allée centrale et le square. La végétation occupe désormais une place majeure, avec la plantation de 154 tilleuls à petites feuilles, 26 arbres fruitiers, 46 platanes, 810 hortensias et pas moins de 10 000 crocus.
+
+Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils et 10 bancs répartis le long de l'avenue. Avec plus de 11 600 m² végétalisés, soit plus de la moitié de la surface totale de cette dernière, l'espace alterne entre zones enherbées et espaces de détente en bordure, tandis que la large allée centrale permet un partage entre piétons et cyclistes.`,
+        image: "https://tse2.mm.bing.net/th/id/OIP.wxHh-GeKZqfJYXrBgZ9UnwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
+        etapeId: "etape-9"
+    },
+    
+    // Étape 10 : Muséum des Sciences Naturelles
+    {
+      coords: [47.47349436796099, -0.5464154666626944],
+        title: "Muséum des Sciences Naturelles",
+        description: `Créé en 1796, le Muséum des Sciences Naturelles d'Angers abrite plus de 600 000 spécimens : animaux naturalisés, insectes, fossiles, squelettes ou encore minéraux. Véritable lieu de savoir et de curiosité, il invite le visiteur à explorer la richesse et la diversité du monde vivant.
+
+Les différentes expositions permanentes et temporaires abordent des thématiques actuelles telles que le réchauffement climatique, la disparition des espèces, la biodiversité ou l'impact de l'Homme dans les écosystèmes. 
+
+Le musée s'inscrit dans une démarche de sensibilisation du public à la protection de la nature et à la valorisation du patrimoine naturel et s'est donné cinq missions principales : la conservation, la diffusion des connaissances, l'expertise, la pédagogie et la recherche scientifique.`,
+        image: "https://tse2.mm.bing.net/th/id/OIP.ydluZalA7kF34y6XCgtYQwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop",
+        etapeId: "etape-10"
+    },
+    
+    // Étape 11 : Jardin des Plantes
+    {
+      coords: [47.47411016710265, -0.5449099946854348],
+        title: "Le Jardin des Plantes",
+        description: `Fondé au XVIIIᵉ siècle, au-delà des remparts, le Jardin des Plantes d'Angers fut le premier jardin botanique de la ville, initialement consacré à la recherche. Au fil des années, grâce à des échanges internationaux, la diversité botanique augmente. En 1901 et 1905, suite à une tempête dévastatrice, le jardin est entièrement rénové par Édouard André, puis accessible au public.
+
+Situé au cœur de la ville, ce jardin à l'anglaise offre de belles allées, des statues au style romantique, ainsi qu'un bassin agrémenté de petites cascades et de jeux de miroir. Il abrite une riche diversité végétale, entre arbres centenaires, massifs floraux et bosquets. La faune y est également présente, avec poules, lapins, chèvres, cygnes et parfois des écureuils.`,
+        image: "https://tse3.mm.bing.net/th/id/OIP.beQ7V5jig8RzdZpORp1V_QHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop",
         etapeId: "etape-11"
-    },
-    
-    {
-      coords: [47.46846307813217, -0.5542979002335384],
-        title: "Maison du Quernon d'Ardoise",
-        description: "Célèbre pour sa spécialité le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou.",
-        image: "https://tse1.mm.bing.net/th/id/OIP.9UzZxJQD9CFMw9x0EersnAAAAA?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
-        etapeId: "etape-12"
-    },
-    
-    {
-        coords: [47.46874343438692, -0.5555258119547143],
-        title: "Jardin du Musée des Beaux-Arts",
-        description: "Jardin élégant entourant le Musée des Beaux-Arts, lieu de détente et de culture avec ses sculptures et parterres fleuris.",
-        image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
-        fallbackImage: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=400&h=300&fit=crop",
-        etapeId: "etape-13"
     }
 ];
 
@@ -276,7 +289,7 @@ function addMarkers() {
             <div class="popup-content">
                 <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
                 <h3>Étape ${index + 1} : ${point.title}</h3>
-                <p>${point.description}</p>
+                <div style="white-space: pre-line; line-height: 1.6; text-align: justify; margin-bottom: 15px;">${point.description}</div>
                 <button 
                     onclick="window.open('étape.html#${point.etapeId}', '_blank')" 
                     style="
@@ -303,7 +316,7 @@ function addMarkers() {
             </div>
         `;
         
-        marker.bindPopup(popupContent, { maxWidth: 320, className: 'custom-popup' });
+        marker.bindPopup(popupContent, { maxWidth: 400, className: 'custom-popup' });
         markers.push(marker);
     });
     
