@@ -101,14 +101,124 @@ body {
 /* ========================================
    POPUPS
    ======================================== */
-.custom-popup { font-family: inherit; }
-.popup-content { max-width: 300px; text-align: center; }
-.popup-content img {
-  width: 100%; height: 200px; object-fit: cover; border-radius: 10px;
-  margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,.1);
+.custom-popup { 
+  font-family: inherit; 
 }
-.popup-content h3 { color: #2c3e50; margin-bottom: 10px; font-size: 1.4em; }
-.popup-content p { color: #7f8c8d; line-height: 1.5; font-size: .95em; }
+
+.popup-content { 
+  max-width: 450px;
+  text-align: left;
+}
+
+.popup-content img {
+  width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
+  border-radius: 10px;
+  margin-bottom: 15px; 
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+
+.popup-content h3 { 
+  color: #2c3e50; 
+  margin-bottom: 15px; 
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.popup-content p,
+.popup-content div { 
+  color: #34495e; 
+  line-height: 1.8; 
+  font-size: 1.15em; /* AUGMENTÉ de 0.95em à 1.05em */
+  text-align: justify;
+  white-space: pre-line;
+  margin-bottom: 15px;
+}
+
+/* Zone de scroll avec scrollbar PERMANENTE */
+.leaflet-popup-content {
+  margin: 10px 15px 10px 10px;
+  line-height: 1.6;
+  max-height: 350px;
+  overflow-y: scroll !important; /* FORCE le scroll permanent */
+  padding-right: 10px;
+}
+
+/* CHROME/EDGE/SAFARI - Scrollbar toujours visible */
+.leaflet-popup-content::-webkit-scrollbar {
+  width: 14px;
+  -webkit-appearance: none; /* Désactive le style natif */
+}
+
+.leaflet-popup-content::-webkit-scrollbar-track {
+  background: #e8ecef;
+  border-radius: 10px;
+  border: 1px solid #d1d8dd;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+}
+
+.leaflet-popup-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+  border-radius: 10px;
+  border: 3px solid #e8ecef;
+  min-height: 50px; /* Augmenté pour être toujours visible */
+}
+
+.leaflet-popup-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2980b9 0%, #21618c 100%);
+}
+
+.leaflet-popup-content::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(135deg, #21618c 0%, #1a5276 100%);
+}
+
+/* FIREFOX - Scrollbar permanente */
+.leaflet-popup-content {
+  scrollbar-width: thin;
+  scrollbar-color: #3498db #e8ecef;
+}
+
+/* FORCE l'affichage de la scrollbar même sans contenu à scroller */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  min-width: 420px;
+  max-width: 500px;
+}
+
+/* Si le contenu est trop court, on force quand même la scrollbar */
+.leaflet-popup-content > * {
+  min-height: 351px; /* Légèrement plus que max-height pour forcer le scroll */
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .popup-content {
+    max-width: 85vw;
+  }
+  
+  .leaflet-popup-content-wrapper {
+    min-width: auto;
+    max-width: 85vw;
+  }
+  
+  .popup-content img {
+    height: 150px;
+  }
+  
+  .leaflet-popup-content {
+    max-height: 300px;
+  }
+  
+  .leaflet-popup-content::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .popup-content p,
+  .popup-content div {
+    font-size: 1em; /* Taille normale sur mobile */
+  }
+}
 
 /* ========================================
    CIRCUIT LINE
