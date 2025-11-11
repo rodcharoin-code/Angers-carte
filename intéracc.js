@@ -40,17 +40,17 @@ streetMap.addTo(map);
 // ===========================================
 
 const pointsInteret = [
-    // Étape 1 : Place Kennedy (Point de départ)
+    // 🏁 DÉPART : Place Kennedy
     {
        coords: [47.469117, -0.558312],
-        title: "Place Kennedy",
-        description: "Point de départ du circuit touristique durable d'Angers.",
+        title: "Place du Président Kennedy",
+        description: "Point de départ du circuit touristisme durable d'Angers.",
         image: "https://tse1.mm.bing.net/th/id/OIP.QcatiWNdl8hfR-yRE9Ij4gHaFj?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
         fallbackImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop",
         etapeId: "etape-1"
     },
   
-    // Étape 2 : Château d'Angers
+    // ÉTAPE 1 : Château d'Angers
     { 
       coords: [47.47063117697629, -0.5588421261128192],
         title: "Château d'Angers",
@@ -66,7 +66,7 @@ Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encor
         etapeId: "etape-2"
     },
     
-    // Étape 3 : Promenade du Bout du Monde
+    // ÉTAPE 2 : Promenade du Bout du Monde
     {
         coords: [47.471061, -0.559224],
         title: "Promenade du Bout du Monde",
@@ -78,7 +78,7 @@ Entièrement réaménagée et inaugurée le 24 juin 2018, la promenade a été r
         etapeId: "etape-3"
     },
     
-    // Étape 4 : Cathédrale Saint-Maurice
+    // ÉTAPE 3 : Cathédrale Saint-Maurice
     {
         coords: [47.47043794223846, -0.5552633179461097],
         title: "Cathédrale Saint-Maurice d'Angers",
@@ -98,7 +98,7 @@ Aujourd'hui, la cathédrale s'inscrit pleinement dans une démarche de préserva
         etapeId: "etape-4"
     },
     
-    // Étape 5 : Maison d'Adam
+    // ÉTAPE 4 : Maison d'Adam
     {
         coords: [47.47037651735204, -0.5541144593090486],
         title: "La Maison d'Adam",
@@ -112,27 +112,7 @@ Ce lieu redynamise le centre-ville par des activités respectueuses et locales, 
         etapeId: "etape-5"
     },
     
-    // Étape 6 : Maison du Quernon d'Ardoise
-    {
-      coords: [47.46846307813217, -0.5542979002335384],
-        title: "La Maison du Quernon d'Ardoise",
-        description: `La Maison du Quernon d'Ardoise, chocolaterie angevine, est célèbre pour sa spécialité lancée en 1996, le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou. Enrobée de chocolat bleu, cette gourmandise est composée de nougatine caramélisée aux amandes et aux noisettes.`,
-        image: "https://tse1.mm.bing.net/th/id/OIP.9UzZxJQD9CFMw9x0EersnAAAAA?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
-        etapeId: "etape-6"
-    },
-    
-    // Étape 7 : Benoit Chocolats
-    {
-      coords: [47.46891297404408, -0.553276794250633],
-        title: "Benoit Chocolats Angers",
-        description: `La chocolaterie confectionne ses créations à la main dans son atelier situé aux Ponts-de-Cé, près d'Angers, en perpétuant un savoir-faire artisanal. Son produit emblématique, Le Caramandes®, a valu à l'entreprise, fondée en 1975 à Angers, de nombreuses distinctions tant au niveau national qu'international. Créé en 2008, il s'agit d'une "fine feuille triangulaire, composée d'amandes effilées, torréfiées, caramélisées au beurre salé, puis enrobée d'un chocolat finement sélectionné".`,
-        image: "https://www.pagesjaunes.fr/media/agc/4b/38/91/00/00/7b/a6/86/b9/a6/62bc4b389100007ba686b9a6/62bc4b389100007ba686b9a7.jpg",
-        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
-        etapeId: "etape-7"
-    },
-    
-    // Étape 8 : Rue Saint-Laud
+    // ÉTAPE 5 : Rue Saint-Laud
     {
         coords: [47.471629, -0.553788],
         title: "Rue Saint-Laud",
@@ -144,21 +124,7 @@ Aujourd'hui entièrement réaménagée, la rue Saint-Laud s'inscrit dans la dyna
         etapeId: "etape-8"
     },
     
-    // Étape 9 : Jardin du Mail
-    {
-        coords: [47.47053649104745, -0.5461446578724273],
-        title: "Le Jardin du Mail",
-        description: `Accolée au Jardin du Mail, l'Avenue Jeanne-d'Arc illustre parfaitement la volonté de végétalisation de l'espace urbain angevin. Inaugurée le 25 avril 2018 après un an de travaux, elle constitue l'un des projets phares du plan global de végétalisation de la ville.
-
-La rénovation complète de l'avenue a permis d'optimiser son éclairage grâce à l'installation de 36 lanternes ainsi que de 67 projecteurs orientés vers les prairies, l'allée centrale et le square. La végétation occupe désormais une place majeure, avec la plantation de 154 tilleuls à petites feuilles, 26 arbres fruitiers, 46 platanes, 810 hortensias et pas moins de 10 000 crocus.
-
-Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils et 10 bancs répartis le long de l'avenue. Avec plus de 11 600 m² végétalisés, soit plus de la moitié de la surface totale de cette dernière, l'espace alterne entre zones enherbées et espaces de détente en bordure, tandis que la large allée centrale permet un partage entre piétons et cyclistes.`,
-        image: "https://tse2.mm.bing.net/th/id/OIP.wxHh-GeKZqfJYXrBgZ9UnwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
-        fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
-        etapeId: "etape-9"
-    },
-    
-    // Étape 10 : Muséum des Sciences Naturelles
+    // ÉTAPE 6 : Muséum des Sciences Naturelles
     {
       coords: [47.47349436796099, -0.5464154666626944],
         title: "Muséum des Sciences Naturelles",
@@ -172,7 +138,7 @@ Le musée s'inscrit dans une démarche de sensibilisation du public à la protec
         etapeId: "etape-10"
     },
     
-    // Étape 11 : Jardin des Plantes
+    // ÉTAPE 7 : Jardin des Plantes
     {
       coords: [47.47411016710265, -0.5449099946854348],
         title: "Le Jardin des Plantes",
@@ -182,6 +148,40 @@ Situé au cœur de la ville, ce jardin à l'anglaise offre de belles allées, de
         image: "https://tse3.mm.bing.net/th/id/OIP.beQ7V5jig8RzdZpORp1V_QHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
         fallbackImage: "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400&h=300&fit=crop",
         etapeId: "etape-11"
+    },
+    
+    // ÉTAPE 8 : Jardin du Mail
+    {
+        coords: [47.47053649104745, -0.5461446578724273],
+        title: "Le Jardin du Mail",
+        description: `Accolée au Jardin du Mail, l'Avenue Jeanne-d'Arc illustre parfaitement la volonté de végétalisation de l'espace urbain angevin. Inaugurée le 25 avril 2018 après un an de travaux, elle constitue l'un des projets phares du plan global de végétalisation de la ville.
+
+La rénovation complète de l'avenue a permis d'optimiser son éclairage grâce à l'installation de 36 lanternes ainsi que de 67 projecteurs orientés vers les prairies, l'allée centrale et le square. La végétation occupe désormais une place majeure, avec la plantation de 154 tilleuls à petites feuilles, 26 arbres fruitiers, 46 platanes, 810 hortensias et pas moins de 10 000 crocus.
+
+Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils et 10 bancs répartis le long de l'avenue. Avec plus de 11 600 m² végétalisés, soit plus de la moitié de la surface totale de cette dernière, l'espace alterne entre zones enherbées et espaces de détente en bordure, tandis que la large allée centrale permet un partage entre piétons et cyclistes.`,
+        image: "https://tse2.mm.bing.net/th/id/OIP.wxHh-GeKZqfJYXrBgZ9UnwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
+        etapeId: "etape-9"
+    },
+    
+    // ÉTAPE 9 : Benoit Chocolats
+    {
+      coords: [47.46891297404408, -0.553276794250633],
+        title: "Benoit Chocolats Angers",
+        description: `La chocolaterie confectionne ses créations à la main dans son atelier situé aux Ponts-de-Cé, près d'Angers, en perpétuant un savoir-faire artisanal. Son produit emblématique, Le Caramandes®, a valu à l'entreprise, fondée en 1975 à Angers, de nombreuses distinctions tant au niveau national qu'international. Créé en 2008, il s'agit d'une "fine feuille triangulaire, composée d'amandes effilées, torréfiées, caramélisées au beurre salé, puis enrobée d'un chocolat finement sélectionné".`,
+        image: "https://www.pagesjaunes.fr/media/agc/4b/38/91/00/00/7b/a6/86/b9/a6/62bc4b389100007ba686b9a6/62bc4b389100007ba686b9a7.jpg",
+        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+        etapeId: "etape-7"
+    },
+    
+    // ÉTAPE 10 : Maison du Quernon d'Ardoise
+    {
+      coords: [47.46846307813217, -0.5542979002335384],
+        title: "La Maison du Quernon d'Ardoise",
+        description: `La Maison du Quernon d'Ardoise, chocolaterie angevine, est célèbre pour sa spécialité lancée en 1996, le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou. Enrobée de chocolat bleu, cette gourmandise est composée de nougatine caramélisée aux amandes et aux noisettes.`,
+        image: "https://tse1.mm.bing.net/th/id/OIP.9UzZxJQD9CFMw9x0EersnAAAAA?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+        fallbackImage: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=300&fit=crop",
+        etapeId: "etape-6"
     }
 ];
 
