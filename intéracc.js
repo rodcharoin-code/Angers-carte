@@ -804,22 +804,24 @@ function createNumberedIcon(number) {
     });
 }
 
+// CETTE FONCTION REMPLACE CELLE À LA FIN DE VOTRE FICHIER
 function addMarkers() {
     pointsInteret.forEach((point, index) => {
         const marker = L.marker(point.coords, {
             icon: createNumberedIcon(index + 1)
         }).addTo(map);
-         
-        // Création d'une chaîne de caractères pour les ODD
-        const oddString = (point.odd && point.odd.length > 0) 
-            ? `ODD associés : ${point.odd.join(', ')}` 
-            : 'Aucun ODD spécifique';
+        
+        // Crée une description courte (150 caractères) pour le popup
+        const shortDescription = point.description.length > 150 
+            ? point.description.substring(0, 150) + '...' 
+            : point.description;
 
         const popupContent = `
             <div class="popup-content">
                 <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
                 <h3>Étape ${index + 1} : ${point.title}</h3>
-                <p>${point.description}</p>
+                
+                <p style="white-space: pre-line; line-height: 1.5;">${shortDescription}</p> 
                 
                 <div style="
                     display: flex;
@@ -828,6 +830,9 @@ function addMarkers() {
                     margin-top: 15px;
                 ">
                     <button 
+                        /* ✅ CORRECTION APPLIQUÉE ICI :
+                           Le lien est maintenant correct et identique à l'autre bouton.
+                        */
                         onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
                         style="
                             background: linear-gradient(45deg, #27ae60, #2ecc71); /* Thème vert */
@@ -847,6 +852,36 @@ function addMarkers() {
                         🌍 ODD
                     </button>
 
+                    <button 
+                        /* Ce bouton était déjà correct */
+                        onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
+                        style="
+                            background: linear-gradient(45deg, #3498db, #2980b9);
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 20px;
+                            cursor: pointer;
+                            font-weight: bold;
+                            font-size: 14px;
+                            box-shadow: 0 4px 10px rgba(52,152,219,0.3);
+                            transition: all 0.3s ease;
+                        "
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
+                    >
+                        📖 En savoir plus
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        marker.bindPopup(popupContent, { maxWidth: 320, className: 'custom-popup' });
+        markers.push(marker);
+    });
+    
+    console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons ODD et En savoir plus (CORRIGÉ)');
+}
                     <button 
                  onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
                         style="
