@@ -828,7 +828,7 @@ function addMarkers() {
                     margin-top: 15px;
                 ">
                     <button 
-                        onclick="window.location.href = 'nom-de-votre-page.html'"')"
+                        onclick="window.open('Page-odd-en-savoir-plus.html#${point.etapeId}', '_blank')"
                         style="
                             background: linear-gradient(45deg, #27ae60, #2ecc71); /* Thème vert */
                             color: white;
