@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title></title>
+  <title>Circuit Touristique Durable - Angers</title>
 
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"/>
@@ -21,7 +21,7 @@
       </a>
     </div>
     <div class="header-content">
-      <h1></h1>
+      <h1>Circuit Touristique Durable d'Angers</h1>
       <p>Venez découvrir la ville d'Angers autrement</p>
       <div class="duration-info">⏰ Durée estimée : 1h00 (à pied) pour 3,8 km</div>
     </div>
@@ -95,18 +95,18 @@
         <div class="welcome-step" id="step5" style="display:none;">
           <div class="welcome-icon">📋</div>
           <p class="welcome-text">Bouton "Liste des Étapes"</p>
-          <p class="welcome-subtext">Consultez la liste complète des 6 monuments du circuit avec leurs descriptions détaillées.</p>
+          <p class="welcome-subtext">Consultez la liste complète des étapes du circuit avec leurs descriptions détaillées.</p>
           <div class="demo-button">📋 Liste des Étapes</div>
         </div>
 
         <div class="welcome-step" id="step6" style="display:none;">
           <div class="welcome-icon">🎯</div>
           <p class="welcome-text">Marqueurs numérotés</p>
-          <p class="welcome-subtext">Cliquez sur les marqueurs rouges numérotés pour voir les informations de chaque monument avec photos.</p>
+          <p class="welcome-subtext">Cliquez sur les marqueurs pour voir les informations de chaque étape avec photos et boutons d'accès.</p>
           <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+            <div class="demo-marker">🏁</div>
             <div class="demo-marker">1</div>
             <div class="demo-marker">2</div>
-            <div class="demo-marker">3</div>
           </div>
         </div>
 
@@ -117,7 +117,7 @@
         </div>
       </div>
       <div class="welcome-modal-footer">
-        <button class="welcome-btn welcome-btn-skip" id="skipBtn">Skip</button>
+        <button class="welcome-btn welcome-btn-skip" id="skipBtn">Passer</button>
         <div class="welcome-progress">
           <span class="progress-dot active"></span>
           <span class="progress-dot"></span>
@@ -127,13 +127,13 @@
           <span class="progress-dot"></span>
           <span class="progress-dot"></span>
         </div>
-        <button class="welcome-btn welcome-btn-next" id="nextBtn">Next</button>
+        <button class="welcome-btn welcome-btn-next" id="nextBtn">Suivant</button>
       </div>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
   <script src="intéracc.js"></script>
 </body>
 </html>
-
