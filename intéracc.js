@@ -266,62 +266,7 @@ const circuitTrace = [
 let markers = [];
 let circuitLine = null;
 
-// ===========================================
-// CRÉER LES MARQUEURS AVEC BOUTON
-// ===========================================
 
-function createNumberedIcon(number) {
-    return L.divIcon({
-        className: 'numbered-marker',
-        html: `<span>${number}</span>`,
-        iconSize: [36, 36],
-        iconAnchor: [18, 18]
-    });
-}
-
-function addMarkers() {
-    pointsInteret.forEach((point, index) => {
-        const marker = L.marker(point.coords, {
-            icon: createNumberedIcon(index + 1)
-        }).addTo(map);
-        
-        const popupContent = `
-            <div class="popup-content">
-                <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
-                <h3>Étape ${index + 1} : ${point.title}</h3>
-                <div style="white-space: pre-line; line-height: 1.6; text-align: justify; margin-bottom: 15px;">${point.description}</div>
-                <button 
-                    onclick="window.open('odd.html#${point.etapeId}', '_blank')" 
-                    style="
-                        position: relative;
-                        float: right;
-                        background: linear-gradient(45deg, #3498db, #2980b9);
-                        color: white;
-                        border: none;
-                        padding: 10px 20px;
-                        border-radius: 20px;
-                        cursor: pointer;
-                        font-weight: bold;
-                        font-size: 14px;
-                        margin-top: 10px;
-                        box-shadow: 0 4px 10px rgba(52,152,219,0.3);
-                        transition: all 0.3s ease;
-                    "
-                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
-                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
-                >
-                    📖 En savoir plus
-                </button>
-                <div style="clear: both;"></div>
-            </div>
-        `;
-        
-        marker.bindPopup(popupContent, { maxWidth: 400, className: 'custom-popup' });
-        markers.push(marker);
-    });
-    
-    console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons');
-}
 
 // ===========================================
 // CRÉER LE CIRCUIT AVEC TON TRACÉ GEOJSON
@@ -905,13 +850,4 @@ function addMarkers() {
     
     console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons conditionnels');
 }
-                </div>
-                </div>
-        `;
-         
-        marker.bindPopup(popupContent, { maxWidth: 320, className: 'custom-popup' });
-        markers.push(marker);
-    });
-     
-    console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons ODD et En savoir plus');
-}
+                
