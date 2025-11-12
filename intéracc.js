@@ -850,3 +850,20 @@ function addMarkers() {
     console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons conditionnels');
 }
                 
+// ========================
+//  Questionnaire de satisfaction
+// ========================
+document.getElementById('feedbackBtn').addEventListener('click', () => {
+    document.getElementById('feedbackModal').style.display = 'flex';
+});
+
+document.getElementById('closeFeedback').addEventListener('click', () => {
+    document.getElementById('feedbackModal').style.display = 'none';
+});
+
+// Fermer aussi en cliquant en dehors de la modal
+document.getElementById('feedbackModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('feedbackModal')) {
+        document.getElementById('feedbackModal').style.display = 'none';
+    }
+});
