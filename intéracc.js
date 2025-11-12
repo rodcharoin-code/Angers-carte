@@ -561,7 +561,6 @@ function generatePOIList() {
         <div class="poi-number">${index + 1}</div>
         <div>
           <div class="poi-title">${point.title}</div>
-          <div class="poi-description">${point.description}</div>
         </div>
       </div>`;
     poiItem.addEventListener('click', () => {
