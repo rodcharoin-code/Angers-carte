@@ -185,7 +185,7 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
     }
 ];
 
-// TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON)
+// TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON) - AVEC EXTENSION PARC DU MAIL
 const circuitTrace = [
     [-0.558385, 47.469357], [-0.558062, 47.469717], [-0.558092, 47.469722],
     [-0.558055, 47.469774], [-0.55804, 47.46986], [-0.558081, 47.469951],
@@ -243,7 +243,27 @@ const circuitTrace = [
     [-0.54636, 47.470726], [-0.546256, 47.470523], [-0.546303, 47.470453],
     [-0.545814, 47.470286], [-0.545737, 47.47034], [-0.545662, 47.47035],
     [-0.545601, 47.470341], [-0.545522, 47.47029], [-0.545361, 47.470464],
-    [-0.545021, 47.47035], [-0.545361, 47.470464], [-0.545522, 47.47029],
+    [-0.545021, 47.47035],
+    
+    // 🆕 DÉBUT EXTENSION PARC DU MAIL (ALLER)
+    [-0.544866, 47.470319],  // Point 1 - Votre coordonnée
+    [-0.545061, 47.470011],  // Point 2 - Votre coordonnée
+    [-0.543467, 47.469473],  // Point 3 - Votre coordonnée
+    [-0.541123, 47.468663],  // Point 4 - Votre coordonnée
+    [-0.538944, 47.467936],  // Point 5 - Votre coordonnée
+    [-0.536972, 47.467300],  // Point 6 - 🎯 POINT FINAL (votre coordonnée)
+    
+    // 🔄 RETOUR (DEMI-TOUR)
+    [-0.538944, 47.467936],  // Retour Point 5
+    [-0.541123, 47.468663],  // Retour Point 4
+    [-0.543467, 47.469473],  // Retour Point 3
+    [-0.545061, 47.470011],  // Retour Point 2
+    [-0.544866, 47.470319],  // Retour Point 1
+    [-0.545021, 47.47035],   // Retour sur le tracé principal
+    // 🆕 FIN EXTENSION
+    
+    // ✅ REPRISE DU TRACÉ ORIGINAL
+    [-0.545361, 47.470464], [-0.545522, 47.47029],
     [-0.545601, 47.470341], [-0.545662, 47.47035], [-0.545737, 47.47034],
     [-0.545814, 47.470286], [-0.546303, 47.470453], [-0.546367, 47.470382],
     [-0.546629, 47.470319], [-0.546804, 47.470381], [-0.546893, 47.470253],
