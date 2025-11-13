@@ -851,7 +851,7 @@ function addMarkers() {
                         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(39,174,96,0.5)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(39,174,96,0.3)'"
                     >
-                        🌍 ODD
+                        🌍 Objectif du développement durable (ODD)
                     </button>
 
                     ${boutonSavoirPlus}
