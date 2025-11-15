@@ -206,7 +206,7 @@ const parkingsAngers = [
 function createParkingIcon() {
     return L.divIcon({
         className: 'parking-marker-simple',
-        html: '<div style="font-size: 28px;">🅿️</div>',
+        html: '<div style="font-size: 20px;">🅿️</div>',
         iconSize: [30, 30],
         iconAnchor: [15, 15]
     });
@@ -227,11 +227,11 @@ function addParkingMarkers() {
                     🅿️ Parking ${parking.nom}
                 </h3>
                 
-                <div style="background: #f0f4ff; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
+                <div style="background: #f0f4ff; padding: 8px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
                     <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 15px;">
                         📊 Nombre de places
                     </div>
-                    <div style="font-size: 24px; font-weight: bold; color: #3498db;">
+                    <div style="font-size: 24px; line-height: 0.5; font-weight: bold; color: #555;">
                         ${parking.places} places
                     </div>
                 </div>
@@ -240,7 +240,7 @@ function addParkingMarkers() {
                     <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
                         🕐 Horaires
                     </div>
-                    <div style="font-size: 13px; line-height: 1.6; color: #555;">
+                    <div style="font-size: 13px; line-height: 0.5; font-weight: bold; color: #555;">
                         ${parking.horaires}
                     </div>
                 </div>
@@ -249,7 +249,7 @@ function addParkingMarkers() {
                     <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
                         💰 Tarifs
                     </div>
-                    <div style="font-size: 13px; line-height: 1.6; color: #555;">
+                    <div style="font-size: 13px; line-height: 0.5; font-weight: bold; color: #555;">
                         ${parking.tarifs}
                     </div>
                 </div>
