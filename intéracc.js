@@ -175,18 +175,36 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
 ];
 
 // ===========================================
-// PARKINGS ANGERS - Données en temps réel
+// PARKINGS ANGERS - Coordonnées fixes + disponibilité temps réel
 // ===========================================
 
 let parkingMarkers = [];
+let parkingData = {}; // Stocker les données de disponibilité
+
+// Coordonnées GPS fixes des parkings d'Angers
+const parkingsCoords = {
+    'P+R Rive Gauche': { coords: [47.472213, -0.547033], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Mail': { coords: [47.472213, -0.547033], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Saint-Laud 1': { coords: [47.471389, -0.555556], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Saint-Laud 2': { coords: [47.472222, -0.556389], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Ralliement': { coords: [47.469722, -0.554167], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Molière': { coords: [47.467222, -0.551389], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Fleur d\'Eau / Les Halles': { coords: [47.468611, -0.559722], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Marengo': { coords: [47.470833, -0.551944], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Haras Patinoire': { coords: [47.474722, -0.543889], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Bressigny': { coords: [47.468333, -0.546667], horaires: "Lun-Sam : 7h-20h<br>Dimanche : Fermé", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 8,00€" }
+};
 
 // Icône personnalisée pour les parkings
-function createParkingIcon(available, total) {
-    const percentage = (available / total) * 100;
-    let color = '#27ae60'; // Vert si > 30%
+function createParkingIcon(disponible, total) {
+    let color = '#95a5a6'; // Gris par défaut
     
-    if (percentage < 10) color = '#e74c3c'; // Rouge si < 10%
-    else if (percentage < 30) color = '#f39c12'; // Orange si < 30%
+    if (total > 0) {
+        const percentage = (disponible / total) * 100;
+        if (percentage > 30) color = '#27ae60'; // Vert
+        else if (percentage > 10) color = '#f39c12'; // Orange
+        else color = '#e74c3c'; // Rouge
+    }
     
     return L.divIcon({
         className: 'parking-marker',
@@ -204,17 +222,31 @@ function createParkingIcon(available, total) {
             border: 3px solid white;
             box-shadow: 0 3px 10px rgba(0,0,0,0.4);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s;
         ">🅿️</div>`,
         iconSize: [36, 36],
         iconAnchor: [18, 18]
     });
 }
 
-// Récupérer les données des parkings
-async function loadParkingData() {
+// Fonction pour trouver le nom de parking correspondant
+function findParkingName(apiName) {
+    const normalizedApiName = apiName.toLowerCase().trim();
+    
+    for (let parkingName in parkingsCoords) {
+        const normalizedParkingName = parkingName.toLowerCase();
+        if (normalizedApiName.includes(normalizedParkingName) || normalizedParkingName.includes(normalizedApiName)) {
+            return parkingName;
+        }
+    }
+    
+    return null;
+}
+
+// Récupérer les données de disponibilité depuis l'API
+async function fetchParkingAvailability() {
     try {
-        console.log('🅿️ Tentative de récupération des données parkings...');
+        console.log('🔄 Récupération des places disponibles...');
         
         const response = await fetch('https://data.angers.fr/api/explore/v2.1/catalog/datasets/parking-angers/records?limit=100');
         
@@ -223,126 +255,144 @@ async function loadParkingData() {
         }
         
         const data = await response.json();
-        
-        console.log('📦 Réponse API complète:', data);
-        console.log('🅿️ Données parkings récupérées:', data.results?.length || 0, 'parkings');
+        console.log('📦 Données API reçues:', data);
         
         if (!data.results || data.results.length === 0) {
-            console.warn('⚠️ Aucun parking trouvé dans les données');
-            return;
+            console.warn('⚠️ Aucune donnée de disponibilité');
+            return {};
         }
         
-        // Effacer les anciens marqueurs
-        parkingMarkers.forEach(marker => map.removeLayer(marker));
-        parkingMarkers = [];
+        // Créer un objet avec les disponibilités
+        const availability = {};
         
-        data.results.forEach((parking, index) => {
-            console.log(`Parking ${index}:`, parking);
+        data.results.forEach(parking => {
+            const nom = parking.grp_nom || parking.nom || '';
+            const disponible = parking.grp_disponible || parking.disponible || 0;
+            const total = parking.grp_exploitation || parking.exploitation || parking.total || 0;
             
-            // Vérifier différentes structures possibles
-            const coords = parking.grp_coordonnees?.coordinates || 
-                          parking.coordonnees?.coordinates ||
-                          parking.geo_point_2d;
-            
-            if (!coords) {
-                console.warn(`❌ Pas de coordonnées pour:`, parking);
-                return;
+            if (nom) {
+                availability[nom] = {
+                    disponible: disponible,
+                    total: total
+                };
+                console.log(`📊 ${nom}: ${disponible}/${total} places`);
             }
-            
-            let lat, lon;
-            
-            // Gérer différents formats de coordonnées
-            if (Array.isArray(coords)) {
-                lon = coords[0];
-                lat = coords[1];
-            } else if (coords.lat && coords.lon) {
-                lat = coords.lat;
-                lon = coords.lon;
-            } else {
-                console.warn(`❌ Format de coordonnées inconnu:`, coords);
-                return;
-            }
-            
-            const nom = parking.grp_nom || parking.nom || parking.name || 'Parking sans nom';
-            const disponible = parking.grp_disponible || parking.disponible || parking.available || 0;
-            const exploitation = parking.grp_exploitation || parking.exploitation || parking.total || 0;
-            
-            console.log(`✅ Ajout parking: ${nom} - ${disponible}/${exploitation} places à [${lat}, ${lon}]`);
-            
-            // Horaires et tarifs
-            const horaires = getHorairesParking(nom);
-            const tarifs = getTarifParking(nom);
-            
-            const marker = L.marker([lat, lon], {
-                icon: createParkingIcon(disponible, exploitation)
-            });
-            
-            const popupContent = `
-                <div class="popup-content" style="min-width: 280px;">
-                    <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px;">
-                        🅿️ ${nom}
-                    </h3>
-                    
-                    <div style="background: #f0f4ff; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
-                        <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 15px;">
-                            📊 Places disponibles
-                        </div>
-                        <div style="font-size: 24px; font-weight: bold; color: #3498db;">
-                            ${disponible} / ${exploitation}
-                        </div>
-                    </div>
-                    
-                    <div style="background: #fff8e1; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #ffc107;">
-                        <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
-                            🕐 Horaires
-                        </div>
-                        <div style="font-size: 13px; line-height: 1.6; color: #555;">
-                            ${horaires}
-                        </div>
-                    </div>
-                    
-                    <div style="background: #e8f5e9; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
-                        <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
-                            💰 Tarifs
-                        </div>
-                        <div style="font-size: 13px; line-height: 1.6; color: #555;">
-                            ${tarifs}
-                        </div>
-                    </div>
-                    
-                    <div style="font-size: 11px; color: #95a5a6; margin-top: 12px; text-align: center;">
-                        ⏱️ Données mises à jour en temps réel
-                    </div>
-                </div>
-            `;
-            
-            marker.bindPopup(popupContent, {
-                maxWidth: 320,
-                className: 'custom-popup'
-            });
-            
-            // Effet hover
-            marker.on('mouseover', function() {
-                const element = this.getElement();
-                if (element) element.style.transform = 'scale(1.15)';
-            });
-            
-            marker.on('mouseout', function() {
-                const element = this.getElement();
-                if (element) element.style.transform = 'scale(1)';
-            });
-            
-            marker.addTo(map);
-            parkingMarkers.push(marker);
         });
         
-        console.log('✅ TOTAL:', parkingMarkers.length, 'parkings ajoutés sur la carte');
+        return availability;
         
     } catch (error) {
-        console.error('❌ Erreur lors du chargement des parkings:', error);
-        console.error('Détails:', error.message);
+        console.error('❌ Erreur lors de la récupération des données:', error);
+        return {};
     }
 }
+
+// Créer ou mettre à jour les marqueurs
+async function updateParkingMarkers() {
+    console.log('🅿️ Mise à jour des parkings...');
+    
+    // Récupérer les disponibilités
+    parkingData = await fetchParkingAvailability();
+    
+    // Effacer les anciens marqueurs
+    parkingMarkers.forEach(marker => map.removeLayer(marker));
+    parkingMarkers = [];
+    
+    let compteur = 0;
+    
+    // Créer les marqueurs pour chaque parking
+    for (let parkingName in parkingsCoords) {
+        const parkingInfo = parkingsCoords[parkingName];
+        const coords = parkingInfo.coords;
+        
+        // Chercher les données de disponibilité correspondantes
+        let disponible = 0;
+        let total = 0;
+        
+        // Essayer de trouver les données correspondantes dans l'API
+        for (let apiName in parkingData) {
+            if (apiName.toLowerCase().includes(parkingName.toLowerCase()) || 
+                parkingName.toLowerCase().includes(apiName.toLowerCase())) {
+                disponible = parkingData[apiName].disponible;
+                total = parkingData[apiName].total;
+                break;
+            }
+        }
+        
+        const marker = L.marker(coords, {
+            icon: createParkingIcon(disponible, total)
+        });
+        
+        const popupContent = `
+            <div class="popup-content" style="min-width: 280px;">
+                <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px;">
+                    🅿️ ${parkingName}
+                </h3>
+                
+                <div style="background: #f0f4ff; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
+                    <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 15px;">
+                        📊 Places disponibles
+                    </div>
+                    <div style="font-size: 24px; font-weight: bold; color: #3498db;" id="places-${parkingName.replace(/[^a-zA-Z0-9]/g, '')}">
+                        ${disponible > 0 ? `${disponible} / ${total}` : 'Chargement...'}
+                    </div>
+                </div>
+                
+                <div style="background: #fff8e1; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #ffc107;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
+                        🕐 Horaires
+                    </div>
+                    <div style="font-size: 13px; line-height: 1.6; color: #555;">
+                        ${parkingInfo.horaires}
+                    </div>
+                </div>
+                
+                <div style="background: #e8f5e9; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
+                        💰 Tarifs
+                    </div>
+                    <div style="font-size: 13px; line-height: 1.6; color: #555;">
+                        ${parkingInfo.tarifs}
+                    </div>
+                </div>
+                
+                <div style="font-size: 11px; color: #95a5a6; margin-top: 12px; text-align: center;">
+                    ⏱️ Mis à jour toutes les 4 minutes
+                </div>
+            </div>
+        `;
+        
+        marker.bindPopup(popupContent, {
+            maxWidth: 320,
+            className: 'custom-popup'
+        });
+        
+        // Effet hover
+        marker.on('mouseover', function() {
+            const element = this.getElement();
+            if (element) element.style.transform = 'scale(1.15)';
+        });
+        
+        marker.on('mouseout', function() {
+            const element = this.getElement();
+            if (element) element.style.transform = 'scale(1)';
+        });
+        
+        marker.addTo(map);
+        parkingMarkers.push(marker);
+        compteur++;
+    }
+    
+    console.log(`✅ ${compteur} parkings affichés sur la carte`);
+}
+
+// Lancer au démarrage
+updateParkingMarkers();
+
+// Actualiser toutes les 4 minutes (240000 ms)
+setInterval(updateParkingMarkers, 240000);
+
+console.log('✅ Système de parking initialisé - Actualisation toutes les 4 minutes');
 
 // Fonction pour obtenir les horaires selon le parking
 function getHorairesParking(nom) {
