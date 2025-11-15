@@ -175,72 +175,34 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
 ];
 
 // ===========================================
-// PARKINGS ANGERS - Coordonnées fixes + disponibilité temps réel
+// PARKINGS ANGERS - Coordonnées officielles + disponibilité temps réel
 // ===========================================
 
 let parkingMarkers = [];
-let parkingData = {}; // Stocker les données de disponibilité
+let parkingData = {};
 
-// Coordonnées GPS fixes des parkings d'Angers
+// Coordonnées GPS officielles des parkings d'Angers (depuis le CSV officiel)
 const parkingsCoords = {
-    'P+R Rive Gauche': { coords: [47.472213, -0.547033], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Mail': { coords: [47.472213, -0.547033], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Saint-Laud 1': { coords: [47.471389, -0.555556], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Saint-Laud 2': { coords: [47.472222, -0.556389], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Ralliement': { coords: [47.469722, -0.554167], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Molière': { coords: [47.467222, -0.551389], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Fleur d\'Eau / Les Halles': { coords: [47.468611, -0.559722], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Marengo': { coords: [47.470833, -0.551944], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Haras Patinoire': { coords: [47.474722, -0.543889], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Bressigny': { coords: [47.468333, -0.546667], horaires: "Lun-Sam : 7h-20h<br>Dimanche : Fermé", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 8,00€" }
+    'Fleur d\'Eau Les Halles': { coords: [47.4725623676, -0.5549583804], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    'Leclerc': { coords: [47.47144192, -0.5460560826], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    'Ralliement': { coords: [47.4712242886, -0.5518064832], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    'Mail': { coords: [47.4712547046, -0.544924904], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    'Molière': { coords: [47.4746632157, -0.5542768918], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    'Marengo': { coords: [47.4648842682, -0.55482318], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    'Haras': { coords: [47.4648996364, -0.5537654166], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    'St Laud': { coords: [47.4644889197, -0.5589430207], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    'Bressigny': { coords: [47.4673424819, -0.5493422409], horaires: "Lun-Sam : 7h-20h<br>Dimanche : Fermé", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• Journée : 8,00€" },
+    'St Laud II': { coords: [47.4640438607, -0.5605046723], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" }
 };
 
-// Icône personnalisée pour les parkings
-function createParkingIcon(disponible, total) {
-    let color = '#95a5a6'; // Gris par défaut
-    
-    if (total > 0) {
-        const percentage = (disponible / total) * 100;
-        if (percentage > 30) color = '#27ae60'; // Vert
-        else if (percentage > 10) color = '#f39c12'; // Orange
-        else color = '#e74c3c'; // Rouge
-    }
-    
+// Icône simple - juste l'emoji parking
+function createParkingIcon() {
     return L.divIcon({
-        className: 'parking-marker',
-        html: `<div style="
-            background: ${color};
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-            border: 3px solid white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
-            cursor: pointer;
-            transition: all 0.3s;
-        ">🅿️</div>`,
-        iconSize: [36, 36],
-        iconAnchor: [18, 18]
+        className: 'parking-marker-simple',
+        html: '<div style="font-size: 28px;">🅿️</div>',
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
     });
-}
-
-// Fonction pour trouver le nom de parking correspondant
-function findParkingName(apiName) {
-    const normalizedApiName = apiName.toLowerCase().trim();
-    
-    for (let parkingName in parkingsCoords) {
-        const normalizedParkingName = parkingName.toLowerCase();
-        if (normalizedApiName.includes(normalizedParkingName) || normalizedParkingName.includes(normalizedApiName)) {
-            return parkingName;
-        }
-    }
-    
-    return null;
 }
 
 // Récupérer les données de disponibilité depuis l'API
@@ -262,7 +224,6 @@ async function fetchParkingAvailability() {
             return {};
         }
         
-        // Créer un objet avec les disponibilités
         const availability = {};
         
         data.results.forEach(parking => {
@@ -291,50 +252,62 @@ async function fetchParkingAvailability() {
 async function updateParkingMarkers() {
     console.log('🅿️ Mise à jour des parkings...');
     
-    // Récupérer les disponibilités
     parkingData = await fetchParkingAvailability();
     
-    // Effacer les anciens marqueurs
     parkingMarkers.forEach(marker => map.removeLayer(marker));
     parkingMarkers = [];
     
     let compteur = 0;
     
-    // Créer les marqueurs pour chaque parking
     for (let parkingName in parkingsCoords) {
         const parkingInfo = parkingsCoords[parkingName];
         const coords = parkingInfo.coords;
         
-        // Chercher les données de disponibilité correspondantes
         let disponible = 0;
         let total = 0;
+        let found = false;
         
-        // Essayer de trouver les données correspondantes dans l'API
+        // Recherche correspondance avec l'API
         for (let apiName in parkingData) {
-            if (apiName.toLowerCase().includes(parkingName.toLowerCase()) || 
-                parkingName.toLowerCase().includes(apiName.toLowerCase())) {
+            const apiNameLower = apiName.toLowerCase();
+            const parkingNameLower = parkingName.toLowerCase();
+            
+            // Correspondances spéciales
+            if ((parkingNameLower.includes('fleur') && apiNameLower.includes('fleur')) ||
+                (parkingNameLower.includes('leclerc') && apiNameLower.includes('leclerc')) ||
+                (parkingNameLower.includes('ralliement') && apiNameLower.includes('ralliement')) ||
+                (parkingNameLower.includes('mail') && apiNameLower.includes('mail') && !apiNameLower.includes('berges')) ||
+                (parkingNameLower.includes('molière') && apiNameLower.includes('moliere')) ||
+                (parkingNameLower.includes('marengo') && apiNameLower.includes('marengo')) ||
+                (parkingNameLower.includes('haras') && apiNameLower.includes('haras')) ||
+                (parkingNameLower === 'st laud' && apiNameLower.includes('saint-laud 1')) ||
+                (parkingNameLower === 'st laud ii' && apiNameLower.includes('saint-laud 2')) ||
+                (parkingNameLower.includes('bressigny') && apiNameLower.includes('bressigny'))) {
+                
                 disponible = parkingData[apiName].disponible;
                 total = parkingData[apiName].total;
+                found = true;
+                console.log(`✅ Correspondance trouvée: ${parkingName} <-> ${apiName}`);
                 break;
             }
         }
         
         const marker = L.marker(coords, {
-            icon: createParkingIcon(disponible, total)
+            icon: createParkingIcon()
         });
         
         const popupContent = `
             <div class="popup-content" style="min-width: 280px;">
                 <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px;">
-                    🅿️ ${parkingName}
+                    🅿️ Parking ${parkingName}
                 </h3>
                 
                 <div style="background: #f0f4ff; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
                     <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 15px;">
                         📊 Places disponibles
                     </div>
-                    <div style="font-size: 24px; font-weight: bold; color: #3498db;" id="places-${parkingName.replace(/[^a-zA-Z0-9]/g, '')}">
-                        ${disponible > 0 ? `${disponible} / ${total}` : 'Chargement...'}
+                    <div style="font-size: 24px; font-weight: bold; color: ${found && disponible > 0 ? '#27ae60' : '#e74c3c'};">
+                        ${found ? `${disponible} / ${total}` : 'Non disponible'}
                     </div>
                 </div>
                 
@@ -367,17 +340,6 @@ async function updateParkingMarkers() {
             className: 'custom-popup'
         });
         
-        // Effet hover
-        marker.on('mouseover', function() {
-            const element = this.getElement();
-            if (element) element.style.transform = 'scale(1.15)';
-        });
-        
-        marker.on('mouseout', function() {
-            const element = this.getElement();
-            if (element) element.style.transform = 'scale(1)';
-        });
-        
         marker.addTo(map);
         parkingMarkers.push(marker);
         compteur++;
@@ -393,60 +355,6 @@ updateParkingMarkers();
 setInterval(updateParkingMarkers, 240000);
 
 console.log('✅ Système de parking initialisé - Actualisation toutes les 4 minutes');
-
-// Fonction pour obtenir les horaires selon le parking
-function getHorairesParking(nom) {
-    const horairesSpeciaux = {
-        'Saint-Laud 1': '24h/24 - 7j/7',
-        'Saint-Laud 2': '24h/24 - 7j/7',
-        'Mail': '24h/24 - 7j/7',
-        'Ralliement': '24h/24 - 7j/7',
-        'Molière': '24h/24 - 7j/7',
-        'Fleur d\'Eau': '24h/24 - 7j/7',
-        'Les Halles': '24h/24 - 7j/7',
-        'Marengo': '24h/24 - 7j/7',
-        'Haras': '24h/24 - 7j/7',
-        'Bressigny': 'Lun-Sam : 7h-20h<br>Dimanche : Fermé'
-    };
-    
-    for (let [key, value] of Object.entries(horairesSpeciaux)) {
-        if (nom.toLowerCase().includes(key.toLowerCase())) {
-            return value;
-        }
-    }
-    
-    return '24h/24 - 7j/7';
-}
-
-// Fonction pour obtenir les tarifs selon le parking
-function getTarifParking(nom) {
-    const tarifs = {
-        'Saint-Laud 1': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Saint-Laud 2': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Mail': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Ralliement': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Molière': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Fleur d\'Eau': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Les Halles': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Marengo': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Haras': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
-        'Bressigny': '• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 8,00€'
-    };
-    
-    for (let [key, value] of Object.entries(tarifs)) {
-        if (nom.toLowerCase().includes(key.toLowerCase())) {
-            return value;
-        }
-    }
-    
-    return '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€';
-}
-
-// Charger les parkings au démarrage
-loadParkingData();
-
-// Actualiser toutes les 2 minutes
-setInterval(loadParkingData, 120000);
 
 // TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON) - AVEC EXTENSION PARC DU MAIL
 const circuitTrace = [
