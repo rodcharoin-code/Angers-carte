@@ -796,7 +796,7 @@ function addMarkers() {
                     color: white;
                     border: none;
                     padding: 8px 15px;
-                    border-radius: 20px;
+                    border-radius: 15px;
                     cursor: pointer;
                     font-weight: bold;
                     font-size: 14px;
@@ -830,7 +830,7 @@ function addMarkers() {
                             color: white;
                             border: none;
                             padding: 8px 15px;
-                            border-radius: 20px;
+                            border-radius: 15px;
                             cursor: pointer;
                             font-weight: bold;
                             font-size: 14px;
