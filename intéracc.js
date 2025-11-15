@@ -277,11 +277,10 @@ let stationsMarkers = [];
 // Stations vélo Irigo
 const stationsVelo = [
     { coords: [47.47478, -0.55433], nom: "Station Vélo 1" },
-    { coords: [47.47250, -0.55472], nom: "Station Vélo 2" },
-    { coords: [47.46917, -0.55722], nom: "Station Vélo 3" },
-    { coords: [47.46444, -0.55472], nom: "Station Vélo 4" },
-    { coords: [47.46444, -0.55889], nom: "Station Vélo 5" },
-    { coords: [47.46361, -0.56167], nom: "Station Vélo 6" }
+    { coords: [47.47257665809736, -0.5550048302703734], nom: "Station Vélo 2" },
+    { coords: [47.46930517494239, -0.5572719069406034], nom: "Station Vélo 3" },
+    { coords: [47.46467964809746, -0.5547610585035498], nom: "Station Vélo 4" },
+    { coords: [47.46450663645139, -0.5589971017252637], nom: "Station Vélo 5" },
 ];
 
 // Icône vélo
