@@ -795,7 +795,7 @@ function addMarkers() {
                     background: linear-gradient(45deg, #3498db, #2980b9);
                     color: white;
                     border: none;
-                    padding: 10px 20px;
+                    padding: 8px 15px;
                     border-radius: 20px;
                     cursor: pointer;
                     font-weight: bold;
@@ -829,7 +829,7 @@ function addMarkers() {
                             background: linear-gradient(45deg, #27ae60, #2ecc71);
                             color: white;
                             border: none;
-                            padding: 10px 15px;
+                            padding: 8px 15px;
                             border-radius: 20px;
                             cursor: pointer;
                             font-weight: bold;
