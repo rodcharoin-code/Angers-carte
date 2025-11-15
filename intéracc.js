@@ -221,36 +221,7 @@ function addParkingMarkers() {
             icon: createParkingIcon()
         });
               
-       const popupContent = `
-            <div class="popup-content" style="min-width: 280px;">
-                <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px;">
-                    🅿️ Parking ${parking.nom}
-                </h3>
-                
-                <div style="background: #f0f4ff; padding: 8px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
-                    <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 15px;">
-                        📊 Nombre de places
-                    </div>
-                    <div style="font-size: 24px; line-height: 0.5; font-weight: bold; color: #555;">
-                        ${parking.places} places
-                    </div>
-                </div>
-                
-                <div style="background: #fff8e1; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #ffc107;">
-                    <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
-                        🕐 Horaires
-                    </div>
-                    <div style="font-size: 13px; line-height: 1.5; font-weight: bold; color: #555;">
-                        ${parking.horaires}
-                    </div>
-                </div>
-                
-                <div style="background: ${parking.gratuit ? '#e8f5e9' : '#e8f5e9'}; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
-                    <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
-                        💰 Tarifs
-                    </div>
-                    <div style="font-size: 13px; line-height: 1.5; font-weight: bold; color: #555;">
-                        ${parking.tarifs}
+       const popupContent = `<div class="popup-content" style="min-width: 220px;"><h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 16px;">🅿️ Parking ${parking.nom}</h3><div style="background: #f0f4ff; padding: 10px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #3498db;"><div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 17px; line-height: 1.4;">📊 Nombre de places</div><div style="font-size: 16px; color: #34495e; line-height: 1.4; white-space: pre-line;">${parking.places} places</div></div><div style="background: #fff8e1; padding: 10px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #ffc107;"><div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 17px; line-height: 1.4;">🕐 Horaires</div><div style="font-size: 16px; color: #34495e; line-height: 1.4; white-space: pre-line; text-align: justify;">${parking.horaires}</div></div><div style="background: #e8f5e9; padding: 10px; border-radius: 8px; border-left: 4px solid #4caf50;"><div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 17px; line-height: 1.4;">💰 Tarifs</div><div style="font-size: 16px; color: #34495e; line-height: 1.4; white-space: pre-line; text-align: justify;">${parking.tarifs}</div></div></div>`;
                     </div>
                 </div>
             </div>
