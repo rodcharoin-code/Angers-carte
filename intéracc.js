@@ -240,7 +240,7 @@ function addParkingMarkers() {
                     <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
                         🕐 Horaires
                     </div>
-                    <div style="font-size: 13px; line-height: 0.5; font-weight: bold; color: #555;">
+                    <div style="font-size: 13px; line-height: 1.5; font-weight: bold; color: #555;">
                         ${parking.horaires}
                     </div>
                 </div>
@@ -249,7 +249,7 @@ function addParkingMarkers() {
                     <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
                         💰 Tarifs
                     </div>
-                    <div style="font-size: 13px; line-height: 0.5; font-weight: bold; color: #555;">
+                    <div style="font-size: 13px; line-height: 1.5; font-weight: bold; color: #555;">
                         ${parking.tarifs}
                     </div>
                 </div>
