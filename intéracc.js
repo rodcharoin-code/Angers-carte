@@ -268,6 +268,83 @@ function addParkingMarkers() {
     console.log(`✅ ${parkingMarkers.length} parkings affichés sur la carte`);
 }
 
+// ===========================================
+// STATIONS VÉLO ET GARE
+// ===========================================
+
+let stationsMarkers = [];
+
+// Stations vélo Irigo
+const stationsVelo = [
+    { coords: [47.4748, -0.5543], nom: "Station Vélo 1" },
+    { coords: [47.4725, -0.5547], nom: "Station Vélo 2" },
+    { coords: [47.4692, -0.5572], nom: "Station Vélo 3" },
+    { coords: [47.4644, -0.5547], nom: "Station Vélo 4" },
+    { coords: [47.4644, -0.5589], nom: "Station Vélo 5" },
+    { coords: [47.4636, -0.5617], nom: "Station Vélo 6" }
+];
+
+// Icône vélo
+function createVeloIcon() {
+    return L.divIcon({
+        className: 'velo-marker',
+        html: '<div style="font-size: 28px;">🚲</div>',
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+    });
+}
+
+// Icône train
+function createTrainIcon() {
+    return L.divIcon({
+        className: 'train-marker',
+        html: '<div style="font-size: 32px;">🚉</div>',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17]
+    });
+}
+
+// Ajouter les stations vélo
+function addStationsVelo() {
+    stationsVelo.forEach(station => {
+        const marker = L.marker(station.coords, {
+            icon: createVeloIcon()
+        });
+        
+        const popupContent = `<div style="text-align: center; padding: 10px; min-width: 200px;"><h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 16px;">🚲 ${station.nom}</h3><div style="font-size: 13px; color: #555; line-height: 1.5;">Station de vélos en libre-service<br><strong>Irigo Vélo</strong></div></div>`;
+        
+        marker.bindPopup(popupContent, {
+            maxWidth: 250,
+            className: 'custom-popup'
+        });
+        
+        marker.addTo(map);
+        stationsMarkers.push(marker);
+    });
+    
+    console.log(`✅ ${stationsVelo.length} stations vélo ajoutées`);
+}
+
+// Ajouter la gare
+function addGare() {
+    const gareMarker = L.marker([47.4642, -0.5564], {
+        icon: createTrainIcon()
+    });
+    
+    const popupContent = `<div style="padding: 12px; min-width: 280px;"><h3 style="margin: 0 0 12px 0; color: #2c3e50; font-size: 17px; text-align: center;">🚂 Gare d'Angers Saint-Laud</h3><div style="background: #e3f2fd; padding: 10px; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid #2196f3;"><div style="font-weight: bold; margin-bottom: 5px; color: #1976d2; font-size: 14px;">🚄 Destinations principales</div><div style="font-size: 13px; color: #555; line-height: 1.6;">• <strong>Paris</strong> (1h30 en TGV)<br>• <strong>Nantes</strong> (40 min)<br>• <strong>Rennes</strong> (1h15)<br>• <strong>Le Mans</strong> (40 min)<br>• <strong>Tours</strong> (45 min)<br>• <strong>La Rochelle</strong> (1h30)</div></div><div style="background: #fff3e0; padding: 10px; border-radius: 6px; border-left: 3px solid #ff9800;"><div style="font-weight: bold; margin-bottom: 5px; color: #f57c00; font-size: 14px;">📍 Distance au circuit</div><div style="font-size: 14px; color: #555;"><strong>10 minutes à pied</strong> du départ du circuit touristique</div></div></div>`;
+    
+    gareMarker.bindPopup(popupContent, {
+        maxWidth: 320,
+        className: 'custom-popup'
+    });
+    
+    gareMarker.addTo(map);
+    stationsMarkers.push(gareMarker);
+    
+    console.log('✅ Gare d\'Angers ajoutée');
+}
+
+
 // TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON) - AVEC EXTENSION PARC DU MAIL
 const circuitTrace = [
     [-0.558385, 47.469357], [-0.558062, 47.469717], [-0.558092, 47.469722],
@@ -402,6 +479,8 @@ function addCircuitFromGeoJSON() {
 addMarkers();
 addCircuitFromGeoJSON();
 addParkingMarkers();
+addStationsVelo();
+addGare();
 
 // 🎯 FORCER LE RECALCUL DE LA CARTE APRÈS CHARGEMENT
 setTimeout(() => {
