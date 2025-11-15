@@ -492,6 +492,7 @@ function addCircuitFromGeoJSON() {
 
 addMarkers();
 addCircuitFromGeoJSON();
+loadParkingData();
 
 // 🎯 FORCER LE RECALCUL DE LA CARTE APRÈS CHARGEMENT
 setTimeout(() => {
