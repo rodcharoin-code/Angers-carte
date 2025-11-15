@@ -268,9 +268,6 @@ function addParkingMarkers() {
     console.log(`✅ ${parkingMarkers.length} parkings affichés sur la carte`);
 }
 
-// Lancer au chargement
-addParkingMarkers();
-
 // TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON) - AVEC EXTENSION PARC DU MAIL
 const circuitTrace = [
     [-0.558385, 47.469357], [-0.558062, 47.469717], [-0.558092, 47.469722],
@@ -404,6 +401,7 @@ function addCircuitFromGeoJSON() {
 
 addMarkers();
 addCircuitFromGeoJSON();
+addParkingMarkers();
 
 // 🎯 FORCER LE RECALCUL DE LA CARTE APRÈS CHARGEMENT
 setTimeout(() => {
