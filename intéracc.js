@@ -214,24 +214,60 @@ function createParkingIcon(available, total) {
 // Récupérer les données des parkings
 async function loadParkingData() {
     try {
+        console.log('🅿️ Tentative de récupération des données parkings...');
+        
         const response = await fetch('https://data.angers.fr/api/explore/v2.1/catalog/datasets/parking-angers/records?limit=100');
+        
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        
         const data = await response.json();
         
-        console.log('🅿️ Données parkings récupérées:', data.results.length, 'parkings');
+        console.log('📦 Réponse API complète:', data);
+        console.log('🅿️ Données parkings récupérées:', data.results?.length || 0, 'parkings');
+        
+        if (!data.results || data.results.length === 0) {
+            console.warn('⚠️ Aucun parking trouvé dans les données');
+            return;
+        }
         
         // Effacer les anciens marqueurs
         parkingMarkers.forEach(marker => map.removeLayer(marker));
         parkingMarkers = [];
         
-        data.results.forEach(parking => {
-            const coords = parking.grp_coordonnees?.coordinates;
-            if (!coords) return;
+        data.results.forEach((parking, index) => {
+            console.log(`Parking ${index}:`, parking);
             
-            const lat = coords[1];
-            const lon = coords[0];
-            const nom = parking.grp_nom || 'Parking sans nom';
-            const disponible = parking.grp_disponible || 0;
-            const exploitation = parking.grp_exploitation || 0;
+            // Vérifier différentes structures possibles
+            const coords = parking.grp_coordonnees?.coordinates || 
+                          parking.coordonnees?.coordinates ||
+                          parking.geo_point_2d;
+            
+            if (!coords) {
+                console.warn(`❌ Pas de coordonnées pour:`, parking);
+                return;
+            }
+            
+            let lat, lon;
+            
+            // Gérer différents formats de coordonnées
+            if (Array.isArray(coords)) {
+                lon = coords[0];
+                lat = coords[1];
+            } else if (coords.lat && coords.lon) {
+                lat = coords.lat;
+                lon = coords.lon;
+            } else {
+                console.warn(`❌ Format de coordonnées inconnu:`, coords);
+                return;
+            }
+            
+            const nom = parking.grp_nom || parking.nom || parking.name || 'Parking sans nom';
+            const disponible = parking.grp_disponible || parking.disponible || parking.available || 0;
+            const exploitation = parking.grp_exploitation || parking.exploitation || parking.total || 0;
+            
+            console.log(`✅ Ajout parking: ${nom} - ${disponible}/${exploitation} places à [${lat}, ${lon}]`);
             
             // Horaires et tarifs
             const horaires = getHorairesParking(nom);
@@ -287,21 +323,24 @@ async function loadParkingData() {
             
             // Effet hover
             marker.on('mouseover', function() {
-                this.getElement().style.transform = 'scale(1.15)';
+                const element = this.getElement();
+                if (element) element.style.transform = 'scale(1.15)';
             });
             
             marker.on('mouseout', function() {
-                this.getElement().style.transform = 'scale(1)';
+                const element = this.getElement();
+                if (element) element.style.transform = 'scale(1)';
             });
             
             marker.addTo(map);
             parkingMarkers.push(marker);
         });
         
-        console.log('✅', parkingMarkers.length, 'parkings ajoutés sur la carte');
+        console.log('✅ TOTAL:', parkingMarkers.length, 'parkings ajoutés sur la carte');
         
     } catch (error) {
         console.error('❌ Erreur lors du chargement des parkings:', error);
+        console.error('Détails:', error.message);
     }
 }
 
