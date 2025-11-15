@@ -60,7 +60,7 @@ En lien constant avec la Ligue pour la Protection des Oiseaux (LPO), le Château
 La flore est très présente au sein du site avec 150 espèces recensées. Les orchidées, par exemple, sont représentées par l'ophrys abeille, l'orchis singe et l'orchis bouc. Des espèces de fougères sont également présentes, tout particulièrement au niveau des remparts. 
 
 Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte  ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.`,
-        image: "https://rodcharoin-code.github.io/Angers-carte/images/château.jpg",
+        image: "https://rodcharoin-code.github.io/Angers-carte/images/ch%C3%A2teau.jpg",
         etapeId: "etape-2"
     },
     
