@@ -174,6 +174,191 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
     }
 ];
 
+// ===========================================
+// PARKINGS ANGERS - Données en temps réel
+// ===========================================
+
+let parkingMarkers = [];
+
+// Icône personnalisée pour les parkings
+function createParkingIcon(available, total) {
+    const percentage = (available / total) * 100;
+    let color = '#27ae60'; // Vert si > 30%
+    
+    if (percentage < 10) color = '#e74c3c'; // Rouge si < 10%
+    else if (percentage < 30) color = '#f39c12'; // Orange si < 30%
+    
+    return L.divIcon({
+        className: 'parking-marker',
+        html: `<div style="
+            background: ${color};
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.2s;
+        ">🅿️</div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18]
+    });
+}
+
+// Récupérer les données des parkings
+async function loadParkingData() {
+    try {
+        const response = await fetch('https://data.angers.fr/api/explore/v2.1/catalog/datasets/parking-angers/records?limit=100');
+        const data = await response.json();
+        
+        console.log('🅿️ Données parkings récupérées:', data.results.length, 'parkings');
+        
+        // Effacer les anciens marqueurs
+        parkingMarkers.forEach(marker => map.removeLayer(marker));
+        parkingMarkers = [];
+        
+        data.results.forEach(parking => {
+            const coords = parking.grp_coordonnees?.coordinates;
+            if (!coords) return;
+            
+            const lat = coords[1];
+            const lon = coords[0];
+            const nom = parking.grp_nom || 'Parking sans nom';
+            const disponible = parking.grp_disponible || 0;
+            const exploitation = parking.grp_exploitation || 0;
+            
+            // Horaires et tarifs
+            const horaires = getHorairesParking(nom);
+            const tarifs = getTarifParking(nom);
+            
+            const marker = L.marker([lat, lon], {
+                icon: createParkingIcon(disponible, exploitation)
+            });
+            
+            const popupContent = `
+                <div class="popup-content" style="min-width: 280px;">
+                    <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px;">
+                        🅿️ ${nom}
+                    </h3>
+                    
+                    <div style="background: #f0f4ff; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
+                        <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 15px;">
+                            📊 Places disponibles
+                        </div>
+                        <div style="font-size: 24px; font-weight: bold; color: #3498db;">
+                            ${disponible} / ${exploitation}
+                        </div>
+                    </div>
+                    
+                    <div style="background: #fff8e1; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #ffc107;">
+                        <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
+                            🕐 Horaires
+                        </div>
+                        <div style="font-size: 13px; line-height: 1.6; color: #555;">
+                            ${horaires}
+                        </div>
+                    </div>
+                    
+                    <div style="background: #e8f5e9; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                        <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
+                            💰 Tarifs
+                        </div>
+                        <div style="font-size: 13px; line-height: 1.6; color: #555;">
+                            ${tarifs}
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 11px; color: #95a5a6; margin-top: 12px; text-align: center;">
+                        ⏱️ Données mises à jour en temps réel
+                    </div>
+                </div>
+            `;
+            
+            marker.bindPopup(popupContent, {
+                maxWidth: 320,
+                className: 'custom-popup'
+            });
+            
+            // Effet hover
+            marker.on('mouseover', function() {
+                this.getElement().style.transform = 'scale(1.15)';
+            });
+            
+            marker.on('mouseout', function() {
+                this.getElement().style.transform = 'scale(1)';
+            });
+            
+            marker.addTo(map);
+            parkingMarkers.push(marker);
+        });
+        
+        console.log('✅', parkingMarkers.length, 'parkings ajoutés sur la carte');
+        
+    } catch (error) {
+        console.error('❌ Erreur lors du chargement des parkings:', error);
+    }
+}
+
+// Fonction pour obtenir les horaires selon le parking
+function getHorairesParking(nom) {
+    const horairesSpeciaux = {
+        'Saint-Laud 1': '24h/24 - 7j/7',
+        'Saint-Laud 2': '24h/24 - 7j/7',
+        'Mail': '24h/24 - 7j/7',
+        'Ralliement': '24h/24 - 7j/7',
+        'Molière': '24h/24 - 7j/7',
+        'Fleur d\'Eau': '24h/24 - 7j/7',
+        'Les Halles': '24h/24 - 7j/7',
+        'Marengo': '24h/24 - 7j/7',
+        'Haras': '24h/24 - 7j/7',
+        'Bressigny': 'Lun-Sam : 7h-20h<br>Dimanche : Fermé'
+    };
+    
+    for (let [key, value] of Object.entries(horairesSpeciaux)) {
+        if (nom.toLowerCase().includes(key.toLowerCase())) {
+            return value;
+        }
+    }
+    
+    return '24h/24 - 7j/7';
+}
+
+// Fonction pour obtenir les tarifs selon le parking
+function getTarifParking(nom) {
+    const tarifs = {
+        'Saint-Laud 1': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Saint-Laud 2': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Mail': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Ralliement': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Molière': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Fleur d\'Eau': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Les Halles': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Marengo': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Haras': '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€',
+        'Bressigny': '• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 8,00€'
+    };
+    
+    for (let [key, value] of Object.entries(tarifs)) {
+        if (nom.toLowerCase().includes(key.toLowerCase())) {
+            return value;
+        }
+    }
+    
+    return '• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€';
+}
+
+// Charger les parkings au démarrage
+loadParkingData();
+
+// Actualiser toutes les 2 minutes
+setInterval(loadParkingData, 120000);
+
 // TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON) - AVEC EXTENSION PARC DU MAIL
 const circuitTrace = [
     [-0.558385, 47.469357], [-0.558062, 47.469717], [-0.558092, 47.469722],
