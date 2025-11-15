@@ -795,19 +795,17 @@ function addMarkers() {
                     background: linear-gradient(45deg, #3498db, #2980b9);
                     color: white;
                     border: none;
-                    padding: 8px 15px;
+                    padding: 15px 15px;
                     border-radius: 15px;
                     cursor: pointer;
                     font-weight: bold;
-                    font-size: 14px;
+                    font-size: 15px;
                     box-shadow: 0 4px 10px rgba(52,152,219,0.3);
                     transition: all 0.3s ease;
                 "
                 onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(52,152,219,0.5)'"
                 onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(52,152,219,0.3)'"
-            >
-                📖 En savoir plus
-            </button>
+            >📖 En savoir plus</button>
         ` : '';
         
         const popupContent = `
@@ -829,19 +827,17 @@ function addMarkers() {
                             background: linear-gradient(45deg, #27ae60, #2ecc71);
                             color: white;
                             border: none;
-                            padding: 8px 15px;
+                            padding: 15px 15px;
                             border-radius: 15px;
                             cursor: pointer;
                             font-weight: bold;
-                            font-size: 14px;
+                            font-size: 15px;
                             box-shadow: 0 4px 10px rgba(39,174,96,0.3);
                             transition: all 0.3s ease;
                         "
                         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(39,174,96,0.5)'"
                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(39,174,96,0.3)'"
-                    >
-                        🌍 ODD
-                    </button>
+                    >🌍 ODD</button>
 
                     ${boutonSavoirPlus}
                 </div>
