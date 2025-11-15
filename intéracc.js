@@ -220,8 +220,8 @@ function addParkingMarkers() {
         const marker = L.marker(parking.coords, {
             icon: createParkingIcon()
         });
-        
-        const popupContent = `
+              
+       const popupContent = `
             <div class="popup-content" style="min-width: 280px;">
                 <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px;">
                     🅿️ Parking ${parking.nom}
