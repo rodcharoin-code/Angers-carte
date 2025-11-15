@@ -175,25 +175,32 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
 ];
 
 // ===========================================
-// PARKINGS ANGERS - Coordonnées officielles + disponibilité temps réel
+// PARKINGS ANGERS - Coordonnées officielles + nombre de places totales
 // ===========================================
 
 let parkingMarkers = [];
-let parkingData = {};
 
-// Coordonnées GPS officielles des parkings d'Angers (depuis le CSV officiel)
-const parkingsCoords = {
-    'Fleur d\'Eau Les Halles': { coords: [47.4725623676, -0.5549583804], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    'Leclerc': { coords: [47.47144192, -0.5460560826], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    'Ralliement': { coords: [47.4712242886, -0.5518064832], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    'Mail': { coords: [47.4712547046, -0.544924904], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    'Molière': { coords: [47.4746632157, -0.5542768918], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    'Marengo': { coords: [47.4648842682, -0.55482318], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    'Haras': { coords: [47.4648996364, -0.5537654166], horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    'St Laud': { coords: [47.4644889197, -0.5589430207], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
-    'Bressigny': { coords: [47.4673424819, -0.5493422409], horaires: "Lun-Sam : 7h-20h<br>Dimanche : Fermé", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• Journée : 8,00€" },
-    'St Laud II': { coords: [47.4640438607, -0.5605046723], horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" }
-};
+// Données officielles des parkings d'Angers (depuis votre CSV)
+const parkingsAngers = [
+    { nom: "Fleur d'Eau Les Halles", coords: [47.4725623676, -0.5549583804], places: 383, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Leclerc", coords: [47.47144192, -0.5460560826], places: 235, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Saint-Serge Mitterrand", coords: [47.4766083921, -0.5505741312], places: 133, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Saint-Serge Cinéma", coords: [47.4791055266, -0.5496420046], places: 305, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Ralliement", coords: [47.4712242886, -0.5518064832], places: 432, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Mail", coords: [47.4712547046, -0.544924904], places: 960, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Molière", coords: [47.4746632157, -0.5542768918], places: 416, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Marengo", coords: [47.4648842682, -0.55482318], places: 305, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Saint-Serge Mitterrand Maine", coords: [47.4772420234, -0.5520259119], places: 151, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Haras Public", coords: [47.4648996364, -0.5537654166], places: 112, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Le Quai", coords: [47.472633062, -0.5650681602], places: 180, horaires: "24h/24 - 7j/7", tarifs: "Gratuit", gratuit: true },
+    { nom: "Maternité", coords: [47.481454697, -0.5544136239], places: 56, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "St Laud", coords: [47.4644889197, -0.5589430207], places: 450, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    { nom: "Bressigny", coords: [47.4673424819, -0.5493422409], places: 172, horaires: "Lun-Sam : 7h-20h<br>Dimanche : Fermé", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• Journée : 8,00€" },
+    { nom: "Saint-Serge Patinoire", coords: [47.479609228, -0.5463170241], places: 234, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Confluences", coords: [47.4806753779, -0.5545456512], places: 30, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "St Laud II", coords: [47.4640438607, -0.5605046723], places: 576, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    { nom: "Larrey", coords: [47.4806370511, -0.55495124], places: 28, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 12,00€" }
+];
 
 // Icône simple - juste l'emoji parking
 function createParkingIcon() {
@@ -205,109 +212,27 @@ function createParkingIcon() {
     });
 }
 
-// Récupérer les données de disponibilité depuis l'API
-async function fetchParkingAvailability() {
-    try {
-        console.log('🔄 Récupération des places disponibles...');
-        
-        const response = await fetch('https://data.angers.fr/api/explore/v2.1/catalog/datasets/parking-angers/records?limit=100');
-        
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log('📦 Données API reçues:', data);
-        
-        if (!data.results || data.results.length === 0) {
-            console.warn('⚠️ Aucune donnée de disponibilité');
-            return {};
-        }
-        
-        const availability = {};
-        
-        data.results.forEach(parking => {
-            const nom = parking.grp_nom || parking.nom || '';
-            const disponible = parking.grp_disponible || parking.disponible || 0;
-            const total = parking.grp_exploitation || parking.exploitation || parking.total || 0;
-            
-            if (nom) {
-                availability[nom] = {
-                    disponible: disponible,
-                    total: total
-                };
-                console.log(`📊 ${nom}: ${disponible}/${total} places`);
-            }
-        });
-        
-        return availability;
-        
-    } catch (error) {
-        console.error('❌ Erreur lors de la récupération des données:', error);
-        return {};
-    }
-}
-
-// Créer ou mettre à jour les marqueurs
-async function updateParkingMarkers() {
-    console.log('🅿️ Mise à jour des parkings...');
+// Créer les marqueurs pour tous les parkings
+function addParkingMarkers() {
+    console.log('🅿️ Ajout des parkings sur la carte...');
     
-    parkingData = await fetchParkingAvailability();
-    
-    parkingMarkers.forEach(marker => map.removeLayer(marker));
-    parkingMarkers = [];
-    
-    let compteur = 0;
-    
-    for (let parkingName in parkingsCoords) {
-        const parkingInfo = parkingsCoords[parkingName];
-        const coords = parkingInfo.coords;
-        
-        let disponible = 0;
-        let total = 0;
-        let found = false;
-        
-        // Recherche correspondance avec l'API
-        for (let apiName in parkingData) {
-            const apiNameLower = apiName.toLowerCase();
-            const parkingNameLower = parkingName.toLowerCase();
-            
-            // Correspondances spéciales
-            if ((parkingNameLower.includes('fleur') && apiNameLower.includes('fleur')) ||
-                (parkingNameLower.includes('leclerc') && apiNameLower.includes('leclerc')) ||
-                (parkingNameLower.includes('ralliement') && apiNameLower.includes('ralliement')) ||
-                (parkingNameLower.includes('mail') && apiNameLower.includes('mail') && !apiNameLower.includes('berges')) ||
-                (parkingNameLower.includes('molière') && apiNameLower.includes('moliere')) ||
-                (parkingNameLower.includes('marengo') && apiNameLower.includes('marengo')) ||
-                (parkingNameLower.includes('haras') && apiNameLower.includes('haras')) ||
-                (parkingNameLower === 'st laud' && apiNameLower.includes('saint-laud 1')) ||
-                (parkingNameLower === 'st laud ii' && apiNameLower.includes('saint-laud 2')) ||
-                (parkingNameLower.includes('bressigny') && apiNameLower.includes('bressigny'))) {
-                
-                disponible = parkingData[apiName].disponible;
-                total = parkingData[apiName].total;
-                found = true;
-                console.log(`✅ Correspondance trouvée: ${parkingName} <-> ${apiName}`);
-                break;
-            }
-        }
-        
-        const marker = L.marker(coords, {
+    parkingsAngers.forEach(parking => {
+        const marker = L.marker(parking.coords, {
             icon: createParkingIcon()
         });
         
         const popupContent = `
             <div class="popup-content" style="min-width: 280px;">
                 <h3 style="margin: 0 0 15px 0; color: #2c3e50; font-size: 18px;">
-                    🅿️ Parking ${parkingName}
+                    🅿️ Parking ${parking.nom}
                 </h3>
                 
                 <div style="background: #f0f4ff; padding: 12px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid #3498db;">
                     <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 15px;">
-                        📊 Places disponibles
+                        📊 Nombre de places
                     </div>
-                    <div style="font-size: 24px; font-weight: bold; color: ${found && disponible > 0 ? '#27ae60' : '#e74c3c'};">
-                        ${found ? `${disponible} / ${total}` : 'Non disponible'}
+                    <div style="font-size: 24px; font-weight: bold; color: #3498db;">
+                        ${parking.places} places
                     </div>
                 </div>
                 
@@ -316,21 +241,17 @@ async function updateParkingMarkers() {
                         🕐 Horaires
                     </div>
                     <div style="font-size: 13px; line-height: 1.6; color: #555;">
-                        ${parkingInfo.horaires}
+                        ${parking.horaires}
                     </div>
                 </div>
                 
-                <div style="background: #e8f5e9; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
+                <div style="background: ${parking.gratuit ? '#e8f5e9' : '#e8f5e9'}; padding: 12px; border-radius: 8px; border-left: 4px solid #4caf50;">
                     <div style="font-weight: bold; margin-bottom: 8px; color: #2c3e50; font-size: 14px;">
                         💰 Tarifs
                     </div>
                     <div style="font-size: 13px; line-height: 1.6; color: #555;">
-                        ${parkingInfo.tarifs}
+                        ${parking.tarifs}
                     </div>
-                </div>
-                
-                <div style="font-size: 11px; color: #95a5a6; margin-top: 12px; text-align: center;">
-                    ⏱️ Mis à jour toutes les 4 minutes
                 </div>
             </div>
         `;
@@ -342,19 +263,13 @@ async function updateParkingMarkers() {
         
         marker.addTo(map);
         parkingMarkers.push(marker);
-        compteur++;
-    }
+    });
     
-    console.log(`✅ ${compteur} parkings affichés sur la carte`);
+    console.log(`✅ ${parkingMarkers.length} parkings affichés sur la carte`);
 }
 
-// Lancer au démarrage
-updateParkingMarkers();
-
-// Actualiser toutes les 4 minutes (240000 ms)
-setInterval(updateParkingMarkers, 240000);
-
-console.log('✅ Système de parking initialisé - Actualisation toutes les 4 minutes');
+// Lancer au chargement
+addParkingMarkers();
 
 // TRACÉ DU CIRCUIT (LineString depuis ton GeoJSON) - AVEC EXTENSION PARC DU MAIL
 const circuitTrace = [
