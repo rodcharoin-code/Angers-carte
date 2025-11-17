@@ -183,7 +183,7 @@ let parkingMarkers = [];
 // Données officielles des parkings d'Angers (depuis votre CSV)
 const parkingsAngers = [
     { nom: "Fleur d'Eau Les Halles", coords: [47.4725623676, -0.5549583804], places: 383, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
-    { nom: "Leclerc", coords: [47.47144192, -0.5460560826], places: 235, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
+    { nom: "Leclerc souterrain", coords: [47.47144192, -0.5460560826], places: 235, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
     { nom: "Saint-Serge Mitterrand", coords: [47.4766083921, -0.5505741312], places: 133, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
     { nom: "Saint-Serge Cinéma", coords: [47.4791055266, -0.5496420046], places: 305, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
     { nom: "Ralliement", coords: [47.4712242886, -0.5518064832], places: 432, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
