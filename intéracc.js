@@ -14,6 +14,22 @@ const map = L.map('map', {
   maxZoom: 15
 });
 
+// 🔧 AJOUTEZ CE CODE JUSTE APRÈS LA CRÉATION DE LA CARTE
+// Détection mobile et ajustement du centre/zoom
+function adjustMapForMobile() {
+  // Vérifie si on est sur mobile (largeur <= 480px en portrait)
+  if (window.innerWidth <= 480 && window.matchMedia("(orientation: portrait)").matches) {
+    // 🔧 Nouveau centre pour mobile (ajustez ces coordonnées)
+    map.setView([47.47749647346316, -0.55201782321044079], 14.2); // Centre légèrement décalé et zoom réduit
+    
+    console.log('📱 Vue mobile activée - Carte recentrée');
+  } else {
+    // Vue desktop normale
+    map.setView([47.470856, -0.552696], 14.5);
+    console.log('💻 Vue desktop activée');
+  }
+}
+
 map.attributionControl.setPrefix('');
 
 // Couches
@@ -480,6 +496,7 @@ addCircuitFromGeoJSON();
 addParkingMarkers();
 addStationsVelo();
 addGare();
+adjustMapForMobile()
 
 // 🎯 FORCER LE RECALCUL DE LA CARTE APRÈS CHARGEMENT
 setTimeout(() => {
