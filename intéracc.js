@@ -494,9 +494,9 @@ function addCircuitFromGeoJSON() {
 addMarkers();
 addCircuitFromGeoJSON();
 addParkingMarkers();
+adjustMapForMobile()
 addStationsVelo();
 addGare();
-adjustMapForMobile()
 
 // 🎯 FORCER LE RECALCUL DE LA CARTE APRÈS CHARGEMENT
 setTimeout(() => {
