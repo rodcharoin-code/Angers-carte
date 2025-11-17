@@ -545,22 +545,26 @@ body {
   }
   
 /* --- CONTROLS (BOUTONS) - DÉFILABLES ET TRANSPARENTS --- */
-.controls { 
-  position: relative; /* ✅ AJOUTÉ */
-  padding: 5px 8px;
-  gap: 8px;
-  flex-wrap: nowrap;
-  background: transparent !important;
-  box-shadow: none !important;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  justify-content: flex-start;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  z-index: 400; /* ✅ AJOUTÉ: au-dessus de la carte */
-  pointer-events: none; /* ✅ AJOUTÉ */
-}
+/* --- CONTROLS (BOUTONS) - REPOSITIONNÉ CORRECTEMENT --- */
+  .controls { 
+    position: fixed !important; /* ✅ CHANGÉ: fixed pour rester visible */
+    top: 145px !important; /* ✅ AJUSTÉ: position sous le header */
+    left: 0 !important;
+    right: 0 !important;
+    padding: 8px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    z-index: 500 !important; /* ✅ Au-dessus de la carte mais ne bloque pas */
+    pointer-events: none; /* ✅ Garde ça pour le conteneur */
+  }
 
 .controls::-webkit-scrollbar {
   display: none;
@@ -572,7 +576,7 @@ body {
     min-height: 44px;
     flex-shrink: 0;
     white-space: nowrap;
-    pointer-events: auto; /* 🔧 Seuls les boutons sont cliquables */
+    pointer-events: auto !important; /* 🔧 Seuls les boutons sont cliquables */
     background: rgba(52, 152, 219, 0.9) !important; /* 🔧 Bleu semi-transparent */
     backdrop-filter: blur(8px);
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -589,25 +593,27 @@ body {
   }
   
   /* --- BOUTONS ZOOM LEAFLET --- */
+  /* --- BOUTONS ZOOM LEAFLET --- */
   .leaflet-control-zoom {
-    position: fixed !important; /* ✅ CHANGÉ: fixed au lieu de absolute */
-    top: 215px !important; /* ✅ CHANGÉ: position plus basse pour être visible */
-    left: 5px !important;
-    z-index: 500 !important;
-    margin-top: 0 !important;
+    position: fixed !important;
+    bottom: 80px !important; /* ✅ CHANGÉ: en bas à gauche */
+    left: 10px !important;
+    top: auto !important; /* ✅ IMPORTANT */
+    z-index: 600 !important;
+    margin: 0 !important;
   }
   
 /* --- MAP --- */
 #map { 
-  position: fixed !important; /* ✅ CHANGÉ: fixed au lieu de relative */
-  top: 0 !important; /* ✅ AJOUTÉ */
-  left: 0 !important; /* ✅ AJOUTÉ */
-  width: 100% !important; /* ✅ AJOUTÉ */
-  height: 100vh !important; /* ✅ CHANGÉ: 100vh au lieu de calc() */
-  border-radius: 0;
-  z-index: 1; /* ✅ Reste à 1 pour être derrière tout */
-  margin-top: 0;
-}
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    border-radius: 0;
+    z-index: 1 !important; /* ✅ Derrière tout */
+    margin: 0;
+  }
   
   /* --- COPYRIGHT OPENSTREETMAP --- */
   .leaflet-control-attribution {
