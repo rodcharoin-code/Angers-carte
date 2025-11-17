@@ -198,7 +198,7 @@ const parkingsAngers = [
     { nom: "Bressigny", coords: [47.4673424819, -0.5493422409], places: 172, horaires: "Lun-Sam : 7h-20h<br>Dimanche : Fermé", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• Journée : 8,00€" },
     { nom: "Saint-Serge Patinoire", coords: [47.479609228, -0.5463170241], places: 234, horaires: "24h/24 - 7j/7", tarifs: "• 1ère heure : Gratuite<br>• 2h : 1,50€<br>• 3h : 3,00€<br>• Journée : 12,00€" },
     { nom: "Confluences", coords: [47.4806753779, -0.5545456512], places: 30, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 12,00€" },
-    { nom: "St Laud II", coords: [47.4640438607, -0.5605046723], places: 576, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
+    { nom: "St Laud II", coords: [47.46395364183343, -0.5613189817564422], places: 576, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• 3h : 4,50€<br>• Journée : 12,00€" },
     { nom: "Larrey", coords: [47.4806370511, -0.55495124], places: 28, horaires: "24h/24 - 7j/7", tarifs: "• 1h : 1,50€<br>• 2h : 3,00€<br>• Journée : 12,00€" }
 ];
 
