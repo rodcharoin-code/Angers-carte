@@ -607,7 +607,6 @@ function calculateWalkingRoute(startLat, startLng, endLat, endLng) {
         };
       });
 }
-}
 
 function displayRoute(route) {
   if (routingControl) map.removeLayer(routingControl);
