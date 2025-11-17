@@ -549,8 +549,9 @@ body {
   .controls { 
     position: fixed !important; /* ✅ CHANGÉ: fixed pour rester visible */
     top: 145px !important; /* ✅ AJUSTÉ: position sous le header */
-    left: 0 !important;
-    right: 0 !important;
+    left: 10px !important;
+    right: auto !important;
+    width: calc(100% - 20px) !important; /* AJOUTER cette ligne */
     padding: 8px;
     gap: 8px;
     flex-wrap: nowrap;
@@ -563,7 +564,7 @@ body {
     scrollbar-width: none;
     -ms-overflow-style: none;
     z-index: 500 !important; /* ✅ Au-dessus de la carte mais ne bloque pas */
-    pointer-events: none; /* ✅ Garde ça pour le conteneur */
+    pointer-events: auto !important; /* ✅ Garde ça pour le conteneur */
   }
 
 .controls::-webkit-scrollbar {
