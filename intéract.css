@@ -598,8 +598,7 @@ body {
   .leaflet-control-zoom {
     position: fixed !important;
     top: 210px !important; /* ✅ En haut, sous les controls */
-    right: 10px !important; /* ✅ À droite */
-    left: auto !important;
+    left: 5px !important; /* ✅ À droite */
     bottom: auto !important;
     z-index: 600 !important;
     margin: 0 !important;
