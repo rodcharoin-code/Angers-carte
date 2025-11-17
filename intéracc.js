@@ -11,7 +11,7 @@ const map = L.map('map', {
   center: [47.470856, -0.552696],
   zoom: 14.5,
   minZoom: 8,
-  maxZoom: 25
+  maxZoom: 15
 });
 
 map.attributionControl.setPrefix('');
@@ -22,7 +22,7 @@ const streetMap = L.tileLayer(
   {
     attribution: '© OpenStreetMap contributors, © CARTO',
     crossOrigin: true,
-    maxZoom: 25
+    maxZoom: 15
   }
 );
 const satelliteMap = L.tileLayer(
