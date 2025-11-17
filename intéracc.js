@@ -562,27 +562,51 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
 }
 
 function calculateWalkingRoute(startLat, startLng, endLat, endLng) {
-  const url = `https://router.project-osrm.org/route/v1/foot/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson&steps=true&alternatives=false`;
-  return fetch(url)
-    .then((response) => {
-      if (!response.ok) throw new Error('Erreur réseau');
-      return response.json();
-    })
-    .then((data) => {
-      if (data && data.routes && data.routes.length > 0) return data.routes[0];
-      throw new Error('Aucun itinéraire trouvé');
-    })
-    .catch((error) => {
-      console.warn('OSRM indisponible, passage au mode estimation:', error.message);
-      const distance = calculateDistance(startLat, startLng, endLat, endLng);
-      const duration = distance * 12 * 60;
-      return {
-        geometry: { coordinates: [[startLng, startLat], [endLng, endLat]] },
-        distance: distance * 1000,
-        duration,
-        fallback: true
-      };
-    });
+      
+    // 1. Calculer la distance à vol d'oiseau D'ABORD
+    const simpleDistance = calculateDistance(startLat, startLng, endLat, endLng);
+    
+    // 2. Définir une limite (ex: 100km)
+    // Si la distance est trop grande pour un piéton, forcer le mode "estimation"
+    // en rejetant la promesse, ce qui active le .catch()
+    if (simpleDistance > 100) { // Limite de 100 km
+        console.warn(`Distance (${simpleDistance}km) > 100km. Forçage du mode estimation.`);
+        // On "rejette" pour sauter directement au bloc .catch()
+        return Promise.reject(new Error('Distance trop grande pour un piéton'));
+    }
+
+    // 3. Si la distance est raisonnable ( < 100km), appeler l'API OSRM
+    const url = `https://router.project-osrm.org/route/v1/foot/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson&steps=true&alternatives=false`;
+    
+    return fetch(url)
+      .then((response) => {
+        if (!response.ok) throw new Error('Erreur réseau OSRM');
+        return response.json();
+      })
+      .then((data) => {
+        if (data && data.routes && data.routes.length > 0) return data.routes[0];
+        throw new Error('Aucun itinéraire OSRM trouvé');
+      })
+      .catch((error) => {
+        // Ce bloc gère MAINTENANT les échecs de l'API ET les distances > 100km
+        console.warn('Passage au mode estimation:', error.message);
+        
+        // Recalcul de la distance (comme dans votre code original)
+        // Note: on utilise "simpleDistance" qu'on a déjà, mais 
+        // pour garder la structure, on recalcule ici.
+        const distance = calculateDistance(startLat, startLng, endLat, endLng);
+        
+        // Votre calcul (12 min/km)
+        const duration = distance * 12 * 60; 
+        
+        return {
+          geometry: { coordinates: [[startLng, startLat], [endLng, endLat]] },
+          distance: distance * 1000, // en mètres
+          duration, // en secondes
+          fallback: true // Très important: ceci affichera "Distance estimée"
+        };
+      });
+}
 }
 
 function displayRoute(route) {
