@@ -488,19 +488,24 @@ function addCircuitFromGeoJSON() {
 }
 
 // ===========================================
-// LANCEMENT
+// LANCEMENT - ORDRE CORRIGÉ
 // ===========================================
 
 addMarkers();
-addCircuitFromGeoJSON();
-addParkingMarkers();
-adjustMapForMobile()
-addStationsVelo();
-addGare();
+addCircuitFromGeoJSON(); // Crée d'abord le circuit
+
+// 🔥 IMPORTANT : Ajuster la vue APRÈS le fitBounds()
+setTimeout(() => {
+    adjustMapForMobile(); // Recentre selon l'appareil
+    addParkingMarkers();
+    addStationsVelo();
+    addGare();
+}, 500); // Petit délai pour laisser le temps au circuit de se charger
 
 // 🎯 FORCER LE RECALCUL DE LA CARTE APRÈS CHARGEMENT
 setTimeout(() => {
     map.invalidateSize();
+    adjustMapForMobile(); // Recentre une 2e fois pour être sûr
     console.log('🔄 Recalcul initial de la carte');
 }, 1000);
 
