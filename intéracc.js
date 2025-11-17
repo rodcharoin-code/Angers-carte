@@ -11,7 +11,7 @@ const map = L.map('map', {
   center: [47.470856, -0.552696],
   zoom: 14.5,
   minZoom: 8,
-  maxZoom: 15
+  maxZoom: 25
 });
 
 // 🔧 AJOUTEZ CE CODE JUSTE APRÈS LA CRÉATION DE LA CARTE
@@ -38,7 +38,7 @@ const streetMap = L.tileLayer(
   {
     attribution: '© OpenStreetMap contributors, © CARTO',
     crossOrigin: true,
-    maxZoom: 15
+    maxZoom: 25
   }
 );
 const satelliteMap = L.tileLayer(
