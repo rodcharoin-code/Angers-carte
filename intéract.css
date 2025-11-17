@@ -494,7 +494,7 @@ body {
     background: rgb(205, 235, 177);
     margin-bottom: 0;
     position: relative;
-    z-index: 400;
+    z-index: 100;
   }
   
   .logo-image { 
@@ -563,7 +563,7 @@ body {
     justify-content: flex-start;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    z-index: 500 !important; /* ✅ Au-dessus de la carte mais ne bloque pas */
+    z-index: 200 !important; /* ✅ Au-dessus de la carte mais ne bloque pas */
     pointer-events: auto !important; /* ✅ Garde ça pour le conteneur */
   }
 
@@ -646,7 +646,6 @@ body {
   body.offline-mode #feedbackBtn {
     bottom: 75px !important;
   }
-}
   
   /* --- POPUPS --- */
   .leaflet-popup-content-wrapper {
