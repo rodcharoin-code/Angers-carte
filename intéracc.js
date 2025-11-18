@@ -61,13 +61,13 @@ const pointsInteret = [
     {
        coords: [47.469117, -0.558312],
         title: "Place du Président Kennedy",
-        description: `<p>Anciennement dominée par le stationnement automobile, la place du Président Kennedy vient d'être totalement transformée en un lieu de vie calme et végétalisé. Un projet porté par la ville d’Angers et imaginé par l’urbaniste Jacqueline Osty, ayant pour objectif de végétaliser un maximum la place, valoriser le patrimoine environnant et apaiser la circulation.</p>
+        description: `Anciennement dominée par le stationnement automobile, la place du Président Kennedy vient d'être totalement transformée en un lieu de vie calme et végétalisé. Un projet porté par la ville d’Angers et imaginé par l’urbaniste Jacqueline Osty, ayant pour objectif de végétaliser un maximum la place, valoriser le patrimoine environnant et apaiser la circulation.
 
-    <p>Désormais entièrement piétonne, cette place encourage les mobilités douces avec des espaces cyclables dédiés et limite l’entrée des voitures en ville.</p>
+    Désormais entièrement piétonne, cette place encourage les mobilités douces avec des espaces cyclables dédiés et limite l’entrée des voitures en ville.
 
-    <p>Concernant la végétalisation, plusieurs îlots ont été plantés avec des plantes vivaces et locales. Les sols ont été rendus perméables afin d’assurer l’infiltration de l'eau et diminuer les îlots de chaleur en été. L'arrosage de la végétation est assuré par une cuve de récupération des eaux de pluie.</p>
+    Concernant la végétalisation, plusieurs îlots ont été plantés avec des plantes vivaces et locales. Les sols ont été rendus perméables afin d’assurer l’infiltration de l'eau et diminuer les îlots de chaleur en été. L'arrosage de la végétation est assuré par une cuve de récupération des eaux de pluie.
 
-    <p>La statue du roi René a été replacée pour retrouver une place d’honneur face au château, symbolisant l’histoire d’Angers.</p>`,
+    La statue du roi René a été replacée pour retrouver une place d’honneur face au château, symbolisant l’histoire d’Angers.`,
         image: "",
         etapeId: "etape-1"
     },
