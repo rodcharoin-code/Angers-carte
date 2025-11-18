@@ -894,7 +894,7 @@ setTimeout(() => {
 //  Tutoriel
 // ========================
 let currentStep = 1;
-const totalSteps = 7;
+const totalSteps = 10;
 
 const welcomeModal = document.getElementById('welcomeModal');
 const skipBtn = document.getElementById('skipBtn');
