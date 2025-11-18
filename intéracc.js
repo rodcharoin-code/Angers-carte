@@ -56,11 +56,18 @@ streetMap.addTo(map);
 // ===========================================
 
 const pointsInteret = [
+  
     // 🏁 DÉPART : Place Kennedy
     {
        coords: [47.469117, -0.558312],
         title: "Place du Président Kennedy",
-        description: "Point de départ du circuit touristisme durable d'Angers.",
+        description: `<p>Anciennement dominée par le stationnement automobile, la place du Président Kennedy vient d'être totalement transformée en un lieu de vie calme et végétalisé. Un projet porté par la ville d’Angers et imaginé par l’urbaniste Jacqueline Osty, ayant pour objectif de végétaliser un maximum la place, valoriser le patrimoine environnant et apaiser la circulation.</p>
+
+    <p>Désormais entièrement piétonne, cette place encourage les mobilités douces avec des espaces cyclables dédiés et limite l’entrée des voitures en ville.</p>
+
+    <p>Concernant la végétalisation, plusieurs îlots ont été plantés avec des plantes vivaces et locales. Les sols ont été rendus perméables afin d’assurer l’infiltration de l'eau et diminuer les îlots de chaleur en été. L'arrosage de la végétation est assuré par une cuve de récupération des eaux de pluie.</p>
+
+    <p>La statue du roi René a été replacée pour retrouver une place d’honneur face au château, symbolisant l’histoire d’Angers.</p>`,
         image: "",
         etapeId: "etape-1"
     },
@@ -129,7 +136,9 @@ Ce lieu redynamise le centre-ville par des activités respectueuses et locales, 
         title: "Rue Saint-Laud",
         description: `La rue Saint-Laud relie le cœur historique d'Angers à la gare, il s'agit de l'une des plus anciennes artères de la ville. Elle conserve le tracé du quartier marchand médiéval, autrefois animé par les auberges et ateliers d'artisans.
 
-Aujourd'hui entièrement réaménagée, la rue Saint-Laud s'inscrit dans la dynamique de revitalisation durable du centre-ville. Les travaux menés par la ville d'Angers ont permis d'élargir les espaces piétons, de végétaliser les trottoirs et de valoriser les façades patrimoniales tout en soutenant les commerces locaux.`,
+Aujourd'hui entièrement réaménagée, la rue Saint-Laud s'inscrit dans la dynamique de revitalisation durable du centre-ville. Les travaux menés par la ville d'Angers ont permis d'élargir les espaces piétons, de végétaliser les trottoirs et de valoriser les façades patrimoniales tout en soutenant les commerces locaux.
+
+N'hésitez pas à faire une pause dans l'un des cafés ou à parcourir les boutiques alentours, idéal pour soutenir les acteurs locaux.`,
         image: "",
         etapeId: "etape-8"
     },
