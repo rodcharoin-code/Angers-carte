@@ -22,14 +22,22 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    /* --- 2. CORRECTION DU PROBLÈME D'OUVERTURE --- */
-    /* On force la fenêtre à être cachée par défaut avec l'ID (#) qui est plus fort que les classes */
-    #aboutModal {
+    /* --- 2. FORCE LES FENÊTRES À ÊTRE CACHÉES PAR DÉFAUT --- */
+    #aboutModal, #welcomeModal, #poiModal {
         display: none; 
-        z-index: 5000; /* On s'assure qu'elle passe au-dessus de tout quand elle s'ouvre */
+        z-index: 5000;
+    }
+    
+    /* Pour que le popup de bienvenue s'affiche bien au centre quand le JS l'active */
+    .welcome-modal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.6);
+        justify-content: center;
+        align-items: center;
     }
 
-    /* --- 3. STYLE DU CONTENU INTERNE (Pour que ce soit joli comme votre page 1) --- */
+    /* --- 3. STYLE DU CONTENU "NOUS CONNAÎTRE" --- */
     .step-content {
         border-left: 4px solid #20c997;
         padding-left: 15px;
@@ -49,45 +57,22 @@
         color: #2c3e50;
         font-size: 1.4em;
     }
-    .odd-badges {
-        margin-bottom: 10px;
-    }
+    .odd-badges { margin-bottom: 10px; }
     .odd-badge {
-        display: inline-block;
-        background: #e8f5e9;
-        color: #2e7d32;
-        padding: 4px 8px;
-        border-radius: 12px;
-        font-size: 0.85em;
-        font-weight: bold;
-        margin-right: 5px;
-        margin-bottom: 5px;
-        border: 1px solid #c8e6c9;
+        display: inline-block; background: #e8f5e9; color: #2e7d32;
+        padding: 4px 8px; border-radius: 12px; font-size: 0.85em;
+        font-weight: bold; margin-right: 5px; margin-bottom: 5px; border: 1px solid #c8e6c9;
     }
-    .odd-explanation p {
-        margin: 5px 0;
-        font-size: 0.95em;
-        color: #555;
-    }
+    .odd-explanation p { margin: 5px 0; font-size: 0.95em; color: #555; }
     .intro-text {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px;
-        border-left: 4px solid #2c3e50;
-        margin-top: 20px;
+        background-color: #f8f9fa; padding: 15px; border-radius: 8px;
+        border-left: 4px solid #2c3e50; margin-top: 20px;
     }
     .external-link {
-        display: inline-block;
-        margin-top: 10px;
-        color: #20c997;
-        text-decoration: none;
-        font-weight: bold;
+        display: inline-block; margin-top: 10px; color: #20c997;
+        text-decoration: none; font-weight: bold;
     }
-    /* Style spécifique pour le titre dans la modale */
-    #aboutModal .modal-body h3 {
-        color: #27ae60;
-        margin-top: 20px;
-    }
+    #aboutModal .modal-body h3 { color: #27ae60; margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -95,9 +80,7 @@
   <div class="header">
     <div class="header-logo">
        <a href="https://www.uco.fr" target="_blank" rel="noopener" title="UCO">
-      <img src="https://www.uco.fr/sites/default/files/2018-07/logo_UCO-H-Q.png" 
-           alt="Logo UCO" 
-           class="logo-image">
+      <img src="https://www.uco.fr/sites/default/files/2018-07/logo_UCO-H-Q.png" alt="Logo UCO" class="logo-image">
       </a>
     </div>
     <div class="header-content">
@@ -113,78 +96,40 @@
     <button class="btn active" id="streetBtn">🗺️ Plan</button>
     <button class="btn" id="satelliteBtn">🛰️ Satellite</button>
     <button class="btn" id="listBtn">📋 Liste des Étapes</button>
-    
     <button class="btn" id="aboutBtn">🤝 Nous connaître</button>
-    
     <button class="btn btn-help" id="helpBtn">❓ Aide</button>
   </div>
 
   <div id="map"></div>
 
-  <div id="aboutModal" class="modal" aria-hidden="true" style="display: none;">
+  <div id="aboutModal" class="modal" aria-hidden="true">
     <div class="modal-content" role="dialog">
       <div class="modal-header">
         <span class="close" id="closeAbout">&times;</span>
         <h2>🤝 Qui sommes-nous ?</h2>
       </div>
       <div class="modal-body" style="padding: 20px; line-height: 1.6; max-height: 70vh; overflow-y: auto;">
-        
         <article class="step-content" id="notre-histoire">
-            <div class="step-header">
-                <span class="step-number">🌱</span> <h2>La Genèse du Projet</h2>
-            </div>
-            <div class="odd-badges">
-                <span class="odd-badge odd-11">🏙️ ODD 11</span>
-                <span class="odd-badge odd-4">📚 ODD 4</span>
-            </div>
-            <div class="odd-explanation">
-                <p><strong>Une initiative locale :</strong> Ce circuit est né d'une volonté simple : redécouvrir Angers par son avenir durable. Passionnés par notre ville, nous créons un lien entre le patrimoine séculaire et les enjeux écologiques.</p>
-            </div>
+            <div class="step-header"><span class="step-number">🌱</span> <h2>La Genèse du Projet</h2></div>
+            <div class="odd-badges"><span class="odd-badge odd-11">🏙️ ODD 11</span><span class="odd-badge odd-4">📚 ODD 4</span></div>
+            <div class="odd-explanation"><p><strong>Une initiative locale :</strong> Ce circuit est né d'une volonté simple : redécouvrir Angers par son avenir durable.</p></div>
         </article>
-
         <article class="step-content" id="notre-methode">
-            <div class="step-header">
-                <span class="step-number">🔍</span>
-                <h2>Une Sélection Rigoureuse</h2>
-            </div>
-            <div class="odd-badges">
-                <span class="odd-badge odd-12">♻️ ODD 12</span>
-                <span class="odd-badge odd-8">💼 ODD 8</span>
-            </div>
-            <div class="odd-explanation">
-                <p><strong>Des critères stricts :</strong> Chaque étape doit répondre à au moins deux Objectifs de Développement Durable (ODD). Nous valorisons les circuits courts et la biodiversité.</p>
-            </div>
+            <div class="step-header"><span class="step-number">🔍</span><h2>Une Sélection Rigoureuse</h2></div>
+            <div class="odd-badges"><span class="odd-badge odd-12">♻️ ODD 12</span><span class="odd-badge odd-8">💼 ODD 8</span></div>
+            <div class="odd-explanation"><p><strong>Des critères stricts :</strong> Chaque étape doit répondre à au moins deux Objectifs de Développement Durable.</p></div>
         </article>
-
         <article class="step-content" id="partenaires">
-            <div class="step-header">
-                <span class="step-number">🤝</span>
-                <h2>Un Projet Collaboratif</h2>
-            </div>
-            <div class="odd-badges">
-                <span class="odd-badge odd-17">🌍 ODD 17</span> 
-            </div>
-            <div class="odd-explanation">
-                <p><strong>Co-construction :</strong> Réalisé avec l'Office de Tourisme et les commerçants locaux. Une équipe d'étudiants engagés pour le tourisme de demain.</p>
-            </div>
+            <div class="step-header"><span class="step-number">🤝</span><h2>Un Projet Collaboratif</h2></div>
+            <div class="odd-badges"><span class="odd-badge odd-17">🌍 ODD 17</span></div>
+            <div class="odd-explanation"><p><strong>Co-construction :</strong> Réalisé avec l'Office de Tourisme et les commerçants locaux.</p></div>
         </article>
-
         <article class="step-content" id="contact">
-            <div class="step-header">
-                <span class="step-number">📩</span>
-                <h2>Rejoignez le mouvement</h2>
-            </div>
-            <div class="odd-explanation">
-                <p>Vous connaissez un lieu durable ? Contactez-nous pour enrichir ce parcours.</p>
-            </div>
+            <div class="step-header"><span class="step-number">📩</span><h2>Rejoignez le mouvement</h2></div>
+            <div class="odd-explanation"><p>Vous connaissez un lieu durable ? Contactez-nous.</p></div>
             <a href="mailto:contact@circuit-angers-durable.fr" class="external-link">✉️ Nous envoyer un message</a>
         </article>
-
-        <section class="intro-text">
-            <strong>Pourquoi les ODD ?</strong><br>
-            Nous avons choisi d'utiliser le référentiel de l'ONU car il offre un langage universel pour comprendre l'impact positif de votre visite.
-        </section>
-
+        <section class="intro-text"><strong>Pourquoi les ODD ?</strong><br>Le référentiel de l'ONU offre un langage universel.</section>
       </div>
     </div>
   </div>
@@ -227,33 +172,53 @@
   <script src="intéracc.js"></script>
 
   <script>
-    /* SCRIPT DE GESTION DE LA FENÊTRE NOUS CONNAÎTRE */
     document.addEventListener('DOMContentLoaded', function() {
+      
+      // --- 1. GESTION DE LA MODALE "NOUS CONNAÎTRE" ---
       const aboutBtn = document.getElementById('aboutBtn');
       const aboutModal = document.getElementById('aboutModal');
       const closeAbout = document.getElementById('closeAbout');
 
       if (aboutBtn && aboutModal && closeAbout) {
-          // Ouvre la fenêtre UNIQUEMENT au clic
           aboutBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            aboutModal.style.display = 'block';
+            aboutModal.style.display = 'block'; // Affiche au clic
           });
-
-          // Ferme avec la croix
           closeAbout.addEventListener('click', function() {
-            aboutModal.style.display = 'none';
+            aboutModal.style.display = 'none'; // Cache à la croix
           });
-
-          // Ferme en cliquant dehors
           window.addEventListener('click', function(event) {
             if (event.target == aboutModal) {
-              aboutModal.style.display = 'none';
+              aboutModal.style.display = 'none'; // Cache au clic dehors
             }
           });
       }
+
+      // --- 2. GESTION DU POP-UP DE BIENVENUE (TUTORIEL) ---
+      // C'est ici qu'on force l'affichage au démarrage
+      const welcomeModal = document.getElementById('welcomeModal');
+      const skipBtn = document.getElementById('skipBtn');
+      
+      // OUVRE LE TUTORIEL AUTOMATIQUEMENT AU LANCEMENT
+      if (welcomeModal) {
+          // On ajoute 'flex' pour centrer si le CSS utilise flexbox, sinon 'block'
+          welcomeModal.style.display = 'flex'; 
+      }
+
+      // GESTION DU BOUTON "PASSER"
+      if (skipBtn && welcomeModal) {
+          skipBtn.addEventListener('click', function() {
+              welcomeModal.style.display = 'none';
+          });
+      }
+
+      // Note : La logique "Suivant" est probablement dans intéracc.js
+      // Si elle ne marche pas, il faudra nous donner le fichier JS.
     });
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
