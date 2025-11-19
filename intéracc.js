@@ -83,8 +83,8 @@ En lien constant avec la Ligue pour la Protection des Oiseaux (LPO), le Château
 La flore est très présente au sein du site avec 150 espèces recensées. Les orchidées, par exemple, sont représentées par l'ophrys abeille, l'orchis singe et l'orchis bouc. Des espèces de fougères sont également présentes, tout particulièrement au niveau des remparts. 
 
 Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte  ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.`,
-        image: "https://www.destination-angers.com/app/uploads/destination-angers-tourisme/2024/11/thumbs/vue_aerienne_chateau_angers-1920x960.webp",
-      source : "source : destinations-angers",
+         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg/640px-Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Saint-Maurice_cathedral,_west_facade._Angers,_France.jpg" target="_blank" style="color: #3498db;">Moonik</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
       etapeId: "etape-1"
     },
     
@@ -115,8 +115,9 @@ Les voûtes angevines, typiques de l'architecture locale ;
 La statue de la Vierge au sourire, emblématique de l'art gothique angevin, qui accueille les visiteurs depuis la nef centrale.
 
 Aujourd'hui, la cathédrale s'inscrit pleinement dans une démarche de préservation durable du patrimoine : les restaurations utilisent des matériaux traditionnels locaux comme le tuffeau et la chaux, tandis que l'éclairage à faible consommation permet de sublimer l'architecture sans nuire à l'environnement.`,
-        image: "",
-        etapeId: "etape-3"
+         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg/640px-Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Saint-Maurice_cathedral,_west_facade._Angers,_France.jpg" target="_blank" style="color: #3498db;">Ввласенко</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
+         etapeId: "etape-3"
     },
     
     // ÉTAPE 4 : Maison d'Adam
@@ -128,7 +129,8 @@ Aujourd'hui, la cathédrale s'inscrit pleinement dans une démarche de préserva
 Classée Monument historique depuis 1922, la Maison d'Adam doit son nom à une sculpture représentant Adam et Ève sur sa façade principale. Longtemps habitée par la confrérie des selliers-bourreliers, elle abrite désormais la Maison des Artisans qui valorise les métiers d'art et la création locale.
 
 Ce lieu redynamise le centre-ville par des activités respectueuses et locales, fondées sur la transmission des savoir-faire et la mise en valeur du patrimoine bâti.`,
-        image: "",
+         image: "https://upload.wikimedia.org/wikipedia/commons/0/01/Maison_Adam_Angers.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Maison_Adam_Angers.jpg" target="_blank" style="color: #3498db;">Coyau</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
         etapeId: "etape-4"
     },
     
@@ -141,7 +143,8 @@ Ce lieu redynamise le centre-ville par des activités respectueuses et locales, 
 Aujourd'hui entièrement réaménagée, la rue Saint-Laud s'inscrit dans la dynamique de revitalisation durable du centre-ville. Les travaux menés par la ville d'Angers ont permis d'élargir les espaces piétons, de végétaliser les trottoirs et de valoriser les façades patrimoniales tout en soutenant les commerces locaux.
 
 N'hésitez pas à faire une pause dans l'un des cafés ou à parcourir les boutiques alentours, idéal pour soutenir les acteurs locaux.`,
-        image: "",
+         image: "https://upload.wikimedia.org/wikipedia/commons/9/93/Place_Romain_-_Angers_-_20100409.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Place_Romain_-_Angers_-_20100409.jpg" target="_blank" style="color: #3498db;">Alienora</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
         etapeId: "etape-5"
     },
     
@@ -154,7 +157,8 @@ N'hésitez pas à faire une pause dans l'un des cafés ou à parcourir les bouti
 Les différentes expositions permanentes et temporaires abordent des thématiques actuelles telles que le réchauffement climatique, la disparition des espèces, la biodiversité ou l'impact de l'Homme dans les écosystèmes. 
 
 Le musée s'inscrit dans une démarche de sensibilisation du public à la protection de la nature et à la valorisation du patrimoine naturel et s'est donné cinq missions principales : la conservation, la diffusion des connaissances, l'expertise, la pédagogie et la recherche scientifique.`,
-        image: "",
+         image: "https://upload.wikimedia.org/wikipedia/commons/d/db/Museum_Angers_JardinDemarie.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Museum_Angers_JardinDemarie.jpg" target="_blank" style="color: #3498db;">Okapie49</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
         etapeId: "etape-6"
     },
     
@@ -165,7 +169,8 @@ Le musée s'inscrit dans une démarche de sensibilisation du public à la protec
         description: `Fondé au XVIIIᵉ siècle, au-delà des remparts, le Jardin des Plantes d'Angers fut le premier jardin botanique de la ville, initialement consacré à la recherche. Au fil des années, grâce à des échanges internationaux, la diversité botanique augmente. En 1901 et 1905, suite à une tempête dévastatrice, le jardin est entièrement rénové par Édouard André, puis accessible au public.
 
 Situé au cœur de la ville, ce jardin à l'anglaise offre de belles allées, des statues au style romantique, ainsi qu'un bassin agrémenté de petites cascades et de jeux de miroir. Il abrite une riche diversité végétale, entre arbres centenaires, massifs floraux et bosquets. La faune y est également présente, avec poules, lapins, chèvres, cygnes et parfois des écureuils.`,
-        image: "",
+         image: "https://upload.wikimedia.org/wikipedia/commons/d/dc/Angers_-_jardin_des_plantes_24.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Angers_-_jardin_des_plantes_24.jpg" target="_blank" style="color: #3498db;">Fab5669</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
         etapeId: "etape-7"
     },
     
@@ -178,7 +183,8 @@ Situé au cœur de la ville, ce jardin à l'anglaise offre de belles allées, de
 La rénovation complète de l'avenue a permis d'optimiser son éclairage grâce à l'installation de 36 lanternes ainsi que de 67 projecteurs orientés vers les prairies, l'allée centrale et le square. La végétation occupe désormais une place majeure, avec la plantation de 154 tilleuls à petites feuilles, 26 arbres fruitiers, 46 platanes, 810 hortensias et pas moins de 10 000 crocus.
 
 Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils et 10 bancs répartis le long de l'avenue. Avec plus de 11 600 m² végétalisés, soit plus de la moitié de la surface totale de cette dernière, l'espace alterne entre zones enherbées et espaces de détente en bordure, tandis que la large allée centrale permet un partage entre piétons et cyclistes.`,
-        image: "",
+         image: "https://upload.wikimedia.org/wikipedia/commons/5/52/Kiosque_Jardin_Mail_Angers_9.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Kiosque_Jardin_Mail_Angers_9.jpg" target="_blank" style="color: #3498db;">Chabe01</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
         etapeId: "etape-8"
     },
     
@@ -187,7 +193,8 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
       coords: [47.46891297404408, -0.553276794250633],
         title: "Benoit Chocolats Angers",
         description: `La chocolaterie confectionne ses créations à la main dans son atelier situé aux Ponts-de-Cé, près d'Angers, en perpétuant un savoir-faire artisanal. Son produit emblématique, Le Caramandes®, a valu à l'entreprise, fondée en 1975 à Angers, de nombreuses distinctions tant au niveau national qu'international. Créé en 2008, il s'agit d'une "fine feuille triangulaire, composée d'amandes effilées, torréfiées, caramélisées au beurre salé, puis enrobée d'un chocolat finement sélectionné".`,
-        image: "",
+         image: "https://benoitchocolats.com/img/cms/BOUTIQUE%20rue%20saint-aubin%20angers.jpg",
+         imageCredit: 'Photo : <a href="https://benoitchocolats.com/fr/content/9-boutiques-d-angers" target="_blank" style="color: #3498db;">Benoit</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
         etapeId: "etape-9"
     },
     
@@ -196,7 +203,8 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
       coords: [47.46846307813217, -0.5542979002335384],
         title: "La Maison du Quernon d'Ardoise",
         description: `La Maison du Quernon d'Ardoise, chocolaterie angevine, est célèbre pour sa spécialité lancée en 1996, le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou. Enrobée de chocolat bleu, cette gourmandise est composée de nougatine caramélisée aux amandes et aux noisettes.`,
-        image: "",
+         image: "https://quernon.fr/wp-content/uploads/2022/03/img_3505-1536x1152.jpg",
+         imageCredit: 'Photo : <a href="https://quernon.fr/boutique-avrille/" target="_blank" style="color: #3498db;">Quernon</a>, 
         etapeId: "etape-10"
     }
 ];
