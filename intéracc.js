@@ -1044,7 +1044,7 @@ function addMarkers() {
         
         const popupContent = `
     <div class="popup-content">
-        <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
+        <img src="${point.image}" alt="${point.title}" onerror="this.style.display='none';">
         ${point.imageCredit ? '<p style="font-size: 0.75em; color: #7f8c8d; margin: 5px 0 10px 0; text-align: center; line-height: 1.3;">' + point.imageCredit + '</p>' : ''}
         <h3>${etapeNumero} : ${point.title}</h3>
         <div style="white-space: pre-line; line-height: 1.6; text-align: justify; margin-bottom: 15px;">${point.description}</div>
