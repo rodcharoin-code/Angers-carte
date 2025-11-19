@@ -798,9 +798,11 @@ function generatePOIList() {
   pointsInteret.forEach((point, index) => {
     const poiItem = document.createElement('div');
     poiItem.className = 'poi-item';
+    // 🔧 CORRECTION : Afficher 🏁 pour index 0, sinon le numéro
+    const displayNumber = (index === 0) ? '🏁' : index;
     poiItem.innerHTML = `
       <div style="display:flex; align-items:flex-start;">
-        <div class="poi-number">${index}</div>
+        <div class="poi-number">${displayNumber}</div>
         <div>
           <div class="poi-title">${point.title}</div>
         </div>
@@ -1057,7 +1059,7 @@ function addMarkers() {
             gap: 10px;
         ">
             <button 
-                onclick="window.open('odd.html#etape-${index}', '_blank')"
+                onclick="window.open('odd.html#${(index === 0) ? 'depart' : 'etape-' + index}', '_blank')"
                 style="
                     background: linear-gradient(45deg, #27ae60, #2ecc71);
                     color: white;
