@@ -712,3 +712,24 @@ html { scroll-padding-top: 80px; }
   80%  { background: #fff9e6; }
   100% { background: white; }
 }
+/* --- Fix ancre : compenser header sticky pour scroll vers #etape --- */
+/* Définit la hauteur du header à prendre en compte pour l'ancre */
+:root {
+  --odd-scroll-offset: 72px; /* ajustez cette valeur : hauteur du header sticky + 8px */
+}
+
+/* Appliquer la compensation à chaque étape ciblée */
+.step-content {
+  scroll-margin-top: var(--odd-scroll-offset);
+}
+
+/* Option : spécifique aux anchors (départ et etape-N) */
+#depart,
+[id^="etape-"] {
+  scroll-margin-top: var(--odd-scroll-offset);
+}
+
+/* Ajustement mobile si le header est plus grand (portrait) */
+@media (max-width: 480px) {
+  :root { --odd-scroll-offset: 100px; } /* ajustez selon besoin */
+}
