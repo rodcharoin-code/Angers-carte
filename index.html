@@ -6,6 +6,7 @@
   <title>Circuit Eco-tourisme - Angers</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"/>
+  
   <link rel="stylesheet" href="intéract.css"/>
 
   <style>
@@ -21,8 +22,14 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    /* --- 2. STYLE DU CONTENU "NOUS CONNAÎTRE" (Badges, Etapes) --- */
-    /* Ces styles permettent d'afficher le joli design de votre page directement dans le popup */
+    /* --- 2. CORRECTION DU PROBLÈME D'OUVERTURE --- */
+    /* On force la fenêtre à être cachée par défaut avec l'ID (#) qui est plus fort que les classes */
+    #aboutModal {
+        display: none; 
+        z-index: 5000; /* On s'assure qu'elle passe au-dessus de tout quand elle s'ouvre */
+    }
+
+    /* --- 3. STYLE DU CONTENU INTERNE (Pour que ce soit joli comme votre page 1) --- */
     .step-content {
         border-left: 4px solid #20c997;
         padding-left: 15px;
@@ -67,6 +74,7 @@
         padding: 15px;
         border-radius: 8px;
         border-left: 4px solid #2c3e50;
+        margin-top: 20px;
     }
     .external-link {
         display: inline-block;
@@ -74,6 +82,11 @@
         color: #20c997;
         text-decoration: none;
         font-weight: bold;
+    }
+    /* Style spécifique pour le titre dans la modale */
+    #aboutModal .modal-body h3 {
+        color: #27ae60;
+        margin-top: 20px;
     }
   </style>
 </head>
@@ -114,7 +127,7 @@
         <span class="close" id="closeAbout">&times;</span>
         <h2>🤝 Qui sommes-nous ?</h2>
       </div>
-      <div class="modal-body" style="padding: 20px; line-height: 1.6;">
+      <div class="modal-body" style="padding: 20px; line-height: 1.6; max-height: 70vh; overflow-y: auto;">
         
         <article class="step-content" id="notre-histoire">
             <div class="step-header">
@@ -167,9 +180,15 @@
             <a href="mailto:contact@circuit-angers-durable.fr" class="external-link">✉️ Nous envoyer un message</a>
         </article>
 
+        <section class="intro-text">
+            <strong>Pourquoi les ODD ?</strong><br>
+            Nous avons choisi d'utiliser le référentiel de l'ONU car il offre un langage universel pour comprendre l'impact positif de votre visite.
+        </section>
+
       </div>
     </div>
   </div>
+
   <div id="poiModal" class="modal" aria-hidden="true">
     <div class="modal-content" role="dialog">
       <div class="modal-header">
@@ -214,7 +233,7 @@
       const aboutModal = document.getElementById('aboutModal');
       const closeAbout = document.getElementById('closeAbout');
 
-      if (aboutBtn && aboutModal) {
+      if (aboutBtn && aboutModal && closeAbout) {
           // Ouvre la fenêtre UNIQUEMENT au clic
           aboutBtn.addEventListener('click', function(e) {
             e.preventDefault();
