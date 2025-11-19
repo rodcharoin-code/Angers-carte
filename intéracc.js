@@ -509,8 +509,6 @@ function addCircuitFromGeoJSON() {
 // ===========================================
 // LANCEMENT - ORDRE CORRIGÉ
 // ===========================================
-
-addMarkers();
 addCircuitFromGeoJSON(); // Crée d'abord le circuit
 
 // 🔥 IMPORTANT : Ajuster la vue APRÈS le fitBounds()
@@ -1093,6 +1091,8 @@ function addMarkers() {
     
     console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons conditionnels');
 }
+// ✅ APPELER addMarkers() ICI, APRÈS SA DÉFINITION
+addMarkers();
                 
 /// ========================
 //  Questionnaire de satisfaction
