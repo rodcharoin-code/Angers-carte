@@ -68,7 +68,7 @@ const pointsInteret = [
     Concernant la végétalisation, plusieurs îlots ont été plantés avec des plantes vivaces et locales. Les sols ont été rendus perméables afin d’assurer l’infiltration de l'eau et diminuer les îlots de chaleur en été. L'arrosage de la végétation est assuré par une cuve de récupération des eaux de pluie.
 
     La statue du roi René a été replacée pour retrouver une place d’honneur face au château, symbolisant l’histoire d’Angers.`,
-        image: "https://github.com/rodcharoin-code/Angers-carte/blob/main/images/ken.jpg",,
+        image: "https://github.com/rodcharoin-code/Angers-carte/blob/main/images/ken.jpg",
         etapeId: "Départ"
     },
    
