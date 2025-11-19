@@ -603,39 +603,52 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
 // ===========================================================================
 // 🔧 FONCTION MODIFIÉE : Calcul du temps de trajet
 // ===========================================================================
+// ===========================================================================
+ // 🔧 FONCTION MODIFIÉE : Calcul du temps de trajet (version corrigée & plus robuste)
+ // ===========================================================================
 function calculateWalkingRoute(startLat, startLng, endLat, endLng) {
-  const simpleDistance = calculateDistance(startLat, startLng, endLat, endLng);
+  const simpleDistance = calculateDistance(startLat, startLng, endLat, endLng); // km
+  console.debug('calculateWalkingRoute — distance (km):', simpleDistance.toFixed(3));
 
+  // Si trop loin, retourner directement une estimation (plutôt que rejeter)
   if (simpleDistance > 100) {
-    console.warn(`Distance (${simpleDistance}km) > 100km. Forçage du mode estimation.`);
-    return Promise.reject(new Error('Distance trop grande pour un piéton'));
+    console.warn(`Distance (${simpleDistance} km) > 100 km — utilisation du mode estimation.`);
+    const durationEst = simpleDistance * 15 * 60; // 15 min / km -> secondes
+    return Promise.resolve({
+      geometry: { coordinates: [[startLng, startLat], [endLng, endLat]] },
+      distance: simpleDistance * 1000,
+      duration: durationEst,
+      fallback: true
+    });
   }
 
   const url = `https://router.project-osrm.org/route/v1/foot/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson&steps=true&alternatives=false`;
+  console.debug('OSRM request URL:', url);
 
   return fetch(url)
     .then((response) => {
-      if (!response.ok) throw new Error('Erreur réseau OSRM');
+      if (!response.ok) {
+        throw new Error(`Erreur réseau OSRM: ${response.status} ${response.statusText}`);
+      }
       return response.json();
     })
     .then((data) => {
       if (data && data.routes && data.routes.length > 0) {
-         let route = data.routes[0];
-         
-         // 🔧 MODIFICATION 1 : On ralentit le rythme (+30% de temps)
-         route.duration = route.duration * 7.3;
-         
-         return route;
+        const route = data.routes[0];
+        console.debug('OSRM route received — distance (m):', route.distance, 'duration (s):', route.duration);
+
+        // appliquer un facteur raisonnable (ex : +30%) — OSRM renvoie déjà en secondes
+        route.duration = Math.round(route.duration * 1.3);
+
+        console.debug('Adjusted duration (s):', route.duration);
+        return route;
       }
       throw new Error('Aucun itinéraire OSRM trouvé');
     })
     .catch((error) => {
-      console.warn('Passage au mode estimation:', error.message);
-      const distance = calculateDistance(startLat, startLng, endLat, endLng);
-      
-      // 🔧 MODIFICATION 2 : 15 minutes par km au lieu de 12
-      const duration = distance * 15 * 60;
-      
+      console.warn('Passage au mode estimation (catch):', error.message);
+      const distance = simpleDistance; // km
+      const duration = Math.round(distance * 15 * 60); // 15 min/km -> secondes
       return {
         geometry: { coordinates: [[startLng, startLat], [endLng, endLat]] },
         distance: distance * 1000,
