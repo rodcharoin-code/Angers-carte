@@ -1010,24 +1010,3 @@ body {
     font-size: 1em;
   }
 }
-/* --- Ajouter ceci à la fin de intéract.css --- */
-/* Recadrage uniforme des images dans les popups */
-.popup-content img {
-  width: 100%;
-  height: 220px;         /* ajustez la hauteur selon votre préférence */
-  object-fit: cover;     /* centre et rogne la photo pour remplir l'espace */
-  object-position: center center;
-  display: block;
-  border-radius: 8px;
-  margin: 0 0 8px 0;
-}
-
-/* Variante : si vous préférez un conteneur background (moins d'impact si images 404) */
-.popup-content .popup-image {
-  width: 100%;
-  height: 220px;
-  background-position: center center;
-  background-size: cover;
-  border-radius: 8px;
-  margin-bottom: 8px;
-}
