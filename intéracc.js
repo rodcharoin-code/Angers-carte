@@ -800,7 +800,7 @@ function generatePOIList() {
     poiItem.className = 'poi-item';
     poiItem.innerHTML = `
       <div style="display:flex; align-items:flex-start;">
-        <div class="poi-number">${index + 1}</div>
+        <div class="poi-number">${index}</div>
         <div>
           <div class="poi-title">${point.title}</div>
         </div>
@@ -1009,14 +1009,14 @@ function addMarkers() {
 
     pointsInteret.forEach((point, index) => {
         // Si c'est la Place Kennedy (index 0), on affiche "🏁" au lieu d'un numéro
-        const markerLabel = (index === 0) ? '🏁' : index + 1;
+        const markerLabel = (index === 0) ? '🏁' : index;
         
         const marker = L.marker(point.coords, {
             icon: createNumberedIcon(markerLabel)
         }).addTo(map);
         
         // Ajuster le numéro d'étape dans le popup
-        const etapeNumero = (index === 0) ? 'Départ' : `Étape ${index + 1}`;
+        const etapeNumero = (index === 0) ? 'Départ' : `Étape ${index}`;
         
         // Vérifier si un lien existe pour cette étape
         const lienSavoirPlus = liensEtapes[index];
@@ -1057,7 +1057,7 @@ function addMarkers() {
             gap: 10px;
         ">
             <button 
-                onclick="window.open('odd.html#etape-${index + 1}', '_blank')"
+                onclick="window.open('odd.html#etape-${index}', '_blank')"
                 style="
                     background: linear-gradient(45deg, #27ae60, #2ecc71);
                     color: white;
