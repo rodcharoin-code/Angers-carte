@@ -61,14 +61,14 @@ const pointsInteret = [
     {
        coords: [47.469117, -0.558312],
         title: "Place du Président Kennedy",
-        description: `Anciennement dominée par le stationnement automobile, la place du Président Kennedy vient d'être totalement transformée en un lieu de vie calme et végétalisé. Un projet porté par la ville d’Angers et imaginé par l’urbaniste Jacqueline Osty, ayant pour objectif de végétaliser un maximum la place, valoriser le patrimoine environnant et apaiser la circulation.
+        description: `Anciennement dominée par le stationnement automobile, la place du Président Kennedy vient d'être totalement transformée en un lieu de vie calme et végétalisé. Un projet porté par la ville d'Angers et imaginé par l'urbaniste Jacqueline Osty, ayant pour objectif de végétaliser un maximum la place, valoriser le patrimoine environnant et apaiser la circulation.
 
-    Désormais entièrement piétonne, cette place encourage les mobilités douces avec des espaces cyclables dédiés et limite l’entrée des voitures en ville.
+    Désormais entièrement piétonne, cette place encourage les mobilités douces avec des espaces cyclables dédiés et limite l'entrée des voitures en ville.
 
-    Concernant la végétalisation, plusieurs îlots ont été plantés avec des plantes vivaces et locales. Les sols ont été rendus perméables afin d’assurer l’infiltration de l'eau et diminuer les îlots de chaleur en été. L'arrosage de la végétation est assuré par une cuve de récupération des eaux de pluie.
+    Concernant la végétalisation, plusieurs îlots ont été plantés avec des plantes vivaces et locales. Les sols ont été rendus perméables afin d'assurer l'infiltration de l'eau et diminuer les îlots de chaleur en été. L'arrosage de la végétation est assuré par une cuve de récupération des eaux de pluie.
 
-    La statue du roi René a été replacée pour retrouver une place d’honneur face au château, symbolisant l’histoire d’Angers.`,
-        image:  "images/ken.jpg",
+    La statue du roi René a été replacée pour retrouver une place d'honneur face au château, symbolisant l'histoire d'Angers.`,
+        image: "images/ken.jpg",
         etapeId: "Départ"
     },
    
@@ -83,8 +83,8 @@ En lien constant avec la Ligue pour la Protection des Oiseaux (LPO), le Château
 La flore est très présente au sein du site avec 150 espèces recensées. Les orchidées, par exemple, sont représentées par l'ophrys abeille, l'orchis singe et l'orchis bouc. Des espèces de fougères sont également présentes, tout particulièrement au niveau des remparts. 
 
 Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte  ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.`,
-         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg/640px-Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg",
-         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Saint-Maurice_cathedral,_west_facade._Angers,_France.jpg" target="_blank" style="color: #3498db;">Moonik</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
+         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Ch%C3%A2teau_d%27Angers_depuis_rive_gauche_de_la_Maine.jpg/640px-Ch%C3%A2teau_d%27Angers_depuis_rive_gauche_de_la_Maine.jpg",
+         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Ch%C3%A2teau_d%27Angers_depuis_rive_gauche_de_la_Maine.jpg" target="_blank" style="color: #3498db;">Chabe01</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" style="color: #3498db;">CC BY-SA 4.0</a>',
       etapeId: "etape-1"
     },
     
@@ -95,8 +95,8 @@ Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encor
         description: `Située entre le château et la cité historique, la Promenade du Bout du Monde est un lieu emblématique de la ville d'Angers. Anciennement la voie principale d'entrée au château d'Angers, elle offre aujourd'hui une vue imprenable sur la Maine et le quartier de la Doutre. 
 
 Entièrement réaménagée et inaugurée le 24 juin 2018, la promenade a été repensée pour favoriser les mobilités douces et la biodiversité. La piétonnisation du site et la plantation de plus de 7 000 végétaux issus de 128 espèces différentes, majoritairement locales et mellifères, ont transformé cet espace d'origine très minéral.`,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg/640px-Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg",
-        imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Saint-Maurice_cathedral,_west_facade._Angers,_France.jpg" target="_blank" style="color: #3498db;">Moonik</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Angers_-_la_promenade_du_Bout-du-Monde_%2849614619512%29.jpg/640px-Angers_-_la_promenade_du_Bout-du-Monde_%2849614619512%29.jpg",
+        imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Angers_-_la_promenade_du_Bout-du-Monde_(49614619512).jpg" target="_blank" style="color: #3498db;">Chabe01</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" style="color: #3498db;">CC BY-SA 2.0</a>',
         etapeId: "etape-2"
     },
     
@@ -194,7 +194,7 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
         title: "Benoit Chocolats Angers",
         description: `La chocolaterie confectionne ses créations à la main dans son atelier situé aux Ponts-de-Cé, près d'Angers, en perpétuant un savoir-faire artisanal. Son produit emblématique, Le Caramandes®, a valu à l'entreprise, fondée en 1975 à Angers, de nombreuses distinctions tant au niveau national qu'international. Créé en 2008, il s'agit d'une "fine feuille triangulaire, composée d'amandes effilées, torréfiées, caramélisées au beurre salé, puis enrobée d'un chocolat finement sélectionné".`,
          image: "https://benoitchocolats.com/img/cms/BOUTIQUE%20rue%20saint-aubin%20angers.jpg",
-         imageCredit: 'Photo : <a href="https://benoitchocolats.com/fr/content/9-boutiques-d-angers" target="_blank" style="color: #3498db;">Benoit</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
+         imageCredit: 'Photo : <a href="https://benoitchocolats.com/fr/content/9-boutiques-d-angers" target="_blank" style="color: #3498db;">Benoit Chocolats</a>',
         etapeId: "etape-9"
     },
     
@@ -204,7 +204,7 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
         title: "La Maison du Quernon d'Ardoise",
         description: `La Maison du Quernon d'Ardoise, chocolaterie angevine, est célèbre pour sa spécialité lancée en 1996, le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou. Enrobée de chocolat bleu, cette gourmandise est composée de nougatine caramélisée aux amandes et aux noisettes.`,
          image: "https://quernon.fr/wp-content/uploads/2022/03/img_3505-1536x1152.jpg",
-         imageCredit: 'Photo : <a href="https://quernon.fr/boutique-avrille/" target="_blank" style="color: #3498db;">Quernon</a>, 
+         imageCredit: 'Photo : <a href="https://quernon.fr/boutique-avrille/" target="_blank" style="color: #3498db;">Quernon d\'Ardoise</a>',
         etapeId: "etape-10"
     }
 ];
