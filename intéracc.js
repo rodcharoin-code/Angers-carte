@@ -68,9 +68,7 @@ const pointsInteret = [
     Concernant la végétalisation, plusieurs îlots ont été plantés avec des plantes vivaces et locales. Les sols ont été rendus perméables afin d’assurer l’infiltration de l'eau et diminuer les îlots de chaleur en été. L'arrosage de la végétation est assuré par une cuve de récupération des eaux de pluie.
 
     La statue du roi René a été replacée pour retrouver une place d’honneur face au château, symbolisant l’histoire d’Angers.`,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg/640px-Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg",
-        imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Saint-Maurice_cathedral,_west_facade._Angers,_France.jpg" target="_blank" style="color: #3498db;">Moonik</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
-        etapeId: "etape-2",
+        image: "https://github.com/rodcharoin-code/Angers-carte/blob/main/images/ken.jpg",,
         etapeId: "Départ"
     },
    
