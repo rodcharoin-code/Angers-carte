@@ -654,7 +654,7 @@ function displayRoute(route) {
   map.fitBounds(bounds, { padding: [30, 30] });
 
   const distance = (route.distance / 1000).toFixed(2);
-  const duration = Math.round(route.duration / 60);
+  const duration = Math.round(route.duration*7,2 / 60);
   const routeType = route.fallback ? '📏 Distance estimée' : '🚶‍♂️ Itinéraire piéton optimisé';
 
   const routeInfo = `
