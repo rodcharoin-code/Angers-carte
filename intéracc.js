@@ -280,7 +280,7 @@ function addParkingMarkers() {
                 </div>
             </div>
             
-            <div style="background: #e8f5e9; padding: 10px; border-radius: 8pxroute.duration = route.duration * 2.4;; border-left: 4px solid #4caf50;">
+            <div style="background: #e8f5e9; padding: 10px; border-radius: 8px; border-left: 4px solid #4caf50;">
                 <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 17px; line-height: 1.4;">
                     💰 Tarifs
                 </div>
@@ -625,7 +625,7 @@ function calculateWalkingRoute(startLat, startLng, endLat, endLng) {
          let route = data.routes[0];
          
          // 🔧 MODIFICATION 1 : On ralentit le rythme (+30% de temps)
-         route.duration = route.duration * 7,2;
+         route.duration = route.duration * 1,3;
          
          return route;
       }
@@ -1011,14 +1011,14 @@ function addMarkers() {
 
     pointsInteret.forEach((point, index) => {
         // Si c'est la Place Kennedy (index 0), on affiche "🏁" au lieu d'un numéro
-        const markerLabel = (index === 0) ? '🏁' : index;
+        const markerLabel = (index === 0) ? '🏁' : index + 1;
         
         const marker = L.marker(point.coords, {
             icon: createNumberedIcon(markerLabel)
         }).addTo(map);
         
         // Ajuster le numéro d'étape dans le popup
-        const etapeNumero = (index === 0) ? 'Départ' : `Étape ${index}`;
+        const etapeNumero = (index === 0) ? 'Départ' : `Étape ${index + 1}`;
         
         // Vérifier si un lien existe pour cette étape
         const lienSavoirPlus = liensEtapes[index];
