@@ -212,4 +212,27 @@
     }
   </style>
 </head>
+  <script>
+  // Sélection des éléments
+  const aboutBtn = document.getElementById('aboutBtn');
+  const aboutModal = document.getElementById('aboutModal');
+  const closeAbout = document.getElementById('closeAbout');
+
+  // 1. Quand on clique sur le bouton "Nous connaître"
+  aboutBtn.addEventListener('click', function() {
+    aboutModal.style.display = 'block';
+  });
+
+  // 2. Quand on clique sur la croix (X) pour fermer
+  closeAbout.addEventListener('click', function() {
+    aboutModal.style.display = 'none';
+  });
+
+  // 3. Quand on clique en dehors de la fenêtre pour fermer
+  window.addEventListener('click', function(event) {
+    if (event.target == aboutModal) {
+      aboutModal.style.display = 'none';
+    }
+  });
+</script>
 </html>
