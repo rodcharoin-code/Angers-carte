@@ -186,4 +186,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
   <script src="intéracc.js"></script>
 </body>
+  <link rel="stylesheet" href="intéract.css"/>
+
+  <style>
+    /* 1. Enlever le soulignement du lien et centrer le texte */
+    .controls a.btn {
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    /* 2. Donner la couleur verte au bouton "Nous connaître" */
+    #aboutBtn {
+        background-color: #20c997; /* Vert menthe */
+        color: white;
+    }
+
+    /* 3. Effet au survol de la souris */
+    #aboutBtn:hover {
+        background-color: #198754; /* Vert plus foncé */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
 </html>
