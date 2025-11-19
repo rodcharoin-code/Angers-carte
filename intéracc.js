@@ -85,7 +85,7 @@ La flore est très présente au sein du site avec 150 espèces recensées. Les o
 Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte  ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.`,
         image: "https://www.destination-angers.com/app/uploads/destination-angers-tourisme/2024/11/thumbs/vue_aerienne_chateau_angers-1920x960.webp",
       source : "source : destinations-angers",
-      etapeId: "etape-2"
+      etapeId: "etape-1"
     },
     
     // ÉTAPE 2 : Promenade du Bout du Monde
@@ -97,7 +97,7 @@ Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encor
 Entièrement réaménagée et inaugurée le 24 juin 2018, la promenade a été repensée pour favoriser les mobilités douces et la biodiversité. La piétonnisation du site et la plantation de plus de 7 000 végétaux issus de 128 espèces différentes, majoritairement locales et mellifères, ont transformé cet espace d'origine très minéral.`,
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg/640px-Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg",
     imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Saint-Maurice_cathedral,_west_facade._Angers,_France.jpg" target="_blank" style="color: #3498db;">Moonik</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
-        etapeId: "etape-3"
+        etapeId: "etape-2"
     },
     
     // ÉTAPE 3 : Cathédrale Saint-Maurice
@@ -116,7 +116,7 @@ La statue de la Vierge au sourire, emblématique de l'art gothique angevin, qui 
 
 Aujourd'hui, la cathédrale s'inscrit pleinement dans une démarche de préservation durable du patrimoine : les restaurations utilisent des matériaux traditionnels locaux comme le tuffeau et la chaux, tandis que l'éclairage à faible consommation permet de sublimer l'architecture sans nuire à l'environnement.`,
         image: "",
-        etapeId: "etape-4"
+        etapeId: "etape-3"
     },
     
     // ÉTAPE 4 : Maison d'Adam
@@ -129,7 +129,7 @@ Classée Monument historique depuis 1922, la Maison d'Adam doit son nom à une s
 
 Ce lieu redynamise le centre-ville par des activités respectueuses et locales, fondées sur la transmission des savoir-faire et la mise en valeur du patrimoine bâti.`,
         image: "",
-        etapeId: "etape-5"
+        etapeId: "etape-4"
     },
     
     // ÉTAPE 5 : Rue Saint-Laud
@@ -142,7 +142,7 @@ Aujourd'hui entièrement réaménagée, la rue Saint-Laud s'inscrit dans la dyna
 
 N'hésitez pas à faire une pause dans l'un des cafés ou à parcourir les boutiques alentours, idéal pour soutenir les acteurs locaux.`,
         image: "",
-        etapeId: "etape-8"
+        etapeId: "etape-5"
     },
     
     // ÉTAPE 6 : Muséum des Sciences Naturelles
@@ -155,7 +155,7 @@ Les différentes expositions permanentes et temporaires abordent des thématique
 
 Le musée s'inscrit dans une démarche de sensibilisation du public à la protection de la nature et à la valorisation du patrimoine naturel et s'est donné cinq missions principales : la conservation, la diffusion des connaissances, l'expertise, la pédagogie et la recherche scientifique.`,
         image: "",
-        etapeId: "etape-10"
+        etapeId: "etape-6"
     },
     
     // ÉTAPE 7 : Jardin des Plantes
@@ -166,7 +166,7 @@ Le musée s'inscrit dans une démarche de sensibilisation du public à la protec
 
 Situé au cœur de la ville, ce jardin à l'anglaise offre de belles allées, des statues au style romantique, ainsi qu'un bassin agrémenté de petites cascades et de jeux de miroir. Il abrite une riche diversité végétale, entre arbres centenaires, massifs floraux et bosquets. La faune y est également présente, avec poules, lapins, chèvres, cygnes et parfois des écureuils.`,
         image: "",
-        etapeId: "etape-11"
+        etapeId: "etape-7"
     },
     
     // ÉTAPE 8 : Jardin du Mail
@@ -179,7 +179,7 @@ La rénovation complète de l'avenue a permis d'optimiser son éclairage grâce 
 
 Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils et 10 bancs répartis le long de l'avenue. Avec plus de 11 600 m² végétalisés, soit plus de la moitié de la surface totale de cette dernière, l'espace alterne entre zones enherbées et espaces de détente en bordure, tandis que la large allée centrale permet un partage entre piétons et cyclistes.`,
         image: "",
-        etapeId: "etape-9"
+        etapeId: "etape-8"
     },
     
     // ÉTAPE 9 : Benoit Chocolats
@@ -188,7 +188,7 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
         title: "Benoit Chocolats Angers",
         description: `La chocolaterie confectionne ses créations à la main dans son atelier situé aux Ponts-de-Cé, près d'Angers, en perpétuant un savoir-faire artisanal. Son produit emblématique, Le Caramandes®, a valu à l'entreprise, fondée en 1975 à Angers, de nombreuses distinctions tant au niveau national qu'international. Créé en 2008, il s'agit d'une "fine feuille triangulaire, composée d'amandes effilées, torréfiées, caramélisées au beurre salé, puis enrobée d'un chocolat finement sélectionné".`,
         image: "",
-        etapeId: "etape-7"
+        etapeId: "etape-9"
     },
     
     // ÉTAPE 10 : Maison du Quernon d'Ardoise
@@ -197,7 +197,7 @@ Du mobilier urbain est venu compléter l'aménagement, comprenant 33 fauteuils e
         title: "La Maison du Quernon d'Ardoise",
         description: `La Maison du Quernon d'Ardoise, chocolaterie angevine, est célèbre pour sa spécialité lancée en 1996, le Quernon d'Ardoise®, évoquant les toits d'ardoise typiques de l'Anjou. Enrobée de chocolat bleu, cette gourmandise est composée de nougatine caramélisée aux amandes et aux noisettes.`,
         image: "",
-        etapeId: "etape-6"
+        etapeId: "etape-10"
     }
 ];
 
