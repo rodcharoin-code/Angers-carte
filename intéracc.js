@@ -95,8 +95,8 @@ Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encor
         description: `Située entre le château et la cité historique, la Promenade du Bout du Monde est un lieu emblématique de la ville d'Angers. Anciennement la voie principale d'entrée au château d'Angers, elle offre aujourd'hui une vue imprenable sur la Maine et le quartier de la Doutre. 
 
 Entièrement réaménagée et inaugurée le 24 juin 2018, la promenade a été repensée pour favoriser les mobilités douces et la biodiversité. La piétonnisation du site et la plantation de plus de 7 000 végétaux issus de 128 espèces différentes, majoritairement locales et mellifères, ont transformé cet espace d'origine très minéral.`,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Angers_-_la_promenade_du_Bout-du-Monde_%2849614619512%29.jpg/640px-Angers_-_la_promenade_du_Bout-du-Monde_%2849614619512%29.jpg",
-        imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Angers_-_la_promenade_du_Bout-du-Monde_(49614619512).jpg" target="_blank" style="color: #3498db;">Chabe01</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" style="color: #3498db;">CC BY-SA 2.0</a>',
+        image: "https://www.caue-observatoire.fr/wp-content/uploads/2021/05/Phytolab_Angers_bout-du-monde_photographies02.jpg",
+        imageCredit: 'Photo : <a href="https://www.caue-observatoire.fr/ouvrage/promenade-bout-monde/" target="_blank" style="color: #3498db;"</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank" style="color: #3498db;">CC BY-SA 2.0</a>',
         etapeId: "etape-2"
     },
     
