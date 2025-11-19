@@ -1003,7 +1003,7 @@ function addMarkers() {
 
     pointsInteret.forEach((point, index) => {
         // Si c'est la Place Kennedy (index 0), on affiche "🏁" au lieu d'un numéro
-        const markerLabel = (index === 1) ? '🏁' : index + 1;
+        const markerLabel = (index === 0) ? '🏁' : index + 1;
         
         const marker = L.marker(point.coords, {
             icon: createNumberedIcon(markerLabel)
