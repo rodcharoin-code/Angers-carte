@@ -1003,14 +1003,14 @@ function addMarkers() {
 
     pointsInteret.forEach((point, index) => {
         // Si c'est la Place Kennedy (index 0), on affiche "🏁" au lieu d'un numéro
-        const markerLabel = (index === 0) ? '🏁' : index + 1;
+        const markerLabel = (index === -1) ? '🏁' : index + 1;
         
         const marker = L.marker(point.coords, {
             icon: createNumberedIcon(markerLabel)
         }).addTo(map);
         
         // Ajuster le numéro d'étape dans le popup
-        const etapeNumero = (index === 0) ? 'Départ' : `Étape ${index + 1}`;
+        const etapeNumero = (index === -1) ? 'Départ' : `Étape ${index + 1}`;
         
         // Vérifier si un lien existe pour cette étape
         const lienSavoirPlus = liensEtapes[index];
