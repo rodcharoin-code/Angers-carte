@@ -5,82 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Circuit Eco-tourisme - Angers</title>
 
+  <!-- Leaflet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"/>
-  
+
+  <!-- Styles CSS personnalisés -->
   <link rel="stylesheet" href="intéract.css"/>
-
-  <style>
-    /* --- 1. STYLE DU BOUTON "NOUS CONNAÎTRE" --- */
-    #aboutBtn {
-        background-color: #20c997; /* Vert menthe */
-        color: white;
-        border: none;
-    }
-    #aboutBtn:hover {
-        background-color: #198754;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    /* --- 2. FORCE LES FENÊTRES À ÊTRE CACHÉES PAR DÉFAUT --- */
-    #aboutModal, #welcomeModal, #poiModal {
-        display: none; 
-        z-index: 5000;
-    }
-    
-    /* Pour que le popup de bienvenue s'affiche bien au centre quand le JS l'active */
-    .welcome-modal {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.6);
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* --- 3. STYLE DU CONTENU "NOUS CONNAÎTRE" --- */
-    .step-content {
-        border-left: 4px solid #20c997;
-        padding-left: 15px;
-        margin-bottom: 25px;
-    }
-    .step-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .step-number {
-        font-size: 1.5em;
-        margin-right: 10px;
-    }
-    .step-header h2 {
-        margin: 0;
-        color: #2c3e50;
-        font-size: 1.4em;
-    }
-    .odd-badges { margin-bottom: 10px; }
-    .odd-badge {
-        display: inline-block; background: #e8f5e9; color: #2e7d32;
-        padding: 4px 8px; border-radius: 12px; font-size: 0.85em;
-        font-weight: bold; margin-right: 5px; margin-bottom: 5px; border: 1px solid #c8e6c9;
-    }
-    .odd-explanation p { margin: 5px 0; font-size: 0.95em; color: #555; }
-    .intro-text {
-        background-color: #f8f9fa; padding: 15px; border-radius: 8px;
-        border-left: 4px solid #2c3e50; margin-top: 20px;
-    }
-    .external-link {
-        display: inline-block; margin-top: 10px; color: #20c997;
-        text-decoration: none; font-weight: bold;
-    }
-    #aboutModal .modal-body h3 { color: #27ae60; margin-top: 20px; }
-  </style>
 </head>
 <body>
-
   <div class="header">
     <div class="header-logo">
        <a href="https://www.uco.fr" target="_blank" rel="noopener" title="UCO">
-      <img src="https://www.uco.fr/sites/default/files/2018-07/logo_UCO-H-Q.png" alt="Logo UCO" class="logo-image">
+      <img src="https://www.uco.fr/sites/default/files/2018-07/logo_UCO-H-Q.png" 
+           alt="Logo UCO" 
+           class="logo-image">
       </a>
     </div>
     <div class="header-content">
@@ -90,62 +27,57 @@
     </div>
   </div>
 
+  <!-- Indicateur de connexion -->
+  <div id="connectionStatus" class="connection-status online">🟢 En ligne</div>
+
+  <!-- Notification hors ligne -->
+  <div id="offlineNotification" class="offline-notification">📱 Mode hors ligne - La carte reste disponible !</div>
+
   <div class="controls">
     <button class="btn" id="locateBtn">📍 Ma Position</button>
     <button class="btn" id="startBtn">🏁 Aller au Départ</button>
     <button class="btn active" id="streetBtn">🗺️ Plan</button>
     <button class="btn" id="satelliteBtn">🛰️ Satellite</button>
     <button class="btn" id="listBtn">📋 Liste des Étapes</button>
-    <button class="btn" id="aboutBtn">🤝 Nous connaître</button>
     <button class="btn btn-help" id="helpBtn">❓ Aide</button>
   </div>
-
+  
+<!-- Bouton feedback flottant - VERSION RÉDUITE -->
+<button id="feedbackBtn" class="btn feedback-btn" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgb(205, 235, 177);
+    color: #2c3e50;
+    border: 2px solid #27ae60;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+    transition: all 0.3s ease;
+">
+    💬 Avis
+</button>
+  
   <div id="map"></div>
 
-  <div id="aboutModal" class="modal" aria-hidden="true">
-    <div class="modal-content" role="dialog">
-      <div class="modal-header">
-        <span class="close" id="closeAbout">&times;</span>
-        <h2>🤝 Qui sommes-nous ?</h2>
-      </div>
-      <div class="modal-body" style="padding: 20px; line-height: 1.6; max-height: 70vh; overflow-y: auto;">
-        <article class="step-content" id="notre-histoire">
-            <div class="step-header"><span class="step-number">🌱</span> <h2>La Genèse du Projet</h2></div>
-            <div class="odd-badges"><span class="odd-badge odd-11">🏙️ ODD 11</span><span class="odd-badge odd-4">📚 ODD 4</span></div>
-            <div class="odd-explanation"><p><strong>Une initiative locale :</strong> Ce circuit est né d'une volonté simple : redécouvrir Angers par son avenir durable.</p></div>
-        </article>
-        <article class="step-content" id="notre-methode">
-            <div class="step-header"><span class="step-number">🔍</span><h2>Une Sélection Rigoureuse</h2></div>
-            <div class="odd-badges"><span class="odd-badge odd-12">♻️ ODD 12</span><span class="odd-badge odd-8">💼 ODD 8</span></div>
-            <div class="odd-explanation"><p><strong>Des critères stricts :</strong> Chaque étape doit répondre à au moins deux Objectifs de Développement Durable.</p></div>
-        </article>
-        <article class="step-content" id="partenaires">
-            <div class="step-header"><span class="step-number">🤝</span><h2>Un Projet Collaboratif</h2></div>
-            <div class="odd-badges"><span class="odd-badge odd-17">🌍 ODD 17</span></div>
-            <div class="odd-explanation"><p><strong>Co-construction :</strong> Réalisé avec l'Office de Tourisme et les commerçants locaux.</p></div>
-        </article>
-        <article class="step-content" id="contact">
-            <div class="step-header"><span class="step-number">📩</span><h2>Rejoignez le mouvement</h2></div>
-            <div class="odd-explanation"><p>Vous connaissez un lieu durable ? Contactez-nous.</p></div>
-            <a href="mailto:contact@circuit-angers-durable.fr" class="external-link">✉️ Nous envoyer un message</a>
-        </article>
-        <section class="intro-text"><strong>Pourquoi les ODD ?</strong><br>Le référentiel de l'ONU offre un langage universel.</section>
-      </div>
-    </div>
-  </div>
-
+  <!-- Modal liste des POI -->
   <div id="poiModal" class="modal" aria-hidden="true">
-    <div class="modal-content" role="dialog">
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="poiTitle">
       <div class="modal-header">
-        <span class="close">&times;</span>
+        <span class="close" role="button" aria-label="Fermer">&times;</span>
         <h2 id="poiTitle">📍 Étapes du Circuit</h2>
       </div>
       <div class="poi-list" id="poiList"></div>
     </div>
   </div>
 
+  <!-- Modal de bienvenue / tutoriel -->
   <div id="welcomeModal" class="welcome-modal" aria-hidden="true">
-    <div class="welcome-modal-content">
+    <div class="welcome-modal-content" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
       <div class="welcome-modal-header">
         <h2 id="welcomeTitle">🌿 Bienvenue !</h2>
       </div>
@@ -153,72 +85,104 @@
         <div class="welcome-step" id="step1">
           <div class="welcome-icon">🗺️</div>
           <p class="welcome-text">Venez découvrir la ville d'Angers autrement !</p>
+          <p class="welcome-subtext">Une carte qui allie Patrimoine et Développement durable.</p>
         </div>
-        <div class="welcome-step" id="step10" style="display:none;">
-          <div class="welcome-icon">✅</div>
-          <p class="welcome-text">Bonne visite !</p>
+
+        <div class="welcome-step" id="step2" style="display:none;">
+          <div class="welcome-icon">📍</div>
+          <p class="welcome-text">Bouton "Ma Position"</p>
+          <p class="welcome-subtext">Cliquez ici pour vous localiser sur la carte et voir votre position en temps réel.</p>
+          <div class="demo-button">📍 Ma Position</div>
+        </div>
+
+        <div class="welcome-step" id="step3" style="display:none;">
+          <div class="welcome-icon">🏁</div>
+          <p class="welcome-text">Bouton "Aller au Départ"</p>
+          <p class="welcome-subtext">Calcule automatiquement le meilleur itinéraire piéton depuis votre position jusqu'au premier point du circuit.</p>
+          <div class="demo-button">🏁 Aller au Départ</div>
+        </div>
+
+        <div class="welcome-step" id="step4" style="display:none;">
+          <div class="welcome-icon">🗺️</div>
+          <p class="welcome-text">Boutons "Plan" et "Satellite"</p>
+          <p class="welcome-subtext">Basculez entre la vue carte classique et la vue satellite pour une meilleure orientation.</p>
+          <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+            <div class="demo-button">🗺️ Plan</div>
+            <div class="demo-button">🛰️ Satellite</div>
+          </div>
+        </div>
+
+        <div class="welcome-step" id="step5" style="display:none;">
+          <div class="welcome-icon">📋</div>
+          <p class="welcome-text">Bouton "Liste des Étapes"</p>
+          <p class="welcome-subtext">Consultez la liste complète des étapes du circuit avec leurs descriptions détaillées.</p>
+            <div class="demo-button">📋 Liste des Étapes</div>
+        </div>
+
+        <div class="welcome-step" id="step6" style="display:none;">
+          <div class="welcome-icon">🎯</div>
+          <p class="welcome-text">Marqueurs numérotés</p>
+          <p class="welcome-subtext">Cliquez sur les marqueurs pour voir les informations de chaque étape avec photos et boutons d'accès.</p>
+          <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+            <div class="demo-marker">🏁</div>
+            <div class="demo-marker">1</div>
+            <div class="demo-marker">2</div>
+          </div>
+        </div>
+        
+        <div class="welcome-step" id="step7" style="display:none;">
+        <div class="welcome-icon">📚</div>
+        <p class="welcome-text">Bouton "En savoir plus"</p>
+        <p class="welcome-subtext">Cliquez sur ce bouton dans les popups pour accéder aux informations détaillées sur chaque étape du circuit.</p>
+        <div class="demo-button">📖 En savoir plus</div>
+    </div>
+
+      <div class="welcome-step" id="step8" style="display:none;">
+        <div class="welcome-icon">🌍</div>
+        <p class="welcome-text">Bouton "ODD"</p>
+        <p class="welcome-subtext">Découvrez les Objectifs de Développement Durable liés à chaque étape et leur impact environnemental.</p>
+        <div class="demo-button">🌍 ODD</div>
+      </div>
+
+      <div class="welcome-step" id="step9" style="display:none;">
+        <div class="welcome-icon">🚲</div>
+        <p class="welcome-text">Points d'intérêt pratiques</p>
+        <p class="welcome-subtext">Repérez facilement les parkings à vélo 🚲, parkings voiture 🅿️ et la gare 🚉 sur la carte pour organiser votre visite.</p>
+        <div style="display:flex; gap:10px; justify-content:center; margin-top:15px;">
+          <div class="demo-marker">🚲</div>
+          <div class="demo-marker">🅿️</div>
+          <div class="demo-marker">🚉</div>
         </div>
       </div>
+
+        <div class="welcome-step" id="step10" style="display:none;">
+          <div class="welcome-icon">✅</div>
+          <p class="welcome-text">Prêt à découvrir Angers !</p>
+          <p class="welcome-subtext">Vous avez toutes les clés en main pour profiter pleinement de votre visite. Bonne découverte ! 🏰</p>
+        </div>
+      </div>
+
       <div class="welcome-modal-footer">
         <button class="welcome-btn welcome-btn-skip" id="skipBtn">Passer</button>
+        <div class="welcome-progress">
+          <span class="progress-dot active"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+        </div>
         <button class="welcome-btn welcome-btn-next" id="nextBtn">Suivant</button>
       </div>
     </div>
   </div>
 
-  <button id="feedbackBtn" class="btn feedback-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: rgb(205, 235, 177); color: #2c3e50; border: 2px solid #27ae60; padding: 8px 16px; border-radius: 25px; cursor: pointer; font-weight: bold;">💬 Avis</button>
-
+  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
   <script src="intéracc.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      // --- 1. GESTION DE LA MODALE "NOUS CONNAÎTRE" ---
-      const aboutBtn = document.getElementById('aboutBtn');
-      const aboutModal = document.getElementById('aboutModal');
-      const closeAbout = document.getElementById('closeAbout');
-
-      if (aboutBtn && aboutModal && closeAbout) {
-          aboutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            aboutModal.style.display = 'block'; // Affiche au clic
-          });
-          closeAbout.addEventListener('click', function() {
-            aboutModal.style.display = 'none'; // Cache à la croix
-          });
-          window.addEventListener('click', function(event) {
-            if (event.target == aboutModal) {
-              aboutModal.style.display = 'none'; // Cache au clic dehors
-            }
-          });
-      }
-
-      // --- 2. GESTION DU POP-UP DE BIENVENUE (TUTORIEL) ---
-      // C'est ici qu'on force l'affichage au démarrage
-      const welcomeModal = document.getElementById('welcomeModal');
-      const skipBtn = document.getElementById('skipBtn');
-      
-      // OUVRE LE TUTORIEL AUTOMATIQUEMENT AU LANCEMENT
-      if (welcomeModal) {
-          // On ajoute 'flex' pour centrer si le CSS utilise flexbox, sinon 'block'
-          welcomeModal.style.display = 'flex'; 
-      }
-
-      // GESTION DU BOUTON "PASSER"
-      if (skipBtn && welcomeModal) {
-          skipBtn.addEventListener('click', function() {
-              welcomeModal.style.display = 'none';
-          });
-      }
-
-      // Note : La logique "Suivant" est probablement dans intéracc.js
-      // Si elle ne marche pas, il faudra nous donner le fichier JS.
-    });
-  </script>
-
-</body>
-</html>
-
 </body>
 </html>
