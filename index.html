@@ -6,11 +6,10 @@
   <title>Circuit Eco-tourisme - Angers</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"/>
-
   <link rel="stylesheet" href="intéract.css"/>
 
   <style>
-    /* Style spécifique pour le bouton "Nous connaître" */
+    /* --- 1. STYLE DU BOUTON "NOUS CONNAÎTRE" --- */
     #aboutBtn {
         background-color: #20c997; /* Vert menthe */
         color: white;
@@ -21,15 +20,65 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    
-    /* Style pour que le titre dans la fenêtre soit vert */
-    #aboutModal .modal-body h3 {
-        color: #27ae60;
-        margin-top: 0;
+
+    /* --- 2. STYLE DU CONTENU "NOUS CONNAÎTRE" (Badges, Etapes) --- */
+    /* Ces styles permettent d'afficher le joli design de votre page directement dans le popup */
+    .step-content {
+        border-left: 4px solid #20c997;
+        padding-left: 15px;
+        margin-bottom: 25px;
+    }
+    .step-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .step-number {
+        font-size: 1.5em;
+        margin-right: 10px;
+    }
+    .step-header h2 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 1.4em;
+    }
+    .odd-badges {
+        margin-bottom: 10px;
+    }
+    .odd-badge {
+        display: inline-block;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.85em;
+        font-weight: bold;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border: 1px solid #c8e6c9;
+    }
+    .odd-explanation p {
+        margin: 5px 0;
+        font-size: 0.95em;
+        color: #555;
+    }
+    .intro-text {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #2c3e50;
+    }
+    .external-link {
+        display: inline-block;
+        margin-top: 10px;
+        color: #20c997;
+        text-decoration: none;
+        font-weight: bold;
     }
   </style>
 </head>
 <body>
+
   <div class="header">
     <div class="header-logo">
        <a href="https://www.uco.fr" target="_blank" rel="noopener" title="UCO">
@@ -45,10 +94,6 @@
     </div>
   </div>
 
-  <div id="connectionStatus" class="connection-status online">🟢 En ligne</div>
-
-  <div id="offlineNotification" class="offline-notification">📱 Mode hors ligne - La carte reste disponible !</div>
-
   <div class="controls">
     <button class="btn" id="locateBtn">📍 Ma Position</button>
     <button class="btn" id="startBtn">🏁 Aller au Départ</button>
@@ -60,7 +105,9 @@
     
     <button class="btn btn-help" id="helpBtn">❓ Aide</button>
   </div>
-  
+
+  <div id="map"></div>
+
   <div id="aboutModal" class="modal" aria-hidden="true" style="display: none;">
     <div class="modal-content" role="dialog">
       <div class="modal-header">
@@ -68,40 +115,65 @@
         <h2>🤝 Qui sommes-nous ?</h2>
       </div>
       <div class="modal-body" style="padding: 20px; line-height: 1.6;">
-        <h3>🌱 La Genèse du Projet</h3>
-        <p>Ce circuit est né d'une volonté simple : redécouvrir Angers par son avenir durable. Passionnés par notre ville, nous avons voulu créer un lien entre le patrimoine et l'écologie.</p>
-        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-        <h3>🔍 Une Sélection Rigoureuse</h3>
-        <p>Chaque étape répond à au moins deux Objectifs de Développement Durable (ODD). Nous valorisons les circuits courts et la biodiversité.</p>
+        
+        <article class="step-content" id="notre-histoire">
+            <div class="step-header">
+                <span class="step-number">🌱</span> <h2>La Genèse du Projet</h2>
+            </div>
+            <div class="odd-badges">
+                <span class="odd-badge odd-11">🏙️ ODD 11</span>
+                <span class="odd-badge odd-4">📚 ODD 4</span>
+            </div>
+            <div class="odd-explanation">
+                <p><strong>Une initiative locale :</strong> Ce circuit est né d'une volonté simple : redécouvrir Angers par son avenir durable. Passionnés par notre ville, nous créons un lien entre le patrimoine séculaire et les enjeux écologiques.</p>
+            </div>
+        </article>
+
+        <article class="step-content" id="notre-methode">
+            <div class="step-header">
+                <span class="step-number">🔍</span>
+                <h2>Une Sélection Rigoureuse</h2>
+            </div>
+            <div class="odd-badges">
+                <span class="odd-badge odd-12">♻️ ODD 12</span>
+                <span class="odd-badge odd-8">💼 ODD 8</span>
+            </div>
+            <div class="odd-explanation">
+                <p><strong>Des critères stricts :</strong> Chaque étape doit répondre à au moins deux Objectifs de Développement Durable (ODD). Nous valorisons les circuits courts et la biodiversité.</p>
+            </div>
+        </article>
+
+        <article class="step-content" id="partenaires">
+            <div class="step-header">
+                <span class="step-number">🤝</span>
+                <h2>Un Projet Collaboratif</h2>
+            </div>
+            <div class="odd-badges">
+                <span class="odd-badge odd-17">🌍 ODD 17</span> 
+            </div>
+            <div class="odd-explanation">
+                <p><strong>Co-construction :</strong> Réalisé avec l'Office de Tourisme et les commerçants locaux. Une équipe d'étudiants engagés pour le tourisme de demain.</p>
+            </div>
+        </article>
+
+        <article class="step-content" id="contact">
+            <div class="step-header">
+                <span class="step-number">📩</span>
+                <h2>Rejoignez le mouvement</h2>
+            </div>
+            <div class="odd-explanation">
+                <p>Vous connaissez un lieu durable ? Contactez-nous pour enrichir ce parcours.</p>
+            </div>
+            <a href="mailto:contact@circuit-angers-durable.fr" class="external-link">✉️ Nous envoyer un message</a>
+        </article>
+
       </div>
     </div>
   </div>
-
-  <button id="feedbackBtn" class="btn feedback-btn" style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    background: rgb(205, 235, 177);
-    color: #2c3e50;
-    border: 2px solid #27ae60;
-    padding: 8px 16px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-    transition: all 0.3s ease;
-  ">
-    💬 Avis
-  </button>
-  
-  <div id="map"></div>
-
   <div id="poiModal" class="modal" aria-hidden="true">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="poiTitle">
+    <div class="modal-content" role="dialog">
       <div class="modal-header">
-        <span class="close" role="button" aria-label="Fermer">&times;</span>
+        <span class="close">&times;</span>
         <h2 id="poiTitle">📍 Étapes du Circuit</h2>
       </div>
       <div class="poi-list" id="poiList"></div>
@@ -109,7 +181,7 @@
   </div>
 
   <div id="welcomeModal" class="welcome-modal" aria-hidden="true">
-    <div class="welcome-modal-content" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="welcome-modal-content">
       <div class="welcome-modal-header">
         <h2 id="welcomeTitle">🌿 Bienvenue !</h2>
       </div>
@@ -118,50 +190,43 @@
           <div class="welcome-icon">🗺️</div>
           <p class="welcome-text">Venez découvrir la ville d'Angers autrement !</p>
         </div>
-        <div class="welcome-step" id="step2" style="display:none;">
-          <div class="welcome-icon">📍</div>
-          <p class="welcome-text">Bouton "Ma Position"</p>
-        </div>
         <div class="welcome-step" id="step10" style="display:none;">
           <div class="welcome-icon">✅</div>
-          <p class="welcome-text">Prêt à découvrir Angers !</p>
+          <p class="welcome-text">Bonne visite !</p>
         </div>
       </div>
       <div class="welcome-modal-footer">
         <button class="welcome-btn welcome-btn-skip" id="skipBtn">Passer</button>
-        <div class="welcome-progress">
-           <span class="progress-dot active"></span><span class="progress-dot"></span><span class="progress-dot"></span>
-           <span class="progress-dot"></span><span class="progress-dot"></span><span class="progress-dot"></span>
-           <span class="progress-dot"></span><span class="progress-dot"></span><span class="progress-dot"></span>
-           <span class="progress-dot"></span>
-        </div>
         <button class="welcome-btn welcome-btn-next" id="nextBtn">Suivant</button>
       </div>
     </div>
   </div>
 
+  <button id="feedbackBtn" class="btn feedback-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: rgb(205, 235, 177); color: #2c3e50; border: 2px solid #27ae60; padding: 8px 16px; border-radius: 25px; cursor: pointer; font-weight: bold;">💬 Avis</button>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
   <script src="intéracc.js"></script>
 
   <script>
+    /* SCRIPT DE GESTION DE LA FENÊTRE NOUS CONNAÎTRE */
     document.addEventListener('DOMContentLoaded', function() {
       const aboutBtn = document.getElementById('aboutBtn');
       const aboutModal = document.getElementById('aboutModal');
       const closeAbout = document.getElementById('closeAbout');
 
-      if (aboutBtn && aboutModal && closeAbout) {
-          // 1. Ouvrir la fenêtre au clic
+      if (aboutBtn && aboutModal) {
+          // Ouvre la fenêtre UNIQUEMENT au clic
           aboutBtn.addEventListener('click', function(e) {
-            e.preventDefault(); // Sécurité : empêche tout rechargement
+            e.preventDefault();
             aboutModal.style.display = 'block';
           });
 
-          // 2. Fermer avec la croix
+          // Ferme avec la croix
           closeAbout.addEventListener('click', function() {
             aboutModal.style.display = 'none';
           });
 
-          // 3. Fermer en cliquant dehors
+          // Ferme en cliquant dehors
           window.addEventListener('click', function(event) {
             if (event.target == aboutModal) {
               aboutModal.style.display = 'none';
@@ -170,5 +235,6 @@
       }
     });
   </script>
+
 </body>
 </html>
