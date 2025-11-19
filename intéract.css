@@ -953,3 +953,60 @@ body {
     font-size: 6px !important;
   }
 }
+/* ========================================
+   BOUTON ET MODAL "NOUS"
+   ======================================== */
+.btn-nous {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+.btn-nous:hover {
+  background: linear-gradient(45deg, #5dade2, #3498db);
+}
+
+.nous-content {
+  padding: 20px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.nous-section {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-left: 5px solid #3498db;
+}
+
+.nous-section h3 {
+  color: #2c3e50;
+  font-size: 1.4em;
+  margin-bottom: 15px;
+}
+
+.nous-section p {
+  color: #34495e;
+  line-height: 1.8;
+  font-size: 1.1em;
+  text-align: justify;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .nous-content {
+    padding: 15px;
+  }
+  
+  .nous-section {
+    padding: 15px;
+  }
+  
+  .nous-section h3 {
+    font-size: 1.2em;
+  }
+  
+  .nous-section p {
+    font-size: 1em;
+  }
+}
