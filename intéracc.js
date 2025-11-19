@@ -56,7 +56,7 @@ streetMap.addTo(map);
 // ===========================================
 
 const pointsInteret = [
-  
+   
     // 🏁 DÉPART : Place Kennedy
     {
        coords: [47.469117, -0.558312],
@@ -71,7 +71,7 @@ const pointsInteret = [
         image: "",
         etapeId: "etape-1"
     },
-  
+   
     // ÉTAPE 1 : Château d'Angers
     { 
       coords: [47.47063117697629, -0.5588421261128192],
@@ -95,7 +95,8 @@ Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encor
         description: `Située entre le château et la cité historique, la Promenade du Bout du Monde est un lieu emblématique de la ville d'Angers. Anciennement la voie principale d'entrée au château d'Angers, elle offre aujourd'hui une vue imprenable sur la Maine et le quartier de la Doutre. 
 
 Entièrement réaménagée et inaugurée le 24 juin 2018, la promenade a été repensée pour favoriser les mobilités douces et la biodiversité. La piétonnisation du site et la plantation de plus de 7 000 végétaux issus de 128 espèces différentes, majoritairement locales et mellifères, ont transformé cet espace d'origine très minéral.`,
-        image: "",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg/640px-Saint-Maurice_cathedral%2C_west_facade._Angers%2C_France.jpg",
+    imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Saint-Maurice_cathedral,_west_facade._Angers,_France.jpg" target="_blank" style="color: #3498db;">Moonik</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="color: #3498db;">CC BY-SA 3.0</a>',
         etapeId: "etape-3"
     },
     
@@ -246,7 +247,7 @@ function addParkingMarkers() {
         const marker = L.marker(parking.coords, {
             icon: createParkingIcon()
         });
-              
+               
        const popupContent = `
             <div class="popup-content" style="min-width: 220px;">
                 <h3 style="margin: 0 0 10px 0; color: #2c3e50; font-size: 16px;">        
@@ -271,7 +272,7 @@ function addParkingMarkers() {
                 </div>
             </div>
             
-            <div style="background: #e8f5e9; padding: 10px; border-radius: 8px; border-left: 4px solid #4caf50;">
+            <div style="background: #e8f5e9; padding: 10px; border-radius: 8pxroute.duration = route.duration * 2.4;; border-left: 4px solid #4caf50;">
                 <div style="font-weight: bold; margin-bottom: 5px; color: #2c3e50; font-size: 17px; line-height: 1.4;">
                     💰 Tarifs
                 </div>
@@ -593,51 +594,49 @@ function calculateDistance(lat1, lng1, lat2, lng2) {
   return R * c;
 }
 
+// ===========================================================================
+// 🔧 FONCTION MODIFIÉE : Calcul du temps de trajet
+// ===========================================================================
 function calculateWalkingRoute(startLat, startLng, endLat, endLng) {
-      
-    // 1. Calculer la distance à vol d'oiseau D'ABORD
-    const simpleDistance = calculateDistance(startLat, startLng, endLat, endLng);
-    
-    // 2. Définir une limite (ex: 100km)
-    // Si la distance est trop grande pour un piéton, forcer le mode "estimation"
-    // en rejetant la promesse, ce qui active le .catch()
-    if (simpleDistance > 100) { // Limite de 100 km
-        console.warn(`Distance (${simpleDistance}km) > 100km. Forçage du mode estimation.`);
-        // On "rejette" pour sauter directement au bloc .catch()
-        return Promise.reject(new Error('Distance trop grande pour un piéton'));
-    }
+  const simpleDistance = calculateDistance(startLat, startLng, endLat, endLng);
 
-    // 3. Si la distance est raisonnable ( < 100km), appeler l'API OSRM
-    const url = `https://router.project-osrm.org/route/v1/foot/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson&steps=true&alternatives=false`;
-    
-    return fetch(url)
-      .then((response) => {
-        if (!response.ok) throw new Error('Erreur réseau OSRM');
-        return response.json();
-      })
-      .then((data) => {
-        if (data && data.routes && data.routes.length > 0) return data.routes[0];
-        throw new Error('Aucun itinéraire OSRM trouvé');
-      })
-      .catch((error) => {
-        // Ce bloc gère MAINTENANT les échecs de l'API ET les distances > 100km
-        console.warn('Passage au mode estimation:', error.message);
-        
-        // Recalcul de la distance (comme dans votre code original)
-        // Note: on utilise "simpleDistance" qu'on a déjà, mais 
-        // pour garder la structure, on recalcule ici.
-        const distance = calculateDistance(startLat, startLng, endLat, endLng);
-        
-        // Votre calcul (12 min/km)
-        const duration = distance * 12 * 60; 
-        
-        return {
-          geometry: { coordinates: [[startLng, startLat], [endLng, endLat]] },
-          distance: distance * 1000, // en mètres
-          duration, // en secondes
-          fallback: true // Très important: ceci affichera "Distance estimée"
-        };
-      });
+  if (simpleDistance > 100) {
+    console.warn(`Distance (${simpleDistance}km) > 100km. Forçage du mode estimation.`);
+    return Promise.reject(new Error('Distance trop grande pour un piéton'));
+  }
+
+  const url = `https://router.project-osrm.org/route/v1/foot/${startLng},${startLat};${endLng},${endLat}?overview=full&geometries=geojson&steps=true&alternatives=false`;
+
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) throw new Error('Erreur réseau OSRM');
+      return response.json();
+    })
+    .then((data) => {
+      if (data && data.routes && data.routes.length > 0) {
+         let route = data.routes[0];
+         
+         // 🔧 MODIFICATION 1 : On ralentit le rythme (+30% de temps)
+         route.duration = route.duration * 7,777;
+         
+         return route;
+      }
+      throw new Error('Aucun itinéraire OSRM trouvé');
+    })
+    .catch((error) => {
+      console.warn('Passage au mode estimation:', error.message);
+      const distance = calculateDistance(startLat, startLng, endLat, endLng);
+      
+      // 🔧 MODIFICATION 2 : 15 minutes par km au lieu de 12
+      const duration = distance * 15 * 60;
+      
+      return {
+        geometry: { coordinates: [[startLng, startLat], [endLng, endLat]] },
+        distance: distance * 1000,
+        duration,
+        fallback: true
+      };
+    });
 }
 
 function displayRoute(route) {
@@ -654,7 +653,7 @@ function displayRoute(route) {
   map.fitBounds(bounds, { padding: [30, 30] });
 
   const distance = (route.distance / 1000).toFixed(2);
-  const duration = Math.round(route.duration*7,2 / 60);
+  const duration = Math.round(route.duration / 60);
   const routeType = route.fallback ? '📏 Distance estimée' : '🚶‍♂️ Itinéraire piéton optimisé';
 
   const routeInfo = `
@@ -972,6 +971,7 @@ document.getElementById('helpBtn').addEventListener('click', function () {
     this.textContent = '❓ Aide';
   }, 2000);
 });
+
 // ===========================================
 // CRÉER LES MARQUEURS AVEC BOUTONS
 // ===========================================
@@ -1037,40 +1037,43 @@ function addMarkers() {
         ` : '';
         
         const popupContent = `
-            <div class="popup-content">
-                <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
-                <h3>${etapeNumero} : ${point.title}</h3>
-                <div style="white-space: pre-line; line-height: 1.6; text-align: justify; margin-bottom: 15px;">${point.description}</div>
-                
-                <div style="
-                    display: flex;
-                    justify-content: ${lienSavoirPlus ? 'space-between' : 'center'};
-                    align-items: center;
-                    margin-top: 15px;
-                    gap: 10px;
-                ">
-                    <button 
-                        onclick="window.open('odd.html#etape-${index + 1}', '_blank')"
-                        style="
-                            background: linear-gradient(45deg, #27ae60, #2ecc71);
-                            color: white;
-                            border: none;
-                            padding: 15px 15px;
-                            border-radius: 15px;
-                            cursor: pointer;
-                            font-weight: bold;
-                            font-size: 15px;
-                            box-shadow: 0 4px 10px rgba(39,174,96,0.3);
-                            transition: all 0.3s ease;
-                        "
-                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(39,174,96,0.5)'"
-                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(39,174,96,0.3)'"
-                    >🌍 ODD</button>
+    <div class="popup-content">
+        <img src="${point.image}" alt="${point.title}" onerror="this.src='${point.fallbackImage}'">
+        ${point.imageCredit ? '<p style="font-size: 0.75em; color: #7f8c8d; margin: 5px 0 10px 0; text-align: center; line-height: 1.3;">' + point.imageCredit + '</p>' : ''}
+        <h3>${etapeNumero} : ${point.title}</h3>
+        <div style="white-space: pre-line; line-height: 1.6; text-align: justify; margin-bottom: 15px;">${point.description}</div>
+        
+        <div style="
+            display: flex;
+            justify-content: ${lienSavoirPlus ? 'space-between' : 'center'};
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+        ">
+            <button 
+                onclick="window.open('odd.html#etape-${index + 1}', '_blank')"
+                style="
+                    background: linear-gradient(45deg, #27ae60, #2ecc71);
+                    color: white;
+                    border: none;
+                    padding: 10px 15px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-size: 14px;
+                    box-shadow: 0 4px 10px rgba(39,174,96,0.3);
+                    transition: all 0.3s ease;
+                "
+                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(39,174,96,0.5)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 10px rgba(39,174,96,0.3)'"
+            >
+                🌍 ODD
+            </button>
 
-                    ${boutonSavoirPlus}
-                </div>
-            </div>
-        `;
+            ${boutonSavoirPlus}
+        </div>
+    </div>
+`;
         
         marker.bindPopup(popupContent, { 
             maxWidth: 500,
@@ -1082,7 +1085,6 @@ function addMarkers() {
     
     console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons conditionnels');
 }
-
                 
 /// ========================
 //  Questionnaire de satisfaction
