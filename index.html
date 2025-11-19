@@ -40,6 +40,7 @@
     <button class="btn" id="satelliteBtn">🛰️ Satellite</button>
     <button class="btn" id="listBtn">📋 Liste des Étapes</button>
     <button class="btn btn-help" id="helpBtn">❓ Aide</button>
+    <button class="btn btn-nous" id="nousBtn">👥 Nous</button> 
   </div>
   
 <!-- Bouton feedback flottant - VERSION RÉDUITE -->
@@ -74,7 +75,27 @@
       <div class="poi-list" id="poiList"></div>
     </div>
   </div>
-
+  
+<!-- Modal Nous -->
+<div id="nousModal" class="modal" aria-hidden="true">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="nousTitle">
+    <div class="modal-header">
+      <span class="close-nous" role="button" aria-label="Fermer">&times;</span>
+      <h2 id="nousTitle">👥 À propos de nous</h2>
+    </div>
+    <div class="nous-content">
+      <div class="nous-section">
+        <h3>Notre projet</h3>
+        <p>Ce projet a été réalisé dans le cadre de notre Master à l'Université Catholique de l'Ouest (UCO). Notre objectif était de créer un circuit touristique durable qui allie patrimoine historique et développement durable dans la ville d'Angers.</p>
+      </div>
+      
+      <div class="nous-section">
+        <h3>Notre équipe</h3>
+        <p>Nous sommes trois étudiants passionnés par le développement web et le tourisme durable. Ensemble, nous avons conçu et développé ce site web pour permettre aux visiteurs de découvrir Angers de manière écologique et interactive, tout en valorisant son riche patrimoine culturel et naturel.</p>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- Modal de bienvenue / tutoriel -->
   <div id="welcomeModal" class="welcome-modal" aria-hidden="true">
     <div class="welcome-modal-content" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
