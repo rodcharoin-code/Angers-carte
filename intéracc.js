@@ -1082,10 +1082,35 @@ function addMarkers() {
     
     console.log('✅', pointsInteret.length, 'marqueurs ajoutés avec boutons conditionnels');
 }
+
                 
 /// ========================
 //  Questionnaire de satisfaction
 // ========================
 document.getElementById('feedbackBtn').addEventListener('click', () => {
     window.open('https://docs.google.com/forms/d/e/1FAIpQLSfYzdLwLvkTOnPPW29s2pfCah87YtkYABaI0tx6XbJ43JWd7A/viewform', '_blank');
+});
+
+// ========================
+//  Modal "Nous"
+// ========================
+const nousModal = document.getElementById('nousModal');
+const nousBtn = document.getElementById('nousBtn');
+const closeNousBtn = document.getElementsByClassName('close-nous')[0];
+
+nousBtn.addEventListener('click', function () {
+  nousModal.style.display = 'block';
+  this.classList.add('active');
+});
+
+closeNousBtn.addEventListener('click', function () {
+  nousModal.style.display = 'none';
+  nousBtn.classList.remove('active');
+});
+
+window.addEventListener('click', function (event) {
+  if (event.target === nousModal) {
+    nousModal.style.display = 'none';
+    nousBtn.classList.remove('active');
+  }
 });
