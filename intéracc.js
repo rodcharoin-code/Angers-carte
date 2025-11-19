@@ -1096,21 +1096,24 @@ document.getElementById('feedbackBtn').addEventListener('click', () => {
 // ========================
 const nousModal = document.getElementById('nousModal');
 const nousBtn = document.getElementById('nousBtn');
-const closeNousBtn = document.getElementsByClassName('close-nous')[0];
+const closeNousBtn = document.getElementById('closeNous');
 
 nousBtn.addEventListener('click', function () {
   nousModal.style.display = 'block';
+  nousModal.setAttribute('aria-hidden', 'false');
   this.classList.add('active');
 });
 
 closeNousBtn.addEventListener('click', function () {
   nousModal.style.display = 'none';
+  nousModal.setAttribute('aria-hidden', 'true');
   nousBtn.classList.remove('active');
 });
 
 window.addEventListener('click', function (event) {
   if (event.target === nousModal) {
     nousModal.style.display = 'none';
+    nousModal.setAttribute('aria-hidden', 'true');
     nousBtn.classList.remove('active');
   }
 });
