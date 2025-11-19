@@ -271,19 +271,82 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash;
-            if (hash) {
-                setTimeout(() => {
-                    const targetElement = document.querySelector(hash);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        targetElement.classList.add('highlight');
-                    }
-                }, 100);
-            }
-        });
-    </script>
+  document.addEventListener('DOMContentLoaded', () => {
+    function scrollToHashWithOffset(hash) {
+      if (!hash) return;
+      // retire le '#' si présent
+      const id = hash.startsWith('#') ? hash.slice(1) : hash;
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      // Si vous avez un header sticky, calculez sa hauteur réelle
+      // Cherche un header sticky (élément <header>) sinon fallback à 72px
+      const headerEl = document.querySelector('header');
+      let headerHeight = 0;
+      if (headerEl) {
+        const st = getComputedStyle(headerEl);
+        // Si header est position: fixed or sticky, on prend sa hauteur visible
+        headerHeight = headerEl.getBoundingClientRect().height;
+        // ajouter un petit gap
+        headerHeight += 8;
+      } else {
+        headerHeight = 72; // valeur de secours
+      }
+
+      // Calcul de la position cible par rapport au document
+      const rect = target.getBoundingClientRect();
+      const absoluteElementTop = rect.top + window.pageYOffset;
+      const scrollTargetY = Math.max(absoluteElementTop - headerHeight, 0);
+
+      // Scroll smooth to the computed position
+      window.scrollTo({ top: scrollTargetY, behavior: 'smooth' });
+
+      // Ajout d'une classe "highlight" temporaire
+      target.classList.add('highlight');
+      setTimeout(() => target.classList.remove('highlight'), 2200);
+    }
+
+    // Si la page charge déjà avec un hash
+    const initialHash = window.location.hash;
+    if (initialHash) {
+      // délai court pour laisser le rendu se stabiliser (images / police)
+      setTimeout(() => scrollToHashWithOffset(initialHash), 80);
+    }
+
+    // Écouter les clics sur les liens internes (optionnel : permet gérer navigation depuis index.html)
+    document.body.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href^="#"], a[href*="odd.html#"]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href) return;
+
+      // cas lien vers odd.html#... depuis odd.html : href peut être "#etape-1"
+      // si href contient odd.html# et on est déjà sur odd.html, gérer le scroll
+      try {
+        const url = new URL(href, window.location.href);
+        if (url.pathname === window.location.pathname && url.hash) {
+          // On est sur la même page (ou le href est "#..."), empêcher comportement natif
+          e.preventDefault();
+          scrollToHashWithOffset(url.hash);
+          // Mettre à jour l'URL sans recharger
+          history.replaceState(null, '', url.hash);
+        }
+      } catch (err) {
+        // si new URL échoue, traiter comme hash simple
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          scrollToHashWithOffset(href);
+          history.replaceState(null, '', href);
+        }
+      }
+    }, { passive: true });
+
+    // Gérer les navigations (back/forward) qui changent le hash
+    window.addEventListener('hashchange', () => {
+      scrollToHashWithOffset(window.location.hash);
+    }, false);
+  });
+</script>
 
 </body>
 </html>
