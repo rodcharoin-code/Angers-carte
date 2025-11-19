@@ -625,7 +625,7 @@ function calculateWalkingRoute(startLat, startLng, endLat, endLng) {
          let route = data.routes[0];
          
          // 🔧 MODIFICATION 1 : On ralentit le rythme (+30% de temps)
-         route.duration = route.duration * 1,3;
+         route.duration = route.duration * 1.3;
          
          return route;
       }
