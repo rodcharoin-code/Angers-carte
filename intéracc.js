@@ -1094,26 +1094,37 @@ document.getElementById('feedbackBtn').addEventListener('click', () => {
 // ========================
 //  Modal "Nous"
 // ========================
-const nousModal = document.getElementById('nousModal');
-const nousBtn = document.getElementById('nousBtn');
-const closeNousBtn = document.getElementById('closeNous');
 
-nousBtn.addEventListener('click', function () {
-  nousModal.style.display = 'block';
-  nousModal.setAttribute('aria-hidden', 'false');
-  this.classList.add('active');
-});
+// Attendre que le DOM soit complètement chargé
+document.addEventListener('DOMContentLoaded', function() {
+  const nousModal = document.getElementById('nousModal');
+  const nousBtn = document.getElementById('nousBtn');
+  const closeNousBtn = document.getElementById('closeNous');
 
-closeNousBtn.addEventListener('click', function () {
-  nousModal.style.display = 'none';
-  nousModal.setAttribute('aria-hidden', 'true');
-  nousBtn.classList.remove('active');
-});
+  // Vérifier que les éléments existent
+  if (nousBtn && nousModal && closeNousBtn) {
+    
+    // Ouvrir le modal
+    nousBtn.addEventListener('click', function () {
+      nousModal.style.display = 'block';
+      nousModal.setAttribute('aria-hidden', 'false');
+      this.classList.add('active');
+    });
 
-window.addEventListener('click', function (event) {
-  if (event.target === nousModal) {
-    nousModal.style.display = 'none';
-    nousModal.setAttribute('aria-hidden', 'true');
-    nousBtn.classList.remove('active');
+    // Fermer avec la croix
+    closeNousBtn.addEventListener('click', function () {
+      nousModal.style.display = 'none';
+      nousModal.setAttribute('aria-hidden', 'true');
+      nousBtn.classList.remove('active');
+    });
+
+    // Fermer en cliquant en dehors du modal
+    window.addEventListener('click', function (event) {
+      if (event.target === nousModal) {
+        nousModal.style.display = 'none';
+        nousModal.setAttribute('aria-hidden', 'true');
+        nousBtn.classList.remove('active');
+      }
+    });
   }
 });
