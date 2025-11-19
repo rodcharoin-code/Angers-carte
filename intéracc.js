@@ -84,7 +84,7 @@ La flore est très présente au sein du site avec 150 espèces recensées. Les o
 
 Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte  ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.`,
         image: "https://www.destination-angers.com/app/uploads/destination-angers-tourisme/2024/11/thumbs/vue_aerienne_chateau_angers-1920x960.webp",
-      description : "source : destinations-angers",
+      source : "source : destinations-angers",
       etapeId: "etape-2"
     },
     
