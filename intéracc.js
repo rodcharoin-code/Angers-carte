@@ -69,7 +69,7 @@ const pointsInteret = [
 
     La statue du roi René a été replacée pour retrouver une place d’honneur face au château, symbolisant l’histoire d’Angers.`,
         image: "",
-        etapeId: "etape-1"
+        etapeId: "Départ"
     },
    
     // ÉTAPE 1 : Château d'Angers
