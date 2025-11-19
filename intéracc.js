@@ -83,8 +83,8 @@ En lien constant avec la Ligue pour la Protection des Oiseaux (LPO), le Château
 La flore est très présente au sein du site avec 150 espèces recensées. Les orchidées, par exemple, sont représentées par l'ophrys abeille, l'orchis singe et l'orchis bouc. Des espèces de fougères sont également présentes, tout particulièrement au niveau des remparts. 
 
 Ce monument abrite pas moins de 39 espèces d'oiseaux. Le martinet noir ou encore le moineau domestique profitent des cavités présentes dans le bâti pour y nicher. Le crécerelle niche également sur le site. D'autres espèces, comme la chouette hulotte  ou l'effraie des clochers peuvent être observées durant leurs activités de chasse. En hiver, les cavités des remparts du château servent à l'hibernation pour des pipistrelles communes et des oreillards.`,
-         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Ch%C3%A2teau_d%27Angers_depuis_rive_gauche_de_la_Maine.jpg/640px-Ch%C3%A2teau_d%27Angers_depuis_rive_gauche_de_la_Maine.jpg",
-         imageCredit: 'Photo : <a href="https://commons.wikimedia.org/wiki/File:Ch%C3%A2teau_d%27Angers_depuis_rive_gauche_de_la_Maine.jpg" target="_blank" style="color: #3498db;">Chabe01</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" style="color: #3498db;">CC BY-SA 4.0</a>',
+         image: "https://www.destination-angers.com/app/uploads/destination-angers-tourisme/2024/11/thumbs/vue_aerienne_chateau_angers-1920x960.webp",
+         imageCredit: 'Photo : <a href="https://www.destination-angers.com/tourisme/essentiel-pour-visiter-angers/chateaux-patrimoine-angers/visiter-chateau-angers/histoire-chateau-angers/" target="_blank" style="color: #3498db;">destination angers</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" style="color: #3498db;">CC BY-SA 4.0</a>',
       etapeId: "etape-1"
     },
     
